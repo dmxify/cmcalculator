@@ -48,7 +48,6 @@ function cc_set_zar(value) {
 }
 
 function cc_onclick(e) {
-  // e.focus();
   e.select();
 }
 

@@ -5,6 +5,11 @@ body {
   color: #333;
 }
 
+.flex-center {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .title {
   font-size: 16pt;
   padding: 10px;
@@ -40,6 +45,12 @@ body {
   padding: 5px;
   box-shadow: 0 1px 1px 0 rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
   border-radius: 3px;
+}
+
+.container .title {
+  text-align: center;
+  font-size: 14pt;
+  padding: 8px;
 }
 
 .container .button-group {
@@ -89,17 +100,13 @@ button {
   border-radius: 3px;
 }
 
-#btnCompoundDays {
+.btn-green {
   background-color: #ccf6c6;
   border: 1px solid #00ad0c;
+  box-shadow: 0 0 1px 1px;
 }
 
-#btnGo {
-  background-color: #ccf6c6;
-  border: 1px solid #00ad0c;
-}
-
-#btnReset {
+.btn-red {
   background-color: #f6c6c6;
   border: 1px solid #f44437;
 }
@@ -266,4 +273,8 @@ th {
 
 .hidden {
   display: none;
+}
+
+.float-right {
+  float: right;
 }
