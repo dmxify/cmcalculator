@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="scripts.js"></script>
+  <script type="text/javascript" src="dynamic-globals.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="btc.png">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>CM Calculator - Compounding Interest Calculator | Ledger | Planner </title>
+</head>
+
+<body class="">
+
+  <div class="title-bar">
+    <div class="title item">
+      BTC Investment Calculator
+    </div>
+    <button class="item" id="toggleDarkMode" onclick="toggleDarkMode()"></button>
+  </div>
+  <div class="main">
+
+    <div class="tab-bar">
+      <button id="btnLayoutSimple" onclick="change_layout('simple')" class="tab-button selected">Simple</button>
+      <button id="btnLayoutLedger" onclick="change_layout('ledger')" class="tab-button">Ledger</button>
+      <button id="btnLayoutProjection" onclick="change_layout('planner')" class="tab-button">Planner</button>
+    </div>
+    <!--<div class="controlAndLabelWrapper">
+        <label for="principal">Platform</label>
+        <div class="controlWrapper">
+          <select id="platform" onchange="platform_onchange()">
+            <option>Continental Miners</option>
+          </select>
+        </div>
+      </div>-->
+    <div class="layout">
+
+      <div class="container" id="containerSimpleInput">
+        <div class="button-group">
+          <div class="radio-bar item hidden ">
+            <button id="btnBTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="btnCurrency_onclick(this,'BTC')" class="radio-button selected hidden">&#x20bf;</button>
+            <button id="btnUSD" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="btnCurrency_onclick(this,'USD')" class="radio-button hidden">$</button>
+            <button id="btnZAR" data-dynamicglobal-name="exchange_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="btnCurrency_onclick(this,'ZAR')" class="radio-button hidden">R</button>
+          </div>
+        </div>
+        <br />
+        <div class="controlAndLabelWrapper">
+          <label for="principal">Deposited</label>
+          <div class="controlWrapper">
+            <input id="principal" placeholder="Enter value" type="number" class="number" onInput="principal_onChange()" /><b>BTC</b>
+          </div>
+        </div>
+
+        </br>
+
+        <div class="controlAndLabelWrapper">
+          <label for="interestRate">Daily Interest</label>
+          <div class="controlWrapper">
+            <input id="interestRate" placeholder="Daily Interest Rate" type="number" value="1.88" class="number" onInput="updateDOMReinvestment()" disabled="disabled" />%
+          </div>
+        </div>
+        </br>
+
+        <div class="controlAndLabelWrapper">
+          <label for="interestRate">Contract Length</label>
+          <div class="controlWrapper">
+            <input id="contractLength" placeholder="Contract Length" type="number" value="180" class="number" onInput="updateDOMReinvestment()" disabled="disabled" /> days
+          </div>
+        </div>
+
+
+        </br>
+
+        <div class="controlAndLabelWrapper">
+          <label for="earningsBeforeReinvest" style="font-size:9pt;">Required earnings to reinvest</label>
+          <div class="controlWrapper">
+            <span class="control-readonly" id="earningsBeforeReinvest">0.0028</span><b>BTC</b><!--  TODO: PHP ajax value-->
+          </div>
+        </div>
+
+        </br>
+
+        <div class="controlAndLabelWrapper">
+          <label for="accumulatedInvestment">Total Investment</label>
+          <div class="controlWrapper">
+            <input id="accumulatedInvestment" placeholder="0" type="number" value="0" class="number" disabled=disabled /><b>BTC</b>
+          </div>
+        </div>
+
+        </br>
+
+        <div class="controlAndLabelWrapper">
+          <label for="earnings"><b>Total Earnings</b></label>
+          <div class="controlWrapper">
+            <input id="earnings" placeholder="Total Earnings" type="number" value="0" class="number" disabled=disabled /><b>BTC</b>
+          </div>
+        </div>
+
+        </br>
+
+        <div class="controlAndLabelWrapper">
+          <label for="day"><b>Current Day</b></label>
+          <div class="controlWrapper">
+            <input id="day" placeholder="Day" type="number" value="1" class="number" disabled=disabled />
+          </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <span id="spnOutputReinvest" style="font-size:12pt;">
+          You can reinvest <b><span id="reinvestAmount">0</span> BTC</b> in <span id="daysBeforeReinvestment">0</span> days. <button id="btnGo" onclick="reinvest()">GO >></button>
+        </span>
+
+        <br />
+        <br />
+        <button id="btnCompoundDays" onclick="generateTable()">Show compounded interest (with reinvestments)</button>
+        <button id="btnReset" onclick="reset()">Reset</button>
+      </div>
+
+      <div class="container hidden">
+        <div id="table180Summary">
+        </div>
+        <div id="table180Wrapper" style="max-height:400px;overflow-y:scroll;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <br />
+  <br />
+  <div class="divider"></div> -->
+
+  <!--  buttons  -->
+  <div>
+    <div class="ticker-wrapper container">
+      <div>
+        <b>1 BTC = </b>
+      </div>
+      <div class="ticker hidden item" id="btc_zar">
+        <div class="rate" data-dynamicglobal-name="exchange_zar_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
+      </div>
+      <div class="ticker hidden item" id="btc_usd">
+        <div class="rate" data-dynamicglobal-name="exchange_usd_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
+      </div>
+      <div class="item">
+        <button id="btnUpdateExchangeRates" onclick="updateExchangeRates()" style="margin-left:10px;">Get latest market data</button>
+      </div>
+      <div class="item hidden time">
+        Last Updated <span data-dynamicglobal-name="exchange_time_updated" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></span>
+      </div>
+      <div class="item hidden disclaimer">
+        <span data-dynamicglobal-name="exchange_disclaimer" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></span>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <div style="width:100%;text-align:center;">
+    <div class="divider"></div>
+    <br />
+    Useful? Donate BTC :) <b><span>36mCGspguTLP5tx74U3dmPp6xxEMvkmWV1</span></b>
+  </div>
+  <a href="disclaimer.html" target="_blank" style="float:right;margin:15px 25px 0 0;">Disclaimer, T's & C's</a>
+  <!-- end buttons -->
+  <script>
+    (function() {
+      document.getElementById("principal").focus();
+      document.getElementById("principal").select();
+
+      updateExchangeRates();
+      setGlobal("earningsBeforeReinvest", 0.0028);
+
+
+    })();
+  </script>
+</body>
+
+</html>
