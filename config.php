@@ -1,6 +1,6 @@
 <?php
 
 $mysql_servername = "localhost";
-$mysql_username = "mysql_username";
-$mysql_password = "mysql_password";
-$mysql_database = "mysql_database";
+$mysql_username = "cmcalipz_webapp";
+$mysql_password = "PBjIplCrS$@l";
+$mysql_database = "cmcalipz_cmcalculator";
