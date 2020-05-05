@@ -35,9 +35,6 @@ function dynamicallyUpdate() {
           el.classList.remove("hidden");
           el.parentElement.classList.remove("hidden");
           break;
-        case "convert-currency":
-          
-          break;
         default:
 
       }

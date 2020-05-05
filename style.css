@@ -231,6 +231,10 @@ button.tab-button.selected {
   content: "Light Mode"
 }
 
+.dark input:disabled {
+  background-color: #2f2f2f;
+}
+
 .dark {
   background-color: #121212;
 }

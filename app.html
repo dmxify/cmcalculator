@@ -4,16 +4,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <script type="text/javascript" src="scripts.js"></script>
-  <script type="text/javascript" src="dynamic-globals.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+  <script type="text/javascript" src="js/big.min.js"></script>
+  <script type="text/javascript" src="js/currencies.js"></script>
+  <script type="text/javascript" src="js/tooltip.js"></script>
+  <script type="text/javascript" src="js/widgets.js"></script>
+  <script type="text/javascript" src="js/widgets/calculator.js"></script>
+  <script type="text/javascript" src="js/widgets/currency-converter.js"></script>
+  <script type="text/javascript" src="js/dynamic-globals.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="btc.png">
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="tooltip.css">
   <title>CM Calculator - Compounding Interest Calculator | Ledger | Planner </title>
 </head>
 
 <body class="">
-
   <div class="title-bar">
     <div class="title item">
       BTC Investment Calculator
@@ -23,7 +29,7 @@
   <div class="main">
 
     <div class="tab-bar">
-      <button id="btnLayoutSimple" onclick="change_layout('simple')" class="tab-button selected">Simple</button>
+      <button id="btnLayoutCalculator" onclick="change_layout('calculator')" class="tab-button selected">Calculator</button>
       <button id="btnLayoutLedger" onclick="change_layout('ledger')" class="tab-button">Ledger</button>
       <button id="btnLayoutProjection" onclick="change_layout('planner')" class="tab-button">Planner</button>
     </div>
@@ -35,28 +41,33 @@
           </select>
         </div>
       </div>-->
+
+    <!-- "layout" div is the wrapper for the active tab-->
     <div class="layout">
 
-      <div class="container" id="containerSimpleInput">
+      <div class="container" id="containerCalculatorInput">
         <div class="button-group">
           <div class="radio-bar item hidden ">
-            <button id="btnBTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="btnCurrency_onclick(this,'BTC')" class="radio-button selected hidden">&#x20bf;</button>
-            <button id="btnUSD" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="btnCurrency_onclick(this,'USD')" class="radio-button hidden">$</button>
-            <button id="btnZAR" data-dynamicglobal-name="exchange_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="btnCurrency_onclick(this,'ZAR')" class="radio-button hidden">R</button>
+            <button id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
+              class="radio-button selected hidden">&#x20bf;</button>
+            <button id="btnUSD" data-calculator-cc="USD" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('USD')"
+              class="radio-button hidden">$</button>
+            <button id="btnZAR" data-calculator-cc="ZAR" data-dynamicglobal-name="exchange_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ZAR')"
+              class="radio-button hidden">R</button>
           </div>
         </div>
         <br />
         <div class="controlAndLabelWrapper">
-          <label for="principal">Deposited</label>
+          <label for="principal">Deposited <span class="tooltip-trigger" onclick="showTooltip('Deposited','The currency value of your deposit. Must be more than 0.0028 BTC.')">(?)</span></label>
           <div class="controlWrapper">
-            <input id="principal" placeholder="Enter value" type="number" class="number" onInput="principal_onChange()" /><b>BTC</b>
+            <input id="principal" placeholder="Enter value" type="number" class="number" onInput="principal_onChange()" onclick="this.select();" /><b><span class="ui_calculator_symbol">BTC</span></b>
           </div>
         </div>
 
         </br>
 
         <div class="controlAndLabelWrapper">
-          <label for="interestRate">Daily Interest</label>
+          <label for="interestRate">Daily Interest <span class="tooltip-trigger" onclick="showTooltip('Daily Interest','The percentage (%) of your deposit, or reinvestment, which is added to your total earnings daily.')">(?)</span></label>
           <div class="controlWrapper">
             <input id="interestRate" placeholder="Daily Interest Rate" type="number" value="1.88" class="number" onInput="updateDOMReinvestment()" disabled="disabled" />%
           </div>
@@ -64,28 +75,28 @@
         </br>
 
         <div class="controlAndLabelWrapper">
-          <label for="interestRate">Contract Length</label>
+          <label for="interestRate">Contract Length <span class="tooltip-trigger"
+              onclick="showTooltip('Contract Length','The number of days an active investment will earn you interest. Investments under 15.1 BTC expire in 180 days. Investments over 15.1 BTC expire in 360 days.')">(?)</span></label>
           <div class="controlWrapper">
             <input id="contractLength" placeholder="Contract Length" type="number" value="180" class="number" onInput="updateDOMReinvestment()" disabled="disabled" /> days
           </div>
         </div>
-
 
         </br>
 
         <div class="controlAndLabelWrapper">
           <label for="earningsBeforeReinvest" style="font-size:9pt;">Required earnings to reinvest</label>
           <div class="controlWrapper">
-            <span class="control-readonly" id="earningsBeforeReinvest">0.0028</span><b>BTC</b><!--  TODO: PHP ajax value-->
+            <span class="control-readonly" id="earningsBeforeReinvest">0.0028</span><b><span class="ui_calculator_symbol">BTC</span></b>
           </div>
         </div>
 
         </br>
 
         <div class="controlAndLabelWrapper">
-          <label for="accumulatedInvestment">Total Investment</label>
+          <label for="accumulatedInvestment">Total Investment <span class="tooltip-trigger" onclick="showTooltip('Total Investment','The total value of all deposits + reinvestments earning you interest.')">(?)</span></label>
           <div class="controlWrapper">
-            <input id="accumulatedInvestment" placeholder="0" type="number" value="0" class="number" disabled=disabled /><b>BTC</b>
+            <input id="accumulatedInvestment" placeholder="0" type="number" value="0" class="number" disabled=disabled /><b><span class="ui_calculator_symbol">BTC</span></b>
           </div>
         </div>
 
@@ -94,29 +105,30 @@
         <div class="controlAndLabelWrapper">
           <label for="earnings"><b>Total Earnings</b></label>
           <div class="controlWrapper">
-            <input id="earnings" placeholder="Total Earnings" type="number" value="0" class="number" disabled=disabled /><b>BTC</b>
+            <input id="earnings" placeholder="Total Earnings" type="number" value="0" class="number" disabled=disabled /><b><span class="ui_calculator_symbol">BTC</span></b>
           </div>
         </div>
 
-        </br>
+        <!-- </br>
 
         <div class="controlAndLabelWrapper">
           <label for="day"><b>Current Day</b></label>
           <div class="controlWrapper">
             <input id="day" placeholder="Day" type="number" value="1" class="number" disabled=disabled />
           </div>
-        </div>
+        </div> -->
         <br />
         <br />
         <br />
         <span id="spnOutputReinvest" style="font-size:12pt;">
-          You can reinvest <b><span id="reinvestAmount">0</span> BTC</b> in <span id="daysBeforeReinvestment">0</span> days. <button id="btnGo" onclick="reinvest()">GO >></button>
+          <!-- You can <button class="btn-green" onclick="reinvest()">reinvest</button> <b><span id="reinvestAmount">0</span> <span class="ui_calculator_symbol">BTC</span></b> in <span id="daysBeforeReinvestment">0</span> days. -->
+          You can reinvest <b><span id="reinvestAmount">0</span></b> in <span id="daysBeforeReinvestment">0</span> days.
         </span>
 
         <br />
         <br />
-        <button id="btnCompoundDays" onclick="generateTable()">Show compounded interest (with reinvestments)</button>
-        <button id="btnReset" onclick="reset()">Reset</button>
+        <button class="btn-green" onclick="generateTable()">Show compounded interest (with reinvestments)</button>
+        <button class="btn-red" onclick="reset()">Reset</button>
       </div>
 
       <div class="container hidden">
@@ -125,13 +137,45 @@
         <div id="table180Wrapper" style="max-height:400px;overflow-y:scroll;">
         </div>
       </div>
+
+      <div class="container" id="containerCurrencyConverter">
+        <div class="title">
+          Currency Converter
+        </div>
+        <br />
+        <div class="flex-center">
+          Frequently Used
+        </div>
+        <button onclick="cc_set_btc(1)">&#x20bf; 1</button>
+        <button onclick="cc_set_btc(0.02)">&#x20bf; 0.02</button>
+        <button onclick="cc_set_zar(1000)">R 1,000</button>
+        <button onclick="cc_set_usd(50)">$50.00</button>
+        <br />
+        <div class="controlAndLabelWrapper">
+          <div class="controlWrapper">
+            <input id="cc_btc" placeholder="Bitcoin Amount" type="number" class="number" onInput="cc_onchange('cc_btc')" onclick="cc_onclick(this)" /><b>&#x20bf;</b>
+          </div>
+        </div>
+        <br />
+        <div class="controlAndLabelWrapper">
+          <div class="controlWrapper">
+            <input id="cc_usd" placeholder="US Dollars" type="number" class="number" onInput="cc_onchange('cc_usd')" onclick="cc_onclick(this)" /><b>$</b>
+          </div>
+        </div>
+        <br />
+        <div class="controlAndLabelWrapper">
+          <div class="controlWrapper">
+            <input id="cc_zar" placeholder="Rand" type="number" class="number" onInput="cc_onchange('cc_zar')" onclick="cc_onclick(this)" /><b>R</b>
+          </div>
+        </div>
+
+        </br>
+        <button class="btn-red float-right" onclick="widgets.reset('currency-converter')">Reset</button>
+      </div>
     </div>
   </div>
 
 
-  <!-- <br />
-  <br />
-  <div class="divider"></div> -->
 
   <!--  buttons  -->
   <div>
@@ -164,6 +208,15 @@
     Useful? Donate BTC :) <b><span>36mCGspguTLP5tx74U3dmPp6xxEMvkmWV1</span></b>
   </div>
   <a href="disclaimer.html" target="_blank" style="float:right;margin:15px 25px 0 0;">Disclaimer, T's & C's</a>
+
+  <!-- tooltip -->
+  <div class="tooltip-background-blur"></div>
+  <div id="tooltip" class="tooltip">
+    <div class="tooltip-title"></div>
+    <div class="tooltip-text"></div>
+  </div>
+  <div class="tooltip-overlay" onclick="hideTooltip()"></div>
+
   <!-- end buttons -->
   <script>
     (function() {
@@ -172,7 +225,7 @@
 
       updateExchangeRates();
       setGlobal("earningsBeforeReinvest", 0.0028);
-
+      setGlobal("ui_calculator_currency", "BTC");
 
     })();
   </script>
