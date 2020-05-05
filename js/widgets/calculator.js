@@ -134,12 +134,15 @@ function generateTable() {
     th_amount_usd.innerHTML = "Total Investment $";
     var th_amount_zar = document.createElement("th");
     th_amount_zar.innerHTML = "Total Investment R";
+    var th_total_earnings = document.createElement("th");
+    th_total_earnings.innerHTML = "Total Earnings";
 
     /* Build DOM */
     tr.appendChild(th_days);
     tr.appendChild(th_amount_btc);
     tr.appendChild(th_amount_usd);
     tr.appendChild(th_amount_zar);
+    tr.appendChild(th_total_earnings);
     table.appendChild(tr);
     var accumulatedInvestment = 0;
     /* Table body */
@@ -153,6 +156,7 @@ function generateTable() {
       var td_investment_btc = document.createElement("td");
       var td_investment_usd = document.createElement("td");
       var td_investment_zar = document.createElement("td");
+      var td_investment_earnings = document.createElement("td");
 
       var investment = json.arrdata[i].investment;
       // get selected currency
@@ -161,12 +165,14 @@ function generateTable() {
       td_investment_btc.innerHTML = conversions['BTC'];
       td_investment_usd.innerHTML = conversions['USD'];
       td_investment_zar.innerHTML = conversions['ZAR'];
+      td_investment_earnings.innerHTML = '<span style="color:#19b641;">coming soon...</span>';
 
       accumulatedInvestment = investment;
       tr.appendChild(td_day);
       tr.appendChild(td_investment_btc);
       tr.appendChild(td_investment_usd);
       tr.appendChild(td_investment_zar);
+      tr.appendChild(td_investment_earnings);
       table.appendChild(tr);
     }
 
@@ -200,13 +206,20 @@ function compoundDays() {
     var totalInvestment = getAccumulatedInvestment()
     while (days < getContractLength()) {
       var data = calculateReinvestmentInterest(totalInvestment, getRate(), getMinToReinvest());
-      days += data.days;
-      totalInvestment = totalInvestment.plus(Big(data.interest).toFixed(8));
+
+      if (days > 0) {
+        totalInvestment = totalInvestment.plus(Big(data.interest).toFixed(8));
+      }
       reinvestmentData.push({
         day: days,
         investment: totalInvestment
       })
+      days += data.days;
     }
+    reinvestmentData.push({
+      day: days,
+      investment: totalInvestment - getPrincipal()
+    });
 
     return {
       totalROI: Big(totalInvestment - getPrincipal()).toFixed(8),
