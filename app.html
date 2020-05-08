@@ -28,11 +28,11 @@
   </div>
   <div class="main">
 
-    <div class="tab-bar">
+    <!-- <div class="tab-bar">
       <button id="btnLayoutCalculator" onclick="change_layout('calculator')" class="tab-button selected">Calculator</button>
-      <button id="btnLayoutLedger" onclick="change_layout('ledger')" class="tab-button">Ledger</button>
+      <button id="btnLayoutLedger"  onclick="change_layout('ledger')" class="tab-button">Ledger</button>
       <button id="btnLayoutProjection" onclick="change_layout('planner')" class="tab-button">Planner</button>
-    </div>
+    </div> -->
     <!--<div class="controlAndLabelWrapper">
         <label for="principal">Platform</label>
         <div class="controlWrapper">
@@ -46,6 +46,10 @@
     <div class="layout">
 
       <div class="container" id="containerCalculatorInput">
+
+        <div class="title">
+          Simple Calculator
+        </div>
         <div class="button-group">
           <div class="radio-bar item hidden ">
             <button id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
@@ -143,11 +147,11 @@
           Currency Converter
         </div>
         <br />
-        <div class="flex-center">
-          Frequently Used
+        <div class="flex-center" style="margin:5px;">
+          Frequently Used:
         </div>
-        <button onclick="cc_set_btc(1)">&#x20bf; 1</button>
-        <button onclick="cc_set_btc(0.02)">&#x20bf; 0.02</button>
+        <button onclick="cc_set_btc(0.00288)"><span style="font-weight:bold;">&#x20bf; 0.00288</span><br /><span style="font-size:8pt;">min to reinvest</span></button>
+        <button onclick="cc_set_btc(0.14894)"><span style="font-weight:bold;">&#x20bf; 0.14894</span><br /><span style="font-size:8pt;">for daily reinvestment</span></button>
         <button onclick="cc_set_zar(1000)">R 1,000</button>
         <button onclick="cc_set_usd(50)">$50.00</button>
         <br />
