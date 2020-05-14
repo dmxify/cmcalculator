@@ -14,24 +14,43 @@
   <script type="text/javascript" src="js/dynamic-globals.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="btc.png">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" type="text/css" href="tooltip.css">
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
+  <link rel="stylesheet" type="text/css" href="icons/icons.css">
+  <link rel="stylesheet" type="text/css" href="styles/tooltip.css">
+  <link rel="stylesheet" type="text/css" href="styles/buttons.css">
   <title>CM Calculator - Compounding Interest Calculator | Ledger | Planner </title>
 </head>
 
 <body class="">
   <div class="title-bar">
-    <div class="title item">
+    <div class="title">
       BTC Investment Calculator
     </div>
-    <button class="item" id="toggleDarkMode" onclick="toggleDarkMode()"></button>
+    <div class="toolbar right">
+      <div class="button super-button bold" title="Login for advanced features!" id="btnLogin" onclick="open_modal_login()">
+        <div class="button-icon icon icon-left icon-small icon-lock_open"></div>
+        <div class="button-text">
+          Login
+        </div>
+      </div>
+      <!-- <div class="button super-button bold" title="End session and log out" id="btnLogout" onclick="logout()">
+        <div class="button-icon icon icon-left icon-small icon-lock-1"></div>
+        <div class="button-text">
+          Logout
+        </div>
+      </div> -->
+
+      <div class="button super-button bold" title="Toggle Dark Mode" id="toggleDarkMode" onclick="toggleDarkMode()">
+        <div class="button-icon icon icon-small icon-bulb_light"></div>
+      </div>
+    </div>
   </div>
   <div class="main">
 
     <!-- <div class="tab-bar">
-      <button id="btnLayoutCalculator" onclick="change_layout('calculator')" class="tab-button selected">Calculator</button>
-      <button id="btnLayoutLedger"  onclick="change_layout('ledger')" class="tab-button">Ledger</button>
-      <button id="btnLayoutProjection" onclick="change_layout('planner')" class="tab-button">Planner</button>
+      <div id="btnLayoutCalculator" onclick="change_layout('calculator')" class="tab-button selected">Calculator</div>
+      <div id="btnLayoutLedger"  onclick="change_layout('ledger')" class="tab-button">Ledger</div>
+      <div id="btnLayoutProjection" onclick="change_layout('planner')" class="tab-button">Planner</div>
     </div> -->
     <!--<div class="controlAndLabelWrapper">
         <label for="principal">Platform</label>
@@ -47,22 +66,33 @@
 
       <div class="container" id="containerCalculatorInput">
 
-        <div class="title">
-          Simple Calculator
-        </div>
-        <div class="button-group">
-          <div class="radio-bar item hidden ">
-            <button id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
-              class="radio-button selected hidden">&#x20bf;</button>
-            <button id="btnUSD" data-calculator-cc="USD" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('USD')"
-              class="radio-button hidden">$</button>
-            <button id="btnZAR" data-calculator-cc="ZAR" data-dynamicglobal-name="exchange_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ZAR')"
-              class="radio-button hidden">R</button>
+        <div class="title center">
+          <div class="title-text">
+            Simple Calculator
+          </div>
+          <div class="tooltip-trigger icon icon-small icon-right icon-info_sign" title="Click for info"
+            onclick="showTooltip('Simple Calculator','Useful to quickly analyse the earnings of a single contract. A contract is opened as soon as you make a deposit or reinvest, and will generate a fixed percentage interest <b>DAILY</b> for the duration of the contract length.<br/><br/>Contract interest rate and duration changes with investment level (silver, gold, VIP) which is based on the amount spent on the contract. ')">
           </div>
         </div>
+
+        <div class="toolbar center hidden">
+          <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
+            class="button radio-button selected hidden">
+            <div class="radio-button-text bold">&#x20bf;</div>
+          </div>
+          <div id="btnUSD" data-calculator-cc="USD" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('USD')" class="button radio-button hidden">
+            <div class="radio-button-text bold">$</div>
+          </div>
+          <div id="btnZAR" data-calculator-cc="ZAR" data-dynamicglobal-name="exchange_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ZAR')" class="button radio-button hidden">
+            <div class="radio-button-text bold">R</div>
+          </div>
+        </div>
+
         <br />
+
         <div class="controlAndLabelWrapper">
-          <label for="principal">Deposited <span class="tooltip-trigger" onclick="showTooltip('Deposited','The currency value of your deposit. Must be more than 0.0028 BTC.')">(?)</span></label>
+          <label for="principal">Deposited <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info" onclick="showTooltip('Deposited','The currency value of your deposit. Must be more than 0.0028 BTC.')"></div>
+            </label>
           <div class="controlWrapper">
             <input id="principal" placeholder="Enter value" type="number" class="number" onInput="principal_onChange()" onclick="this.select();" /><b><span class="ui_calculator_symbol">BTC</span></b>
           </div>
@@ -71,7 +101,9 @@
         </br>
 
         <div class="controlAndLabelWrapper">
-          <label for="interestRate">Daily Interest <span class="tooltip-trigger" onclick="showTooltip('Daily Interest','The percentage (%) of your deposit, or reinvestment, which is added to your total earnings daily.')">(?)</span></label>
+          <label for="interestRate">Daily Interest <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info"
+              onclick="showTooltip('Daily Interest','The percentage (%) of your deposit, or reinvestment, which is added to your total earnings daily.')">
+            </div></label>
           <div class="controlWrapper">
             <input id="interestRate" placeholder="Daily Interest Rate" type="number" value="1.88" class="number" onInput="updateDOMReinvestment()" disabled="disabled" />%
           </div>
@@ -79,8 +111,8 @@
         </br>
 
         <div class="controlAndLabelWrapper">
-          <label for="interestRate">Contract Length <span class="tooltip-trigger"
-              onclick="showTooltip('Contract Length','The number of days an active investment will earn you interest. Investments under 15.1 BTC expire in 180 days. Investments over 15.1 BTC expire in 360 days.')">(?)</span></label>
+          <label for="interestRate">Contract Length <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info"
+              onclick="showTooltip('Contract Length','The number of days an active investment will earn you interest. Investments under 15.1 BTC expire in 180 days. Investments over 15.1 BTC expire in 360 days.')"></div></label>
           <div class="controlWrapper">
             <input id="contractLength" placeholder="Contract Length" type="number" value="180" class="number" onInput="updateDOMReinvestment()" disabled="disabled" /> days
           </div>
@@ -98,7 +130,8 @@
         </br>
 
         <div class="controlAndLabelWrapper">
-          <label for="accumulatedInvestment">Total Investment <span class="tooltip-trigger" onclick="showTooltip('Total Investment','The total value of all deposits + reinvestments earning you interest.')">(?)</span></label>
+          <label for="accumulatedInvestment">Total Investment <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info"
+              onclick="showTooltip('Total Investment','The total value of all deposits + reinvestments earning you interest.')"></div></label>
           <div class="controlWrapper">
             <input id="accumulatedInvestment" placeholder="0" type="number" value="0" class="number" disabled=disabled /><b><span class="ui_calculator_symbol">BTC</span></b>
           </div>
@@ -125,14 +158,28 @@
         <br />
         <br />
         <span id="spnOutputReinvest" style="font-size:12pt;">
-          <!-- You can <button class="btn-green" onclick="reinvest()">reinvest</button> <b><span id="reinvestAmount">0</span> <span class="ui_calculator_symbol">BTC</span></b> in <span id="daysBeforeReinvestment">0</span> days. -->
+          <!-- You can <div class="btn-green" onclick="reinvest()">reinvest</div> <b><span id="reinvestAmount">0</span> <span class="ui_calculator_symbol">BTC</span></b> in <span id="daysBeforeReinvestment">0</span> days. -->
           You can reinvest <b><span id="reinvestAmount">0</span></b> in <span id="daysBeforeReinvestment">0</span> days.
         </span>
 
         <br />
         <br />
-        <button class="btn-green" onclick="generateTable()">Show compounded interest (with reinvestments)</button>
-        <button class="btn-red" onclick="reset()">Reset</button>
+
+        <div class="toolbar right">
+          <!-- <div class="button btn-green" onclick="generateTable()"></div> -->
+          <div class="button super-button btn-green" title="Show a basic compounding interest table" onclick="generateTable()">
+            <div class="button-icon icon icon-left icon-small icon-money"></div>
+            <div class="button-text">
+              Show compounded interest
+            </div>
+          </div>
+          <div class="button super-button btn-red" title="Reset to default" onclick="reset()">
+            <div class="button-icon icon icon-left icon-small icon-error_sign"></div>
+            <div class="button-text">
+              Clear
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="container hidden">
@@ -143,21 +190,45 @@
       </div>
 
       <div class="container" id="containerCurrencyConverter">
-        <div class="title">
-          Currency Converter
+        <div class="title center">
+          <div class="title-text">
+            Currency Converter
+          </div>
+          <div class="tooltip-trigger icon icon-small icon-right icon-info_sign" title="Click for info"
+            onclick="showTooltip('Currency Converter','Instantly convert Bitcoin to US Dollars and other currencies (currently only South African Rand is supported, others are still in development).<br /><br />')">
+          </div>
         </div>
         <br />
         <div class="flex-center" style="margin:5px;">
           Frequently Used:
         </div>
-        <button onclick="cc_set_btc(0.00288)"><span style="font-weight:bold;">&#x20bf; 0.00288</span><br /><span style="font-size:8pt;">min to reinvest</span></button>
-        <button onclick="cc_set_btc(0.14894)"><span style="font-weight:bold;">&#x20bf; 0.14894</span><br /><span style="font-size:8pt;">for daily reinvestment</span></button>
-        <button onclick="cc_set_zar(1000)">R 1,000</button>
-        <button onclick="cc_set_usd(50)">$50.00</button>
+
+
+        <div class="toolbar center">
+          <div class="button super-button" onclick="cc_set_btc(0.00288)">
+            <div class="bold">&#x20bf; 0.00288</div>
+            <div class="button-subtext">min to reinvest</div>
+          </div>
+          <div class="button super-button" onclick="cc_set_btc(0.14894)">
+            <div class="bold">&#x20bf; 0.14894</div>
+            <div class="button-subtext">for daily reinvestment</div>
+          </div>
+          <div class="button super-button" onclick="cc_set_zar(1000)">
+            <div class="bold">
+              R 1,000
+            </div>
+          </div>
+          <div class="button super-button" onclick="cc_set_usd(50)">
+            <div class="bold">
+              $50.00
+            </div>
+          </div>
+        </div>
+
         <br />
         <div class="controlAndLabelWrapper">
           <div class="controlWrapper">
-            <input id="cc_btc" placeholder="Bitcoin Amount" type="number" class="number" onInput="cc_onchange('cc_btc')" onclick="cc_onclick(this)" /><b>&#x20bf;</b>
+            <input id="cc_btc" placeholder="Bitcoin" type="number" class="number" onInput="cc_onchange('cc_btc')" onclick="cc_onclick(this)" /><b>&#x20bf;</b>
           </div>
         </div>
         <br />
@@ -174,7 +245,15 @@
         </div>
 
         </br>
-        <button class="btn-red float-right" onclick="widgets.reset('currency-converter')">Reset</button>
+
+        <div class="toolbar right">
+          <div class="button super-button btn-red" title="Reset currency converter" onclick="widgets.reset('currency-converter')">
+            <div class="button-icon icon icon-left icon-small icon-error_sign"></div>
+            <div class="button-text">
+              Clear
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -187,19 +266,24 @@
       <div>
         <b>1 BTC = </b>
       </div>
-      <div class="ticker hidden item" id="btc_zar">
+      <div class="ticker hidden" id="btc_zar">
         <div class="rate" data-dynamicglobal-name="exchange_zar_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
       </div>
-      <div class="ticker hidden item" id="btc_usd">
+      <div class="ticker hidden" id="btc_usd">
         <div class="rate" data-dynamicglobal-name="exchange_usd_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
       </div>
-      <div class="item">
-        <button id="btnUpdateExchangeRates" onclick="updateExchangeRates()" style="margin-left:10px;">Get latest market data</button>
+      <div>
+        <div class="button super-button bold" id="btnUpdateExchangeRates" onclick="updateExchangeRates()" style="margin-left:10px;">
+          <div class="button-icon icon icon-small icon-cloud_sync"></div>
+          <div class="button-text">
+            Latest Prices
+          </div>
+        </div>
       </div>
-      <div class="item hidden time">
+      <div class="hidden time">
         Last Updated <span data-dynamicglobal-name="exchange_time_updated" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></span>
       </div>
-      <div class="item hidden disclaimer">
+      <div class="hidden disclaimer">
         <span data-dynamicglobal-name="exchange_disclaimer" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></span>
       </div>
     </div>
