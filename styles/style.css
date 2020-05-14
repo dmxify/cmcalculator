@@ -10,6 +10,10 @@ body {
   justify-content: space-evenly;
 }
 
+/* .flex-center > div {
+background-color:red;
+margin:5px;
+} */
 .title {
   font-size: 16pt;
   padding: 10px;
@@ -20,7 +24,9 @@ body {
   justify-content: space-evenly;
 }
 
-.title-bar .item {}
+.title-bar a {
+  font-size: 14pt;
+}
 
 /* TABS */
 .tab-bar {
@@ -38,9 +44,11 @@ body {
   display: flex;
   align-content: stretch;
   flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .container {
+  flex: 1 1 auto;
   margin: 10px;
   padding: 5px;
   box-shadow: 0 1px 1px 0 rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
@@ -51,11 +59,6 @@ body {
   text-align: center;
   font-size: 14pt;
   padding: 8px;
-}
-
-.container .button-group {
-  display: flex;
-  justify-content: space-evenly;
 }
 
 .number {
@@ -74,7 +77,8 @@ body {
 }
 
 label {
-  display: inline-block;
+  display: inline-flex;
+  align-items: flex-end;
   width: 160px;
 }
 
@@ -92,27 +96,12 @@ select {
   width: 170px;
 }
 
-button {
-  background-color: #f8f8f8;
-  box-shadow: 0 0 1px 0px;
-  border: none;
-  padding: 10px;
-  border-radius: 3px;
+.bold {
+  font-weight: bold;
 }
 
-.btn-green {
-  background-color: #ccf6c6;
-  border: 1px solid #00ad0c;
-  box-shadow: 0 0 1px 1px;
-}
-
-.btn-red {
-  background-color: #f6c6c6;
-  border: 1px solid #f44437;
-}
-
-#toggleDarkMode:after {
-  content: "Dark Mode"
+#toggleDarkMode>.icon {
+  filter: saturate(0);
 }
 
 table {
@@ -149,18 +138,27 @@ td {
   border: 1px solid black;
 }
 
-.radio-bar {}
-
-button.radio-button {
-  height: 35px;
-  width: 35px;
-  /* background-color: #7c7c7c; */
+.toolbar, .title {
+  display: flex;
+  align-items: flex-end;
 }
 
-button.radio-button.selected,
-button.tab-button.selected {
-  background-color: #a8a8a8;
-  color: #333;
+.toolbar.left, .title.left {
+  justify-content: flex-start;
+}
+
+.toolbar.center, .title.center {
+  justify-content: center;
+}
+
+.toolbar.right, .title.right {
+  justify-content: flex-end;
+}
+
+.toolbar-spaced>div {
+  padding: 0px;
+  /*overrides .button*/
+  margin: 5px;
 }
 
 .control-readonly {
@@ -216,10 +214,6 @@ button.tab-button.selected {
   color: #777777;
 }
 
-.dark button {
-  color: #333;
-}
-
 .dark input,
 .dark select {
   color: #bebebe;
@@ -227,8 +221,8 @@ button.tab-button.selected {
   border-color: #424242;
 }
 
-.dark #toggleDarkMode:after {
-  content: "Light Mode"
+.dark #toggleDarkMode>.icon {
+  filter: saturate(1);
 }
 
 .dark input:disabled {
