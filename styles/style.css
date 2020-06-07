@@ -100,6 +100,10 @@ select {
   font-weight: bold;
 }
 
+.icon-disabled {
+  filter: grayscale(1);
+}
+
 #toggleDarkMode>.icon {
   filter: saturate(0);
 }
@@ -140,7 +144,16 @@ td {
 
 .toolbar, .title {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+}
+
+.toolbar .control-label {
+  font-size: 10pt;
+  padding: 10px;
+}
+
+.toolbar .control-label.slim {
+  padding: 2px;
 }
 
 .toolbar.left, .title.left {
@@ -153,12 +166,6 @@ td {
 
 .toolbar.right, .title.right {
   justify-content: flex-end;
-}
-
-.toolbar-spaced>div {
-  padding: 0px;
-  /*overrides .button*/
-  margin: 5px;
 }
 
 .control-readonly {

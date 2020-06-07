@@ -38,7 +38,7 @@
   background-position-y: var(--y);
 }
 
-.icon-file_zip {
+.icon-file_zip-1 {
   --x: -0;
   --y: -0;
 }
@@ -49,7 +49,7 @@
 }
 
 .icon-notepad {
-  --x: -0;
+  --x: -0px;
   --y: -64px;
 }
 
@@ -69,7 +69,7 @@
 }
 
 .icon-file_photoshop {
-  --x: -0;
+  --x: -0px;
   --y: -128px;
 }
 
@@ -78,7 +78,7 @@
   --y: -128px;
 }
 
-.icon-lock_open_2 {
+.icon-lock_open {
   --x: -128px;
   --y: -128px;
 }
@@ -99,7 +99,7 @@
 }
 
 .icon-id_user {
-  --x: -0;
+  --x: -0px;
   --y: -192px;
 }
 
@@ -123,7 +123,7 @@
   --y: -0;
 }
 
-.icon-lock {
+.icon-lock-2 {
   --x: -256px;
   --y: -64px;
 }
@@ -139,7 +139,7 @@
 }
 
 .icon-camera {
-  --x: -0;
+  --x: -0px;
   --y: -256px;
 }
 
@@ -189,7 +189,7 @@
 }
 
 .icon-map_marker {
-  --x: -0;
+  --x: -0px;
   --y: -320px;
 }
 
@@ -198,7 +198,7 @@
   --y: -320px;
 }
 
-.icon-star {
+.icon-star-rounded {
   --x: -128px;
   --y: -320px;
 }
@@ -249,7 +249,7 @@
 }
 
 .icon-window {
-  --x: -0;
+  --x: -0px;
   --y: -384px;
 }
 
@@ -258,667 +258,522 @@
   --y: -384px;
 }
 
-.icon-clock {
+.icon-file_zip-2 {
   --x: -128px;
   --y: -384px;
 }
 
-.icon-file_zip {
-  --x: -192px;
-  --y: -384px;
-}
-
 .icon-excel_file {
-  --x: -256px;
+  --x: -192px;
   --y: -384px;
 }
 
 .icon-gamepad {
+  --x: -256px;
+  --y: -384px;
+}
+
+.icon-bubbles {
   --x: -320px;
   --y: -384px;
 }
 
-.icon-file_sound {
-  --x: -384px;
-  --y: -384px;
-}
-
-.icon-drive {
-  --x: -448px;
-  --y: -0;
-}
-
-.icon-address_book {
-  --x: -448px;
-  --y: -64px;
-}
-
-.icon-camera {
-  --x: -448px;
-  --y: -128px;
-}
-
-.icon-file_powerpoint {
-  --x: -448px;
-  --y: -192px;
-}
-
-.icon-enveloppe {
-  --x: -448px;
-  --y: -256px;
-}
-
-.icon-bubbles {
-  --x: -448px;
-  --y: -320px;
-}
-
 .icon-image_png {
-  --x: -448px;
+  --x: -384px;
   --y: -384px;
 }
 
 .icon-exe_file {
-  --x: -0;
+  --x: -448px;
+  --y: -0;
+}
+
+.icon-cat {
+  --x: -448px;
+  --y: -64px;
+}
+
+.icon-bubbles {
+  --x: -448px;
+  --y: -128px;
+}
+
+.icon-empty_file {
+  --x: -448px;
+  --y: -192px;
+}
+
+.icon-wrench {
+  --x: -448px;
+  --y: -256px;
+}
+
+.icon-terminal {
+  --x: -448px;
+  --y: -320px;
+}
+
+.icon-wrench {
+  --x: -448px;
+  --y: -384px;
+}
+
+.icon-microphone {
+  --x: -0px;
   --y: -448px;
 }
 
-.icon-cat-2 {
+.icon-folder_music {
   --x: -64px;
   --y: -448px;
 }
 
-.icon-bubbles {
-  --x: -128px;
-  --y: -448px;
-}
-
-.icon-empty_file {
-  --x: -192px;
-  --y: -448px;
-}
-
-.icon-wrench {
-  --x: -256px;
-  --y: -448px;
-}
-
-.icon-file_zip {
-  --x: -320px;
-  --y: -448px;
-}
-
-.icon-excel_file {
-  --x: -384px;
-  --y: -448px;
-}
-
-.icon-bubble {
-  --x: -448px;
-  --y: -448px;
-}
-
-.icon-disc {
-  --x: -512px;
-  --y: -0;
-}
-
-.icon-file_indesign {
-  --x: -512px;
-  --y: -64px;
-}
-
-.icon-terminal {
-  --x: -512px;
-  --y: -128px;
-}
-
-.icon-wrench {
-  --x: -512px;
-  --y: -192px;
-}
-
-.icon-microphone {
-  --x: -512px;
-  --y: -256px;
-}
-
-.icon-folder_music {
-  --x: -512px;
-  --y: -320px;
-}
-
 .icon-marker {
-  --x: -512px;
-  --y: -384px;
-}
-
-.icon-rss {
-  --x: -512px;
+  --x: -128px;
   --y: -448px;
 }
 
 .icon-box_full {
-  --x: -0;
-  --y: -512px;
+  --x: -192px;
+  --y: -448px;
 }
 
 .icon-drive {
-  --x: -64px;
-  --y: -512px;
+  --x: -256px;
+  --y: -448px;
 }
 
 .icon-beer {
-  --x: -128px;
-  --y: -512px;
+  --x: -320px;
+  --y: -448px;
 }
 
 .icon-star {
-  --x: -192px;
-  --y: -512px;
+  --x: -384px;
+  --y: -448px;
 }
 
 .icon-bookmark_file {
-  --x: -256px;
-  --y: -512px;
+  --x: -448px;
+  --y: -448px;
 }
 
 .icon-compas {
-  --x: -320px;
-  --y: -512px;
+  --x: -512px;
+  --y: -0;
 }
 
 .icon-window {
-  --x: -384px;
-  --y: -512px;
+  --x: -512px;
+  --y: -64px;
 }
 
 .icon-terminal {
-  --x: -448px;
-  --y: -512px;
+  --x: -512px;
+  --y: -128px;
 }
 
 .icon-error_sign {
   --x: -512px;
-  --y: -512px;
-}
-
-.icon-tablet {
-  --x: -576px;
-  --y: -0;
-}
-
-.icon-address_book {
-  --x: -576px;
-  --y: -64px;
-}
-
-.icon-document_folder {
-  --x: -576px;
-  --y: -128px;
-}
-
-.icon-disc {
-  --x: -576px;
   --y: -192px;
 }
 
-.icon-map {
-  --x: -576px;
+.icon-tablet {
+  --x: -512px;
   --y: -256px;
 }
 
-.icon-ban_sign {
-  --x: -576px;
+.icon-address_book {
+  --x: -512px;
   --y: -320px;
 }
 
-.icon-flask {
-  --x: -576px;
+.icon-document_folder {
+  --x: -512px;
   --y: -384px;
 }
 
-.icon-computer {
-  --x: -576px;
+.icon-disc {
+  --x: -512px;
   --y: -448px;
 }
 
+.icon-map {
+  --x: -0px;
+  --y: -512px;
+}
+
+.icon-ban_sign {
+  --x: -64px;
+  --y: -512px;
+}
+
+.icon-flask {
+  --x: -128px;
+  --y: -512px;
+}
+
+.icon-computer {
+  --x: -192px;
+  --y: -512px;
+}
+
 .icon-bulb_light {
-  --x: -576px;
+  --x: -256px;
   --y: -512px;
 }
 
 .icon-folder_video {
-  --x: -0;
-  --y: -576px;
+  --x: -320px;
+  --y: -512px;
 }
 
 .icon-error_shield {
-  --x: -64px;
-  --y: -576px;
+  --x: -384px;
+  --y: -512px;
 }
 
 .icon-buoy_life {
-  --x: -128px;
-  --y: -576px;
+  --x: -448px;
+  --y: -512px;
 }
 
 .icon-tag {
-  --x: -192px;
-  --y: -576px;
+  --x: -512px;
+  --y: -512px;
 }
 
 .icon-google_plus_social {
-  --x: -256px;
-  --y: -576px;
+  --x: -576px;
+  --y: -0;
 }
 
 .icon-folder {
-  --x: -320px;
-  --y: -576px;
+  --x: -576px;
+  --y: -64px;
 }
 
 .icon-house {
-  --x: -384px;
-  --y: -576px;
+  --x: -576px;
+  --y: -128px;
 }
 
 .icon-institution {
-  --x: -448px;
-  --y: -576px;
+  --x: -576px;
+  --y: -192px;
 }
 
 .icon-heart {
-  --x: -512px;
-  --y: -576px;
+  --x: -576px;
+  --y: -256px;
 }
 
 .icon-enveloppe_letter {
   --x: -576px;
-  --y: -576px;
-}
-
-.icon-component {
-  --x: -640px;
-  --y: -0;
-}
-
-.icon-camera {
-  --x: -640px;
-  --y: -64px;
-}
-
-.icon-box_out {
-  --x: -640px;
-  --y: -128px;
-}
-
-.icon-add_sign {
-  --x: -640px;
-  --y: -192px;
-}
-
-.icon-pin {
-  --x: -640px;
-  --y: -256px;
-}
-
-.icon-shield {
-  --x: -640px;
   --y: -320px;
 }
 
-.icon-trashcan {
-  --x: -640px;
+.icon-component {
+  --x: -576px;
   --y: -384px;
 }
 
-.icon-enveloppe {
-  --x: -640px;
+.icon-camera {
+  --x: -576px;
   --y: -448px;
 }
 
-.icon-bubbles {
-  --x: -640px;
+.icon-box_out {
+  --x: -576px;
   --y: -512px;
 }
 
+.icon-add_sign {
+  --x: -0px;
+  --y: -576px;
+}
+
+.icon-pin {
+  --x: -64px;
+  --y: -576px;
+}
+
+.icon-shield {
+  --x: -128px;
+  --y: -576px;
+}
+
+.icon-trashcan {
+  --x: -192px;
+  --y: -576px;
+}
+
+.icon-enveloppe {
+  --x: -256px;
+  --y: -576px;
+}
+
+.icon-bubbles {
+  --x: -320px;
+  --y: -576px;
+}
+
 .icon-social_youtube {
-  --x: -640px;
+  --x: -384px;
   --y: -576px;
 }
 
 .icon-filled_profile {
-  --x: -0;
-  --y: -640px;
+  --x: -448px;
+  --y: -576px;
 }
 
 .icon-tachometer {
-  --x: -64px;
-  --y: -640px;
-}
-
-.icon-cone {
-  --x: -128px;
-  --y: -640px;
-}
-
-.icon-cog {
-  --x: -192px;
-  --y: -640px;
+  --x: -512px;
+  --y: -576px;
 }
 
 .icon-headphone {
-  --x: -256px;
-  --y: -640px;
+  --x: -576px;
+  --y: -576px;
 }
 
-.icon-clock {
-  --x: -320px;
-  --y: -640px;
+.icon-clock-1 {
+  --x: -640px;
+  --y: -0;
 }
 
 .icon-file_link {
-  --x: -384px;
-  --y: -640px;
+  --x: -640px;
+  --y: -64px;
 }
 
 .icon-layout_window {
-  --x: -448px;
-  --y: -640px;
+  --x: -640px;
+  --y: -128px;
 }
 
 .icon-paperclip {
-  --x: -512px;
-  --y: -640px;
+  --x: -640px;
+  --y: -192px;
 }
 
 .icon-address_book {
-  --x: -576px;
-  --y: -640px;
+  --x: -640px;
+  --y: -256px;
 }
 
 .icon-group_profile {
   --x: -640px;
-  --y: -640px;
-}
-
-.icon-info_sign {
-  --x: -704px;
-  --y: -0;
-}
-
-.icon-map_marker {
-  --x: -704px;
-  --y: -64px;
-}
-
-.icon-bag {
-  --x: -704px;
-  --y: -128px;
-}
-
-.icon-database {
-  --x: -704px;
-  --y: -192px;
-}
-
-.icon-file_word {
-  --x: -704px;
-  --y: -256px;
-}
-
-.icon-lock_open {
-  --x: -704px;
   --y: -320px;
 }
 
-.icon-calendar {
-  --x: -704px;
+.icon-info_sign {
+  --x: -640px;
   --y: -384px;
 }
 
-.icon-system_window {
-  --x: -704px;
+.icon-map_marker {
+  --x: -640px;
   --y: -448px;
 }
 
-.icon-filter {
-  --x: -704px;
+.icon-bag {
+  --x: -640px;
   --y: -512px;
 }
 
-.icon-folder_picture {
-  --x: -704px;
+.icon-database {
+  --x: -640px;
   --y: -576px;
 }
 
+.icon-file_word {
+  --x: -0px;
+  --y: -640px;
+}
+
+.icon-lock_open {
+  --x: -64px;
+  --y: -640px;
+}
+
+.icon-calendar {
+  --x: -128px;
+  --y: -640px;
+}
+
+.icon-system_window {
+  --x: -192px;
+  --y: -640px;
+}
+
+.icon-filter {
+  --x: -256px;
+  --y: -640px;
+}
+
+.icon-folder_picture {
+  --x: -320px;
+  --y: -640px;
+}
+
 .icon-calendar_clock {
-  --x: -704px;
+  --x: -384px;
   --y: -640px;
 }
 
 .icon-cloud_sync {
-  --x: -0;
-  --y: -704px;
+  --x: -448px;
+  --y: -640px;
 }
 
 .icon-cogs {
-  --x: -64px;
-  --y: -704px;
+  --x: -512px;
+  --y: -640px;
 }
 
 .icon-code_file {
-  --x: -128px;
-  --y: -704px;
+  --x: -576px;
+  --y: -640px;
 }
 
 .icon-screwdriver_wrench {
-  --x: -192px;
-  --y: -704px;
+  --x: -640px;
+  --y: -640px;
 }
 
 .icon-folder_house {
-  --x: -256px;
-  --y: -704px;
+  --x: -704px;
+  --y: -0;
 }
 
 .icon-box_in {
-  --x: -320px;
-  --y: -704px;
+  --x: -704px;
+  --y: -64px;
 }
 
 .icon-cloud_down {
-  --x: -384px;
-  --y: -704px;
+  --x: -704px;
+  --y: -128px;
+}
+
+.icon-clock-2 {
+  --x: -704px;
+  --y: -192px;
 }
 
 .icon-facebook_social {
-  --x: -448px;
-  --y: -704px;
+  --x: -704px;
+  --y: -256px;
 }
 
-.icon-lock {
-  --x: -512px;
-  --y: -704px;
+.icon-lock-1 {
+  --x: -704px;
+  --y: -320px;
+}
+
+.icon-file_powerpoint {
+  --x: -704px;
+  --y: -384px;
 }
 
 .icon-profile {
-  --x: -576px;
-  --y: -704px;
+  --x: -704px;
+  --y: -448px;
 }
 
 .icon-money {
-  --x: -640px;
-  --y: -704px;
+  --x: -704px;
+  --y: -512px;
 }
 
 .icon-gift {
   --x: -704px;
-  --y: -704px;
-}
-
-.icon-webcam {
-  --x: -768px;
-  --y: -0;
-}
-
-.icon-check_sign {
-  --x: -768px;
-  --y: -64px;
-}
-
-.icon-note_sticky {
-  --x: -768px;
-  --y: -128px;
-}
-
-.icon-shield_warning {
-  --x: -768px;
-  --y: -192px;
-}
-
-.icon-address_book_call_contact_email_phone_website {
-  --x: -768px;
-  --y: -256px;
-}
-
-.icon-alarm_clock_internet_schedule_time_timer_website {
-  --x: -768px;
-  --y: -320px;
-}
-
-.icon-banking_business_card_creditcard_finance_payment_website {
-  --x: -768px;
-  --y: -384px;
-}
-
-.icon-business_female_office_people_user_website_woman {
-  --x: -768px;
-  --y: -448px;
-}
-
-.icon-calendar_date_day_event_schedule_web_website {
-  --x: -768px;
-  --y: -512px;
-}
-
-.icon-call_communication_contact_internet_online_phone_website {
-  --x: -768px;
   --y: -576px;
 }
 
-.icon-avatar_female_person_profile_user_website_woman {
-  --x: -768px;
+.icon-envelope {
+  --x: -704px;
   --y: -640px;
 }
 
-.icon-contact_email_envelope_letter_mail_message_website {
-  --x: -768px;
+.icon-webcam {
+  --x: -0px;
   --y: -704px;
 }
 
-.icon-bookmark_favorite_internet_star_web_website,
-.icon-star-web {
-  --x: -0;
-  --y: -768px;
-}
-
-.icon-archive_document_documents_folder_website {
+.icon-check_sign {
   --x: -64px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-building_home_house_internet_web_website {
+.icon-camera {
   --x: -128px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-computer_desktop_monitor_pc_screen_technology_website {
+.icon-note_sticky {
   --x: -192px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-computer_device_laptop_notebook_screen_technology_website {
+.icon-cog {
   --x: -256px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-cd_compact_data_disk_dvd_storage_website {
+.icon-drive {
   --x: -320px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-business_male_man_office_people_person_website {
+.icon-shield_warning {
   --x: -384px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-bubble_chat_communication_contact_conversation_talk_website {
+.icon-bubble {
   --x: -448px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-book_bookmark_browser_favorite_internet_web_website {
+.icon-disc {
   --x: -512px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-avatar_male_man_person_profile_user_website {
+.icon-excel_file {
   --x: -576px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-article_media_news_newspaper_online_paper_website {
+.icon-indesign {
   --x: -640px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-lock_padlock_protection_secure_security_web_website {
+.icon-zip-3 {
   --x: -704px;
-  --y: -768px;
+  --y: -704px;
 }
 
-.icon-feed_internet_online_rss_web_website {
+.icon-address_book {
   --x: -768px;
-  --y: -768px;
-}
-
-.icon-edit_pencil_web_website_write {
-  --x: -832px;
   --y: -0;
 }
 
-.icon-disk_floppy_internet_save_storage_web_website {
-  --x: -832px;
+.icon-rss {
+  --x: -768px;
   --y: -64px;
 }
 
-.icon-find_glass_magnifier_magnifying_search_web_website {
-  --x: -832px;
+.icon-cone {
+  --x: -768px;
   --y: -128px;
 }
 
-.icon-basket_buy_cart_ecommerce_shop_shopping_website {
-  --x: -832px;
+.icon-sound {
+  --x: -768px;
   --y: -192px;
-}
-
-/* SVG icons */
-.icon-btc-rocket {
-  background-image: url('btc-rocket.svg') !important;
-  background-size: cover;
-}
-.icon-btc-hourglass {
-  background-image: url('btc-hourglass.svg') !important;
-  background-size: cover;
-}
-.icon-btc-hourglass_2 {
-  background-image: url('btc-hourglass2.svg') !important;
-  background-size: cover;
-}
-
-.icon-arrow_24 {
-  background-image: url('arrow-24.svg') !important;
-  background-size: cover;
 }

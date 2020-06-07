@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="js/big.min.js"></script>
+  <script type="text/javascript" src="js/scenarios.js"></script>
+  <title>Scenarios</title>
+</head>
+
+<body style="font-family:system-ui; font-size:12pt;overflow-x:scroll;">
+  <style>
+    .scenario.hidden {
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 5px;
+      margin: 3px;
+    }
+  </style>
+  <script type="text/javascript">
+    function showScenario(scenario_num) {
+      document.querySelectorAll(".scenario").forEach((el, i) => {
+        el.classList.add("hidden");
+      });
+      document.querySelector('[data-scenario="' + scenario_num + '"]').classList.remove("hidden");
+    }
+  </script>
+  <h2>This is a simple demo for the new calculations.</h2>
+
+  <span style="font-size:9pt;">
+    <ul>
+      <li>R10,000 (0.0061 BTC) is deposited.</li>
+      <li>It is reinvested constantly for 360 days.</li>
+      <li>Reinvestments are ceased, and the earnings for the next 10 days are shown</li>
+    </ul>
+  </span>
+  <br />
+  <button style="background-color:#b7ec87;" onclick="showScenario(1)">Scenario #1 - normal rates + weekends</button><br />
+  <button style="background-color:#ffce85" onclick="showScenario(2)">Scenario #2 - 4 weeks of 1.4% rates + no weekends, then 1.88% rates and weekends again</button><br />
+  <button style="background-color:#ff9999" onclick="showScenario(3)">Scenario #3 - 1.4% rates + no weekends</button>
+
+  <br />
+  <br />
+  <hr />
+  <div class="scenario" data-scenario="1">
+    <h1>Scenario #1</h1>
+    <br />
+    <span style="font-size:9pt;">
+      (normal):
+    </span>
+    <br>
+    <br>
+    <span style="font-size:9pt;">
+      <b>Assuming the following:</b>
+      <ul>
+        <li>deposit done on a monday.</li>
+        <li>all reinvestments are done at the same time each day.</li>
+        <li>you earn 1.88% every day of the week</li>
+      </ul>
+    </span>
+    <br>
+    <b>Initial deposit:</b>
+    <br>
+    <br>
+    Deposit of R10,000 @ R173,000 per Bitcoin = 0.0061 Bitcoin
+    <br>
+    <br>
+    <script tyle="text/javascript">
+      demo1();
+    </script>
+  </div>
+
+
+  <div class="scenario hidden" data-scenario="2">
+    <h1>Scenario #2</h1>
+    <br />
+    <span style="font-size:9pt;">
+      (4 weeks of reduced rates + no weekend earnings / transactions):
+    </span>
+    <br>
+    <br>
+    <span style="font-size:9pt;">
+      <b>Assuming the following:</b>
+      <ul>
+        <li>deposit done on a monday.</li>
+        <li>all reinvestments are done at the same time each day.</li>
+        <li>no reinvestments on weekends.</li>
+        <li>the current reduced earnings and weekend close are only for <b>4 weeks</b>.</li>
+        <li>thereafter you will earn on weekends again but remain at 1.4% earnings for the duration of the investment.</li>
+        <li>any <b>reinvestments</b> made <b>during the 4 weeks</b> will be at 1.4% earnings.</li>
+        <li>any <b>reinvestments</b> made <b>after 4 weeks</b> will be at 1.88% earnings.</li>
+      </ul>
+    </span>
+    <br>
+    <br>
+    <b>Initial deposit:</b>
+    <br>
+    Deposit of R10,000 @ R173,000 per Bitcoin = 0.0061 Bitcoin
+    <br>
+    <br>
+    <script type="text/javascript">
+      demo2();
+    </script>
+  </div>
+
+
+  <div class="scenario hidden" data-scenario="3">
+    <h1>Scenario #3</h1>
+    <br>
+    <span style="font-size:9pt;">
+      (indefinite reduced rates + no weekend earnings or transactions):
+    </span>
+    <br>
+    <br>
+    <span style="font-size:9pt;">
+      <b>Assuming the following:</b>
+      <ul>
+        <li>deposit done on a monday.</li>
+        <li>no reinvestments on weekends.</li>
+        <li>all reinvestments are done at the same time each day.</li>
+        <li>any <b>reinvestments</b> made will be at 1.4% earnings.</li>
+        <li>the current reduced earnings and weekend close are <b>indefinite.</b></li>
+      </ul>
+    </span>
+    <br>
+    <br>
+    <b>Initial deposit:</b>
+    <br>
+    Deposit of R10,000 @ R173,000 per Bitcoin = 0.0061 Bitcoin
+    <br>
+    <br>
+    <script type="text/javascript">
+      demo3();
+    </script>
+  </div>
+
+</body>
+
+</html>

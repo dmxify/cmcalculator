@@ -6,11 +6,13 @@
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript" src="js/scripts.js"></script>
   <script type="text/javascript" src="js/big.min.js"></script>
+  <script type="text/javascript" src="js/state-manager.js"></script>
   <script type="text/javascript" src="js/currencies.js"></script>
   <script type="text/javascript" src="js/tooltip.js"></script>
   <script type="text/javascript" src="js/widgets.js"></script>
   <script type="text/javascript" src="js/widgets/calculator.js"></script>
   <script type="text/javascript" src="js/widgets/currency-converter.js"></script>
+  <script type="text/javascript" src="js/widgets/ledger.js"></script>
   <script type="text/javascript" src="js/dynamic-globals.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="btc.png">
@@ -27,7 +29,9 @@
       BTC Investment Calculator
     </div>
     <div class="toolbar right">
-      <div class="button super-button bold" title="Login for advanced features!" id="btnLogin" onclick="open_modal_login()">
+      <!--onclick="open_modal_login()"-->
+      <div class="button super-button bold" title="Login for advanced features!" id="btnLogin"
+        onclick="showTooltip('Login','Coming soon!<br /><br />With a free account, you have access to:<ul><li><b>Ledger</b> - record all your transactions.</li><li><b>Dashboard</b> - helpful charts, graphs & statistics.</li><li><b>Strategy playground</b> - Set custom targets and we will guide you to reach them.</li><li><b>Alerts *</b> - to help stick to your strategy.</li></ul> <br />* premium feature')">
         <div class="button-icon icon icon-left icon-small icon-lock_open"></div>
         <div class="button-text">
           Login
@@ -42,6 +46,13 @@
 
       <div class="button super-button bold" title="Toggle Dark Mode" id="toggleDarkMode" onclick="toggleDarkMode()">
         <div class="button-icon icon icon-small icon-bulb_light"></div>
+      </div>
+      <div class="button super-button bold" title="About cmcalculator" id="btnAbout"
+        onclick="showTooltip('About cmcalculator','cmcalculator is a tool to help you (and your friends!) plan your investment strategy, and reach financial goals.<br /><br />It started as a side project to calculate compound interest, and now it is under active development with new features in the pipelines.<br /><br />cmcalculator is not an official Continental Miners app, nor is it affiliated with or endorsed by them.<br /><br />Please subscribe to the telegram channel (link at the bottom of the webpage), and if cmcalculator has helped you at all, please consider donating (BTC address at the bottom of the webpage) ')">
+        <div class="button-icon icon icon-left icon-small icon-cat"></div>
+        <div class="button-text">
+          About
+        </div>
       </div>
     </div>
   </div>
@@ -64,11 +75,81 @@
     <!-- "layout" div is the wrapper for the active tab-->
     <div class="layout">
 
+
+      <!-- Widget: Ledger -->
+      <div class="container" id="containerLedger" style="display:none;">
+        <div class="title center">
+          <div class="title-text">
+            Ledger
+          </div>
+          <div class="tooltip-trigger icon icon-small icon-right icon-info_sign" title="Click for info" onclick="showTooltip('Ledger','A record of all your deposits, reinvestments and withdrawals.')">
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab-pane" id="ledger_tabContracts">
+            <div class="toolbar left radio-button-group slim">
+              <div class="control-label slim" style="margin:5px; flex:1;">
+                Contract Type:
+              </div>
+              <div class="button super-button bold slim selected" data-radiogroup="ledger-contract-type" data-value="" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+                <div class="button-icon icon icon-left icon-small icon-star-web"></div>
+                <div class="button-text">
+                  All
+                </div>
+              </div>
+              <div class="button super-button bold slim" data-radiogroup="ledger-contract-type" data-value="deposits" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+                <div class="button-icon icon icon-left icon-small icon-box_in"></div>
+                <div class="button-text">
+                  Deposits
+                </div>
+              </div>
+              <div class="button super-button slim bold" data-radiogroup="ledger-contract-type" data-value="reinvestments" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+                <div class="button-icon icon icon-left icon-small icon-arrow_24"></div>
+                <div class="button-text">
+                  Reinvestments
+                </div>
+              </div>
+            </div>
+
+            <div class="toolbar left">
+              <div class="control-label" style="margin:5px; flex: 1;">
+                Status:
+              </div>
+              <div class="button super-button bold selected" data-radiogroup="ledger-contract-type" data-value="" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+                <div class="button-icon icon icon-left icon-small icon-star-web"></div>
+                <div class="button-text">
+                  All
+                </div>
+              </div>
+              <div class="button super-button bold" data-radiogroup="ledger-contract-type" data-value="deposits" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+                <div class="button-icon icon icon-left icon-small icon-box_in"></div>
+                <div class="button-text">
+                  Active
+                </div>
+              </div>
+              <div class="button super-button bold" data-radiogroup="ledger-contract-type" data-value="reinvestments" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+                <div class="button-icon icon icon-left icon-small icon-arrow_24"></div>
+                <div class="button-text">
+                  Ended
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane hidden" id="ledger_tabWithdrawals">
+
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Widget: Basic Calculator -->
       <div class="container" id="containerCalculatorInput">
 
         <div class="title center">
           <div class="title-text">
-            Simple Calculator
+            Basic Calculator
           </div>
           <div class="tooltip-trigger icon icon-small icon-right icon-info_sign" title="Click for info"
             onclick="showTooltip('Simple Calculator','Useful to quickly analyse the earnings of a single contract. A contract is opened as soon as you make a deposit or reinvest, and will generate a fixed percentage interest <b>DAILY</b> for the duration of the contract length.<br/><br/>Contract interest rate and duration changes with investment level (silver, gold, VIP) which is based on the amount spent on the contract. ')">
@@ -91,21 +172,24 @@
         <br />
 
         <div class="controlAndLabelWrapper">
-          <label for="principal">Deposited <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info" onclick="showTooltip('Deposited','The currency value of your deposit. Must be more than 0.0028 BTC.')"></div>
-            </label>
+          <label for="principal">Investment<div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info" onclick="showTooltip('Investment','The currency value of your deposit. Must be more than 0.0028 BTC.')"></div>
+          </label>
           <div class="controlWrapper">
-            <input id="principal" placeholder="Enter value" type="number" class="number" onInput="principal_onChange()" onclick="this.select();" /><b><span class="ui_calculator_symbol">BTC</span></b>
+            <input id="principal" placeholder="Enter value" type="number" class="number" onkeyup="calculator_onEnterKeyup(event)" onInput="principal_onChange()" onclick="this.select();" /><b><span class="ui_calculator_symbol">BTC</span></b>
           </div>
         </div>
 
         </br>
 
         <div class="controlAndLabelWrapper">
-          <label for="interestRate">Daily Interest <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info"
-              onclick="showTooltip('Daily Interest','The percentage (%) of your deposit, or reinvestment, which is added to your total earnings daily.')">
-            </div></label>
+          <label for="interestRate">Daily Interest Rate
+            <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info" onclick="showTooltip('Daily Interest','The percentage (%) of your deposit, or reinvestment, which is added to your total earnings daily.')">
+            </div>
+            <div id="interestRate_editable_icon" class="tooltip-trigger icon icon-right icon-tiny icon-pencil icon-disabled" title="Toggle Manual Override" onclick="interestRate_toggleEditable()">
+            </div>
+          </label>
           <div class="controlWrapper">
-            <input id="interestRate" placeholder="Daily Interest Rate" type="number" value="1.88" class="number" onInput="updateDOMReinvestment()" disabled="disabled" />%
+            <input id="interestRate" placeholder="Daily Interest Rate" type="number" value="1.88" class="number" onkeyup="calculator_onEnterKeyup(event)" onInput="updateDOMReinvestment()" disabled="disabled" />%
           </div>
         </div>
         </br>
@@ -130,21 +214,21 @@
         </br>
 
         <div class="controlAndLabelWrapper">
-          <label for="accumulatedInvestment">Total Investment <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info"
+          <label for="accumulatedInvestment">Total Investments <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info"
               onclick="showTooltip('Total Investment','The total value of all deposits + reinvestments earning you interest.')"></div></label>
           <div class="controlWrapper">
-            <input id="accumulatedInvestment" placeholder="0" type="number" value="0" class="number" disabled=disabled /><b><span class="ui_calculator_symbol">BTC</span></b>
+            <input id="accumulatedInvestment" placeholder="0" value="0" class="number" disabled=disabled /><b><span class="ui_calculator_symbol">BTC</span></b>
           </div>
         </div>
 
-        </br>
+        <!-- </br>
 
         <div class="controlAndLabelWrapper">
           <label for="earnings"><b>Total Earnings</b></label>
           <div class="controlWrapper">
             <input id="earnings" placeholder="Total Earnings" type="number" value="0" class="number" disabled=disabled /><b><span class="ui_calculator_symbol">BTC</span></b>
           </div>
-        </div>
+        </div> -->
 
         <!-- </br>
 
@@ -167,10 +251,10 @@
 
         <div class="toolbar right">
           <!-- <div class="button btn-green" onclick="generateTable()"></div> -->
-          <div class="button super-button btn-green" title="Show a basic compounding interest table" onclick="generateTable()">
+          <div class="button super-button btn-green" title="Show earnings table" onclick="btn_showEarnings()">
             <div class="button-icon icon icon-left icon-small icon-money"></div>
             <div class="button-text">
-              Show compounded interest
+              Show Earnings Table
             </div>
           </div>
           <div class="button super-button btn-red" title="Reset to default" onclick="reset()">
@@ -181,7 +265,7 @@
           </div>
         </div>
       </div>
-
+      <!-- TABLE: 180 -->
       <div class="container hidden">
         <div id="table180Summary">
         </div>
@@ -189,6 +273,8 @@
         </div>
       </div>
 
+
+      <!-- Widget: Currency Converter -->
       <div class="container" id="containerCurrencyConverter">
         <div class="title center">
           <div class="title-text">
@@ -205,8 +291,8 @@
 
 
         <div class="toolbar center">
-          <div class="button super-button" onclick="cc_set_btc(0.00288)">
-            <div class="bold">&#x20bf; 0.00288</div>
+          <div class="button super-button" onclick="cc_set_btc(0.0028)">
+            <div class="bold">&#x20bf; 0.0028</div>
             <div class="button-subtext">min to reinvest</div>
           </div>
           <div class="button super-button" onclick="cc_set_btc(0.14894)">
@@ -295,7 +381,8 @@
     <br />
     Useful? Donate BTC :) <b><span>36mCGspguTLP5tx74U3dmPp6xxEMvkmWV1</span></b>
   </div>
-  <a href="disclaimer.html" target="_blank" style="float:right;margin:15px 25px 0 0;">Disclaimer, T's & C's</a>
+  <a href="disclaimer.html" target="_blank" style="float:right;margin:15px 25px 0 0;">Disclaimer, T's & C's</a>&nbsp;&nbsp;
+  <a href="https://t.me/cmcalculator" target="_blank" style="float:right;margin:15px 25px 0 0;">Join Telegram Channel</a>
 
   <!-- tooltip -->
   <div class="tooltip-background-blur"></div>

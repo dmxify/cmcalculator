@@ -57,7 +57,6 @@ function calculateReinvestmentInterest(principal, rate, minToReinvest) {
   };
 };
 
-
 function principal_onChange(e) {
   var cc = getGlobal("ui_calculator_currency"); // get selected currency code
 
@@ -67,14 +66,20 @@ function principal_onChange(e) {
   var principal_btc = CURRENCIES.convert(cc, principal)['BTC']
   document.getElementById("accumulatedInvestment").value = principal
   if (principal_btc > 15.1) {
-    document.getElementById("interestRate").value = 3.7;
+    if (document.getElementById("interestRate").disabled) {
+      document.getElementById("interestRate").value = 3.7;
+    }
     document.getElementById("contractLength").value = 360;
   } else
   if (principal_btc > 2.1) {
-    document.getElementById("interestRate").value = 2.22;
+    if (document.getElementById("interestRate").disabled) {
+      document.getElementById("interestRate").value = 2.22;
+    }
     document.getElementById("contractLength").value = 180;
   } else {
-    document.getElementById("interestRate").value = 1.88;
+    if (document.getElementById("interestRate").disabled) {
+      document.getElementById("interestRate").value = 1.88;
+    }
     document.getElementById("contractLength").value = 180;
   }
   updateDOMReinvestment();
@@ -102,6 +107,23 @@ function updateDOMReinvestment() {
 //   }
 // }
 
+function interestRate_toggleEditable() {
+  if (document.getElementById("interestRate").disabled) {
+    document.getElementById("interestRate").disabled = false;
+    document.getElementById("interestRate_editable_icon").classList.remove("icon-disabled");
+  } else {
+    document.getElementById("interestRate").disabled = true;
+    document.getElementById("interestRate_editable_icon").classList.add("icon-disabled");
+  }
+
+  //window.stateManager.changeState("calculator","interestRate","editable", true);
+
+}
+
+function btn_showEarnings() {
+  generateTable();
+}
+
 function generateTable() {
   // validation:
   if (Big(getPrincipal()).lt(Big(getMinToReinvest()))) {
@@ -110,7 +132,7 @@ function generateTable() {
 
   // clear previous calculations:
 
-  document.getElementById("earnings").value = 0;
+  // document.getElementById("earnings").value = 0;
   document.getElementById("accumulatedInvestment").value = getPrincipal();
   document.getElementById("reinvestAmount").innerHTML = 0;
   document.getElementById("daysBeforeReinvestment").innerHTML = 0;
@@ -167,7 +189,7 @@ function generateTable() {
       td_investment_zar.innerHTML = conversions['ZAR'];
       td_investment_earnings.innerHTML = '<span style="color:#19b641;">coming soon...</span>';
 
-      accumulatedInvestment = investment;
+      accumulatedInvestment = Big(investment).toFixed(8);
       tr.appendChild(td_day);
       tr.appendChild(td_investment_btc);
       tr.appendChild(td_investment_usd);
@@ -185,7 +207,7 @@ function generateTable() {
     var totalEarnings_zar = conversions['ZAR_pretty'];
 
     document.getElementById("accumulatedInvestment").value = accumulatedInvestment;
-    document.getElementById("earnings").value = totalEarnings_btc;
+    // document.getElementById("earnings").value = totalEarnings_btc;
     var span = document.createElement("span");
     span.innerHTML = "<b>Total 180 day earnings</b> (compounded interest - investment):<br /><br /><b>" + totalEarnings_btc + "</b> BTC | <b>" + totalEarnings_usd + "</b> USD | <b>" + totalEarnings_zar + "</b> ZAR<br /><br />";
     document.getElementById("table180Summary").appendChild(span);
@@ -269,7 +291,7 @@ function reset() {
   document.getElementById("principal").value = "";
   document.getElementById("interestRate").value = 1.88; // TODO: PHP ajax value
   document.getElementById("earningsBeforeReinvest").value = 0.00288; // TODO: PHP ajax value
-  document.getElementById("earnings").value = 0;
+  // document.getElementById("earnings").value = 0;
   document.getElementById("accumulatedInvestment").value = 0;
   document.getElementById("reinvestAmount").innerHTML = 0;
   document.getElementById("daysBeforeReinvestment").innerHTML = 0;
@@ -279,4 +301,13 @@ function reset() {
   document.getElementById("table180Summary").innerHTML = "";
 
   document.getElementById("principal").focus();
+}
+
+function calculator_onEnterKeyup(event) {
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    btn_showEarnings();
+  }
 }

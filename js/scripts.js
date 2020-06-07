@@ -13,3 +13,11 @@ function open_modal_login() {
 function logout() {
   alert("This is a future feature! Stay tuned...");
 }
+
+/*
+el = DOM node with data-radiogroup of a unique value. 
+ */
+function radio_button_select(el) {
+  document.querySelector("[data-radiogroup='" + el.dataset.radiogroup + "'].selected").classList.remove("selected");
+  el.classList.add("selected");
+}

@@ -1,4 +1,5 @@
 function showTooltip(title, text) {
+  document.querySelector('body').classList.add('blur');
   document.querySelector('.tooltip-background-blur').classList.add('show');
   document.querySelector('.tooltip').classList.add('show');
   document.querySelector('.tooltip-overlay').classList.add('show');
@@ -7,6 +8,7 @@ function showTooltip(title, text) {
 }
 
 function hideTooltip() {
+  document.querySelector('body').classList.remove('blur');
   document.querySelector('.tooltip-background-blur').classList.remove('show');
   document.querySelector('.tooltip').classList.remove('show');
   document.querySelector('.tooltip-overlay').classList.remove('show');

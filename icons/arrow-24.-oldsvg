@@ -1,0 +1,24 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient y2="Infinity" y1="Infinity" x2="Infinity" x1="Infinity" id="SVGID_1_">
+   <stop stop-color="#000000" offset="0"/>
+   <stop stop-color="#FFFFFF" stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <filter height="200%" width="200%" y="-50%" x="-50%" id="svg_16_blur">
+   <feGaussianBlur stdDeviation="0" in="SourceGraphic"/>
+  </filter>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_7" fill="#2FC1F1" d="m400.86,256c0,88.11 -71.42,159.53 -159.54,159.54l-0.01,0c-88.11,0 -159.54,-71.43 -159.54,-159.54c0,-88.12 71.43,-159.55 159.54,-159.55l0.01,0c88.12,0.01 159.54,71.43 159.54,159.55z"/>
+  <path id="svg_9" fill="none" d="m241.31,96.45c88.12,0 159.55,71.43 159.55,159.55c0,88.11 -71.43,159.54 -159.55,159.54c-88.11,0 -159.54,-71.43 -159.54,-159.54c0,-88.12 71.43,-159.55 159.54,-159.55z"/>
+  <path stroke="#526471" stroke-width="14" id="svg_10" fill="#526471" d="m479.418,231.821c-1.563,-1.562 -4.096,-1.562 -5.656,0l-22.571,22.571c-0.414,-55.468 -22.193,-107.552 -61.457,-146.816c-39.644,-39.643 -92.355,-61.476 -148.424,-61.476c-115.739,0 -209.9,94.161 -209.9,209.9s94.161,209.9 209.9,209.9c71.268,0 137.067,-35.696 176.011,-95.486c1.206,-1.852 0.683,-4.329 -1.168,-5.535c-1.854,-1.208 -4.33,-0.683 -5.535,1.168c-37.463,57.516 -100.756,91.853 -169.308,91.853c-111.328,0 -201.9,-90.572 -201.9,-201.9s90.572,-201.9 201.9,-201.9c110.777,0 200.989,89.681 201.879,200.252l-22.531,-22.531c-1.563,-1.562 -4.096,-1.562 -5.656,0c-1.563,1.562 -1.563,4.095 0,5.657l29.38,29.38c0.75,0.75 1.768,1.172 2.828,1.172s2.078,-0.422 2.828,-1.172l29.38,-29.38c1.562,-1.562 1.562,-4.095 0,-5.657z"/>
+  <path id="svg_15" opacity="0.2" fill="url(#SVGID_1_)" d="m400.86,256c0,88.11 -71.42,159.53 -159.54,159.54l0,-319.09c88.12,0.01 159.54,71.43 159.54,159.55z"/>
+  <text filter="url(#svg_16_blur)" font-weight="bold" stroke="#2d2d2d" transform="matrix(8.856152534484863,0,0,9.665517807006836,-1438.044170960784,-1912.2360623180866) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_16" y="232.699214" x="175.960509" fill="#526471">2</text>
+  <text font-style="normal" filter="url(#svg_16_blur)" font-weight="bold" stroke="#2d2d2d" transform="matrix(8.856152534484863,0,0,9.665517807006836,-1438.044170960784,-1912.2360623180866) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_18" y="232.589039" x="190.389698" fill="#526471">4</text>
+ </g>
+</svg>

@@ -1,18 +1,18 @@
 :root {
-  --button-brightness: 1;
-  --button-contrast: 1;
+  --brightness: 1;
+  --contrast: 1;
 }
 
 .dark * {
-  --button-brightness: 0.8;
-  --button-contrast: 1.2;
+  --brightness: 0.8;
+  --contrast: 1.2;
 }
 
-.super-button {
-  padding: 5px !important;
+.button.super-button {
+  padding: 5px;
   align-content: space-around;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
 }
 
@@ -22,6 +22,7 @@
 }
 
 .button {
+  display: flex;
   background-color: #f8f8f8;
   box-shadow: 0 0 1px 0px;
   border: none;
@@ -29,18 +30,17 @@
   border-radius: 3px;
   cursor: pointer;
   user-select: none;
-  display: flex;
   margin: 5px;
-  filter: brightness(var(--button-brightness)) contrast(var(--button-contrast));
+  filter: brightness(var(--brightness)) contrast(var(--contrast));
 }
 
 .button:hover {
   /* box-shadow: 0 0 1px 1px; */
-  filter: brightness(calc(var(--button-brightness) + 0.1)) !important;
+  filter: brightness(calc(var(--brightness) + 0.1)) !important;
 }
 
 .button:active {
-  filter: brightness(calc(var(--button-brightness) + 0.2)) !important;
+  filter: brightness(calc(var(--brightness) + 0.2)) !important;
   /* box-shadow: 0 0 1px 1px; */
   box-shadow: inset 0px 0px 3px 0px #007acc;
 }
@@ -55,13 +55,6 @@
 
 .button-icon {}
 
-/* button {
-  background-color: #f8f8f8;
-  box-shadow: 0 0 1px 0px;
-  border: none;
-  padding: 10px;
-  border-radius: 3px;
-} */
 .btn-green {
   background-color: #ccf6c6;
   border: 1px solid #00ad0c;
@@ -73,7 +66,27 @@
   border: 1px solid #f44437;
 }
 
+.button.super-button.slim {
+  padding: 2px;
+  margin: 0px;
+}
+
 /* RADIO */
+.radio-button-group {
+  padding: 0 10px;
+  background-color: #ededed;
+  border: 2px solid #c6c3c3;
+  border-radius: 3px;
+}
+
+.radio-button-group.slim {
+  padding: 0px;
+}
+
+.radio-button-group.slim .button {
+  border-radius: 0px;
+}
+
 .radio-button {
   height: 35px;
   width: 35px;
@@ -89,13 +102,15 @@
 }
 
 .radio-button.selected,
-.tab-button.selected {
-  --button-brightness: 0.8;
+.tab-button.selected,
+[data-radiogroup].selected{
+  --brightness: 0.8;
   /* --button-contrast:1.3 */
 }
 
 .dark .radio-button.selected,
-.dark .tab-button.selected {
-  --button-brightness: 0.4;
+.dark .tab-button.selected,
+.dark [data-radiogroup].selected {
+  --brightness: 0.4;
   /* --button-contrast:1.3 */
 }
