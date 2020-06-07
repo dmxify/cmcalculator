@@ -57,6 +57,16 @@ function calculateReinvestmentInterest(principal, rate, minToReinvest) {
   };
 };
 
+function calculateDailyInterest(principal, rate) {
+  var interest = 0;
+  if (principal > 0 && rate > 0) {
+    interest = principal * rate;
+  }
+
+  var cc = getGlobal("ui_calculator_currency");
+  return CURRENCIES.convert(cc, interest)[cc];
+};
+
 function principal_onChange(e) {
   var cc = getGlobal("ui_calculator_currency"); // get selected currency code
 
@@ -69,18 +79,24 @@ function principal_onChange(e) {
     if (document.getElementById("interestRate").disabled) {
       document.getElementById("interestRate").value = 3.7;
     }
-    document.getElementById("contractLength").value = 360;
+    if (document.getElementById("contractLength").disabled) {
+      document.getElementById("contractLength").value = 360;
+    }
   } else
   if (principal_btc > 2.1) {
     if (document.getElementById("interestRate").disabled) {
       document.getElementById("interestRate").value = 2.22;
     }
-    document.getElementById("contractLength").value = 180;
+    if (document.getElementById("contractLength").disabled) {
+      document.getElementById("contractLength").value = 180;
+    }
   } else {
     if (document.getElementById("interestRate").disabled) {
-      document.getElementById("interestRate").value = 1.88;
+      document.getElementById("interestRate").value = 1.4;
     }
-    document.getElementById("contractLength").value = 180;
+    if (document.getElementById("contractLength").disabled) {
+      document.getElementById("contractLength").value = 180;
+    }
   }
   updateDOMReinvestment();
 }
@@ -111,13 +127,24 @@ function interestRate_toggleEditable() {
   if (document.getElementById("interestRate").disabled) {
     document.getElementById("interestRate").disabled = false;
     document.getElementById("interestRate_editable_icon").classList.remove("icon-disabled");
+    document.getElementById("interestRate").focus();
   } else {
     document.getElementById("interestRate").disabled = true;
     document.getElementById("interestRate_editable_icon").classList.add("icon-disabled");
   }
-
   //window.stateManager.changeState("calculator","interestRate","editable", true);
+}
 
+function contractLength_toggleEditable() {
+  if (document.getElementById("contractLength").disabled) {
+    document.getElementById("contractLength").disabled = false;
+    document.getElementById("contractLength_editable_icon").classList.remove("icon-disabled");
+    document.getElementById("contractLength").focus();
+  } else {
+    document.getElementById("contractLength").disabled = true;
+    document.getElementById("contractLength_editable_icon").classList.add("icon-disabled");
+  }
+  //window.stateManager.changeState("calculator","interestRate","editable", true);
 }
 
 function btn_showEarnings() {
@@ -149,7 +176,9 @@ function generateTable() {
     var table = document.createElement("table");
     var tr = document.createElement("tr");
     var th_days = document.createElement("th");
-    th_days.innerHTML = "Reinvestment Day";
+    th_days.innerHTML = "Day";
+    var th_transaction_type = document.createElement("th");
+    th_transaction_type.innerHTML = "Transaction";
     var th_amount_btc = document.createElement("th");
     th_amount_btc.innerHTML = "Total Investment &#x20bf;";
     var th_amount_usd = document.createElement("th");
@@ -157,44 +186,80 @@ function generateTable() {
     var th_amount_zar = document.createElement("th");
     th_amount_zar.innerHTML = "Total Investment R";
     var th_total_earnings = document.createElement("th");
-    th_total_earnings.innerHTML = "Total Earnings";
+    th_total_earnings.innerHTML = "Daily Earnings";
 
     /* Build DOM */
     tr.appendChild(th_days);
+    tr.appendChild(th_transaction_type);
+    tr.appendChild(th_total_earnings);
     tr.appendChild(th_amount_btc);
     tr.appendChild(th_amount_usd);
     tr.appendChild(th_amount_zar);
-    tr.appendChild(th_total_earnings);
     table.appendChild(tr);
     var accumulatedInvestment = 0;
     /* Table body */
     for (var i = 0; i < json.arrdata.length; i++) {
       var tr = document.createElement("tr");
+
       var td_day = document.createElement("td");
       td_day.innerHTML = json.arrdata[i].day;
+
+      var transactionType = json.arrdata[i].type;
+      tr.classList.add(transactionType);
+
+      var td_transaction_type = document.createElement("td");
+      td_transaction_type.classList.add('transaction');
+
+      var transactionTypeText = ""
+      switch (transactionType) {
+        case "reinvest":
+          transactionTypeText = "Reinvest >";
+          break;
+        case "interest":
+          transactionTypeText = "Interest +";
+          break;
+        case "ended":
+          transactionTypeText = "Ended -";
+          break;
+        default:
+          break;
+      }
+
+      td_transaction_type.innerHTML = transactionTypeText;
+
       // if (json.arrdata[i].day > 180) {
       //   tr.classList.add("red");
       // }
       var td_investment_btc = document.createElement("td");
+      td_investment_btc.classList.add('investment');
       var td_investment_usd = document.createElement("td");
+      td_investment_usd.classList.add('investment');
       var td_investment_zar = document.createElement("td");
+      td_investment_zar.classList.add('investment');
       var td_investment_earnings = document.createElement("td");
+      td_investment_earnings.classList.add('balance');
 
       var investment = json.arrdata[i].investment;
       // get selected currency
       var cc = getGlobal("ui_calculator_currency");
       var conversions = CURRENCIES.convert(cc, investment);
       td_investment_btc.innerHTML = conversions['BTC'];
-      td_investment_usd.innerHTML = conversions['USD'];
-      td_investment_zar.innerHTML = conversions['ZAR'];
-      td_investment_earnings.innerHTML = '<span style="color:#19b641;">coming soon...</span>';
+      td_investment_usd.innerHTML = "$" + conversions['USD'];
+      td_investment_zar.innerHTML = "R" + conversions['ZAR'];
+
+      var earnings = json.arrdata[i].earnings;
+      conversions = CURRENCIES.convert(cc, earnings);
+      var earningsBTC = conversions['BTC'];
+
+      td_investment_earnings.innerHTML = earningsBTC;
 
       accumulatedInvestment = Big(investment).toFixed(8);
       tr.appendChild(td_day);
+      tr.appendChild(td_transaction_type);
+      tr.appendChild(td_investment_earnings);
       tr.appendChild(td_investment_btc);
       tr.appendChild(td_investment_usd);
       tr.appendChild(td_investment_zar);
-      tr.appendChild(td_investment_earnings);
       table.appendChild(tr);
     }
 
@@ -209,7 +274,7 @@ function generateTable() {
     document.getElementById("accumulatedInvestment").value = accumulatedInvestment;
     // document.getElementById("earnings").value = totalEarnings_btc;
     var span = document.createElement("span");
-    span.innerHTML = "<b>Total 180 day earnings</b> (compounded interest - investment):<br /><br /><b>" + totalEarnings_btc + "</b> BTC | <b>" + totalEarnings_usd + "</b> USD | <b>" + totalEarnings_zar + "</b> ZAR<br /><br />";
+    span.innerHTML = "<b>Total " + getContractLength() + " day investment</b> (compounded interest - investment):<br /><br /><b>" + totalEarnings_btc + "</b> BTC | <b>" + totalEarnings_usd + "</b> USD | <b>" + totalEarnings_zar + "</b> ZAR<br /><br />";
     document.getElementById("table180Summary").appendChild(span);
 
     document.getElementById("table180Wrapper").appendChild(table);
@@ -224,28 +289,72 @@ function compoundDays() {
   if (getAccumulatedInvestment() > 0 && getRate() > 0 && getMinToReinvest() > 0) {
 
     var days = 0;
-    var reinvestmentData = [];
-    var totalInvestment = getAccumulatedInvestment()
-    while (days < getContractLength()) {
-      var data = calculateReinvestmentInterest(totalInvestment, getRate(), getMinToReinvest());
+    var tableData = []; // stores day and investment
+    var totalInvestment = getAccumulatedInvestment();
+    var earnings = Big(0); // running balance
 
-      if (days > 0) {
-        totalInvestment = totalInvestment.plus(Big(data.interest).toFixed(8));
-      }
-      reinvestmentData.push({
+    /* All earnings */
+    while (days < (parseInt(getContractLength()))) {
+      days++;
+
+      // get earnings for the day
+      var interest = calculateDailyInterest(totalInvestment, getRate());
+      earnings = earnings.plus(Big(interest).toFixed(8));
+
+
+
+      // send to table data for making a table
+      tableData.push({
+        type: 'interest',
         day: days,
-        investment: totalInvestment
-      })
-      days += data.days;
+        investment: totalInvestment,
+        earnings: earnings
+      });
+      // reinvest if more than minToReinvest, and clear earnings
+      if (days > 0 && earnings >= getMinToReinvest()) {
+        totalInvestment = totalInvestment.plus(Big(earnings).toFixed(8));
+        earnings = Big(0);
+        tableData.push({
+          type: 'reinvest',
+          day: "",
+          investment: totalInvestment,
+          earnings: earnings
+        })
+      }
+
+      // day investment ends
+      if (days == getContractLength()) {
+        totalInvestment = totalInvestment.minus(getPrincipal());
+        var interest = calculateDailyInterest(totalInvestment, getRate());
+        earnings = earnings.plus(Big(interest).toFixed(8));
+        //totalInvestment = totalInvestment.plus(earnings);
+        tableData.push({
+          type: 'ended',
+          day: "",
+          investment: totalInvestment,
+          earnings: earnings
+        });
+      }
     }
-    reinvestmentData.push({
-      day: days,
-      investment: totalInvestment - getPrincipal()
-    });
+
+    /* Reinvestments only: */
+    // while (days < getContractLength()) {
+    //   var data = calculateReinvestmentInterest(totalInvestment, getRate(), getMinToReinvest());
+    //
+    //   if (days > 0) {
+    //     totalInvestment = totalInvestment.plus(Big(data.interest).toFixed(8));
+    //   }
+    //   tableData.push({
+    //     day: days+1,
+    //     investment: totalInvestment
+    //   })
+    //   days += data.days;
+    // }
+
 
     return {
-      totalROI: Big(totalInvestment - getPrincipal()).toFixed(8),
-      arrdata: reinvestmentData
+      totalROI: Big(totalInvestment).toFixed(8),
+      arrdata: tableData
     }
   }
 }
@@ -289,7 +398,7 @@ function getAccumulatedInvestment() {
 
 function reset() {
   document.getElementById("principal").value = "";
-  document.getElementById("interestRate").value = 1.88; // TODO: PHP ajax value
+  document.getElementById("interestRate").value = 1.4; // TODO: PHP ajax value
   document.getElementById("earningsBeforeReinvest").value = 0.00288; // TODO: PHP ajax value
   // document.getElementById("earnings").value = 0;
   document.getElementById("accumulatedInvestment").value = 0;

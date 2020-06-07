@@ -1,5 +1,9 @@
 var states = {
   modules: {
+    "global": {
+      darkMode: false,
+      loggedIn: false
+    },
     "ledger": {},
     "currencyConverter": {},
     "exchangeRates": {},

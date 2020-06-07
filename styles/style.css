@@ -133,9 +133,32 @@ th {
   padding: 2px;
 }
 
-tr.red {
+/* tr.red {
   background-color: #c12121 !important;
   color: white !important;
+} */
+td.transaction {
+  text-transform: capitalize;
+}
+
+tr.ended td.transaction, tr.ended td.investment {
+  color: #c12121 !important;
+}
+
+tr.ended td.balance {
+  color: #19b641 !important;
+}
+
+tr.reinvest td.transaction, tr.reinvest td.balance {
+  color: #c15921 !important;
+}
+
+tr.reinvest td.investment {
+  color: #19b641 !important;
+}
+
+tr.interest td.transaction, tr.interest td.balance {
+  color: #19b641 !important;
 }
 
 td {
