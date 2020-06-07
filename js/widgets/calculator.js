@@ -332,7 +332,7 @@ function compoundDays() {
           type: 'ended',
           day: "",
           investment: totalInvestment,
-          earnings: earnings
+          earnings: ""
         });
       }
     }
