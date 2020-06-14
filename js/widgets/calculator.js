@@ -311,7 +311,9 @@ function compoundDays() {
         earnings: earnings
       });
       // reinvest if more than minToReinvest, and clear earnings
-      if (days > 0 && earnings >= getMinToReinvest()) {
+      // if (days > 0 && earnings >= getMinToReinvest()) {
+      if (days > 0 && earnings.gt(getMinToReinvest())) {
+
         totalInvestment = totalInvestment.plus(Big(earnings).toFixed(8));
         earnings = Big(0);
         tableData.push({
