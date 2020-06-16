@@ -909,10 +909,12 @@
   background-image: url('btc-rocket.svg') !important;
   background-size: cover;
 }
+
 .icon-btc-hourglass {
   background-image: url('btc-hourglass.svg') !important;
   background-size: cover;
 }
+
 .icon-btc-hourglass_2 {
   background-image: url('btc-hourglass2.svg') !important;
   background-size: cover;
@@ -920,5 +922,10 @@
 
 .icon-arrow_24 {
   background-image: url('arrow-24.svg') !important;
+  background-size: cover;
+}
+
+.icon-btc {
+  background-image: url('../btc.png') !important;
   background-size: cover;
 }

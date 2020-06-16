@@ -66,8 +66,9 @@ margin:5px;
 }
 
 .controlAndLabelWrapper {
-  display: inline-block;
-  padding-top: 5px;
+  display: block;
+  /* display: inline-block;
+  padding-top: 5px; */
 }
 
 .controlWrapper {
@@ -110,13 +111,15 @@ select {
 
 table {
   border-collapse: collapse !important;
-  font-size: 8pt;
+  font-size: 9pt;
+  width: 100%;
 }
 
 th {
   padding-top: 6px;
   padding-bottom: 6px;
-  text-align: left;
+  padding-right: 2px;
+  /* text-align: left; */
   background-color: #63ac66;
   color: white;
 }
@@ -129,7 +132,8 @@ td,
 th {
   border: 1px solid #ddd;
   border-spacing: 1px !important;
-  padding-left: 4px !important;
+  padding-left: 6px !important;
+  padding-right: 9px !important;
   padding: 2px;
 }
 
@@ -139,10 +143,15 @@ th {
 } */
 td.transaction {
   text-transform: capitalize;
+  text-align: left;
 }
 
 tr.ended td.transaction, tr.ended td.investment {
   color: #c12121 !important;
+}
+
+td.balance, td.investment {
+  text-align: right;
 }
 
 tr.ended td.balance {
@@ -163,6 +172,7 @@ tr.interest td.transaction, tr.interest td.balance {
 
 td {
   border: 1px solid black;
+  text-align: center;
 }
 
 .toolbar, .title {
@@ -289,6 +299,7 @@ td {
 
 th {
   border: 1px solid #000;
+  text-align: center;
 }
 
 .dark th {

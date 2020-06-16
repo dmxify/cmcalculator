@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="text/javascript" src="js/scripts.js"></script>
   <script type="text/javascript" src="js/big.min.js"></script>
   <script type="text/javascript" src="js/state-manager.js"></script>
@@ -17,6 +17,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="btc.png">
   <link rel="stylesheet" type="text/css" href="styles/style.css">
+  <link rel="stylesheet" type="text/css" href="styles/login.css">
   <link rel="stylesheet" type="text/css" href="icons/icons.css">
   <link rel="stylesheet" type="text/css" href="styles/tooltip.css">
   <link rel="stylesheet" type="text/css" href="styles/buttons.css">
@@ -26,12 +27,12 @@
 <body class="">
   <div class="title-bar">
     <div class="title">
-      BTC Investment Calculator
+      <div style="width:30px;height:30px;min-width:30px;margin-right:10px;background-image: url('btc.png');background-size: cover;"></div>
+      CM Calculator
     </div>
     <div class="toolbar right">
       <!--onclick="open_modal_login()"-->
-      <div class="button super-button bold" title="Login for advanced features!" id="btnLogin"
-        onclick="showTooltip('Login','Coming soon!<br /><br />With a free account, you have access to:<ul><li><b>Ledger</b> - record all your transactions.</li><li><b>Dashboard</b> - helpful charts, graphs & statistics.</li><li><b>Strategy playground</b> - Set custom targets and we will guide you to reach them.</li><li><b>Alerts *</b> - to help stick to your strategy.</li></ul> <br />* premium feature')">
+      <div class="button super-button bold" title="Login for advanced features!" id="btnLogin" onclick="open_modal_login()">
         <div class="button-icon icon icon-left icon-small icon-lock_open"></div>
         <div class="button-text">
           Login
@@ -87,24 +88,24 @@
         </div>
 
         <div class="tabs">
-          <div class="tab-pane" id="ledger_tabContracts">
+          <div class="tab-pane" id="ledger_tabInvestments">
             <div class="toolbar left radio-button-group slim">
               <div class="control-label slim" style="margin:5px; flex:1;">
-                Contract Type:
+                Investment Type:
               </div>
-              <div class="button super-button bold slim selected" data-radiogroup="ledger-contract-type" data-value="" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+              <div class="button super-button bold slim selected" data-radiogroup="ledger-investment-type" data-value="" onclick="ledger.investments.setType(this)" style="flex: 2;">
                 <div class="button-icon icon icon-left icon-small icon-star-web"></div>
                 <div class="button-text">
                   All
                 </div>
               </div>
-              <div class="button super-button bold slim" data-radiogroup="ledger-contract-type" data-value="deposits" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+              <div class="button super-button bold slim" data-radiogroup="ledger-investment-type" data-value="deposits" onclick="ledger.investments.setType(this)" style="flex: 2;">
                 <div class="button-icon icon icon-left icon-small icon-box_in"></div>
                 <div class="button-text">
                   Deposits
                 </div>
               </div>
-              <div class="button super-button slim bold" data-radiogroup="ledger-contract-type" data-value="reinvestments" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+              <div class="button super-button slim bold" data-radiogroup="ledger-investment-type" data-value="reinvestments" onclick="ledger.investments.setType(this)" style="flex: 2;">
                 <div class="button-icon icon icon-left icon-small icon-arrow_24"></div>
                 <div class="button-text">
                   Reinvestments
@@ -116,19 +117,19 @@
               <div class="control-label" style="margin:5px; flex: 1;">
                 Status:
               </div>
-              <div class="button super-button bold selected" data-radiogroup="ledger-contract-type" data-value="" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+              <div class="button super-button bold selected" data-radiogroup="ledger-investment-type" data-value="" onclick="ledger.investments.setType(this)" style="flex: 2;">
                 <div class="button-icon icon icon-left icon-small icon-star-web"></div>
                 <div class="button-text">
                   All
                 </div>
               </div>
-              <div class="button super-button bold" data-radiogroup="ledger-contract-type" data-value="deposits" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+              <div class="button super-button bold" data-radiogroup="ledger-investment-type" data-value="deposits" onclick="ledger.investments.setType(this)" style="flex: 2;">
                 <div class="button-icon icon icon-left icon-small icon-box_in"></div>
                 <div class="button-text">
                   Active
                 </div>
               </div>
-              <div class="button super-button bold" data-radiogroup="ledger-contract-type" data-value="reinvestments" onclick="ledger.contracts.setType(this)" style="flex: 2;">
+              <div class="button super-button bold" data-radiogroup="ledger-investment-type" data-value="reinvestments" onclick="ledger.investments.setType(this)" style="flex: 2;">
                 <div class="button-icon icon icon-left icon-small icon-arrow_24"></div>
                 <div class="button-text">
                   Ended
@@ -149,14 +150,14 @@
 
         <div class="title center">
           <div class="title-text">
-            Basic Calculator
+            Single Investment Calculator
           </div>
           <div class="tooltip-trigger icon icon-small icon-right icon-info_sign" title="Click for info"
-            onclick="showTooltip('Simple Calculator','Useful to quickly analyse the earnings of a single contract. A contract is opened as soon as you make a deposit or reinvest, and will generate a fixed percentage interest <b>DAILY</b> for the duration of the contract length.<br/><br/>Contract interest rate and duration changes with investment level (silver, gold, VIP) which is based on the amount spent on the contract. ')">
+            onclick="showTooltip('Single Investment Calculator','Useful to quickly analyse the earnings of a single investment.<br/><br/>An investment is opened as soon as you make a deposit or reinvest, and will generate a fixed percentage interest <b>DAILY</b> for the duration of the investment length.<br/><br/>Investment interest rate and duration changes with investment level (silver, gold, VIP) which is based on the amount spent on the investment. ')">
           </div>
         </div>
 
-        <div class="toolbar center hidden">
+        <div class="toolbar center hidden calculator-cc-buttons">
           <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
             class="button radio-button selected hidden">
             <div class="radio-button-text bold">&#x20bf;</div>
@@ -189,99 +190,58 @@
             </div>
           </label>
           <div class="controlWrapper">
-            <input id="interestRate" placeholder="Daily Interest Rate" type="number" value="1.4" class="number" onkeyup="calculator_onEnterKeyup(event)" onInput="updateDOMReinvestment()" onclick="this.select();" disabled="disabled" />%
+            <input id="interestRate" placeholder="Daily Interest Rate" type="number" value="1.4" class="number" onkeyup="calculator_onEnterKeyup(event)" onInput="rate_onChange()" onclick="this.select();" disabled="disabled" />%
           </div>
         </div>
         </br>
 
         <div class="controlAndLabelWrapper">
-          <label for="contractLength">Contract Length <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info"
-              onclick="showTooltip('Contract Length','The number of days an active investment will earn you interest. Investments under 15.1 BTC expire in 180 days. Investments over 15.1 BTC expire in 360 days.')"></div>
-            <div id="contractLength_editable_icon" class="tooltip-trigger icon icon-right icon-tiny icon-pencil icon-disabled" title="Toggle Manual Override" onclick="contractLength_toggleEditable()">
+          <label for="investmentLength">Investment Length <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info"
+              onclick="showTooltip('Investment Length','The number of days an active investment will earn you interest. Investments under 15.1 BTC expire in 180 days. Investments over 15.1 BTC expire in 360 days.')"></div>
+            <div id="investmentLength_editable_icon" class="tooltip-trigger icon icon-right icon-tiny icon-pencil icon-disabled" title="Toggle Manual Override" onclick="investmentLength_toggleEditable()">
             </div>
           </label>
           <div class="controlWrapper">
-            <input id="contractLength" placeholder="Contract Length" type="number" value="180" class="number" onkeyup="calculator_onEnterKeyup(event)" onInput="updateDOMReinvestment()" onclick="this.select();" disabled="disabled" /> days
+            <input id="investmentLength" placeholder="Investment Length" type="number" value="180" class="number" onkeyup="calculator_onEnterKeyup(event)" onInput="updateDOMReinvestment()" onclick="this.select();" disabled="disabled" /> days
           </div>
         </div>
 
-        </br>
-
-        <div class="controlAndLabelWrapper">
-          <label for="earningsBeforeReinvest" style="font-size:9pt;">Required earnings to reinvest</label>
+        <div class="controlAndLabelWrapper hidden">
+          <label for="minToReinvest" style="font-size:9pt;">Required earnings to reinvest</label>
           <div class="controlWrapper">
-            <span class="control-readonly" id="earningsBeforeReinvest">0.0028</span><b><span class="ui_calculator_symbol">BTC</span></b>
+            <span class="control-readonly" id="minToReinvest">0.0028</span><b><span class="ui_calculator_symbol">BTC</span></b>
           </div>
         </div>
 
         </br>
 
-        <div class="controlAndLabelWrapper">
-          <label for="accumulatedInvestment">Total Investments <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info"
-              onclick="showTooltip('Total Investment','The total value of all deposits + reinvestments earning you interest.')"></div></label>
+        <div class="controlAndLabelWrapper" id="cc_set_reinvest">
+          <label>Reinvest? <div class="tooltip-trigger icon icon-right icon-tiny icon-info_sign" title="Click for info"
+              onclick="showTooltip('Reinvesting On/Off','Toggles reinvesting on and off. This is the basic calculator, future versions will allow partial reinvesting in the advanced calculator.')"></div></label>
           <div class="controlWrapper">
-            <input id="accumulatedInvestment" placeholder="0" value="0" class="number" disabled=disabled /><b><span class="ui_calculator_symbol">BTC</span></b>
-          </div>
-        </div>
-
-        </br>
-        </br>
-
-        <div class="toolbar center">
-          <div class="button super-button" onclick="cc_set_reinvest(false)">
-            <div class="bold">&#x20bf; 0.0028</div>
-            <div class="button-subtext">Reinvest</div>
-          </div>
-          <div class="button super-button" onclick="cc_set_reinvest(true)">
-            <div class="button-icon icon icon-left icon-small icon-lock_open"></div>
-            <div class="button-subtext">Don't Reinvest</div>
-          </div>
-          <div class="button super-button" onclick="cc_set_zar(1000)">
-            <div class="bold">
-              R 1,000
-            </div>
-          </div>
-          <div class="button super-button" onclick="cc_set_usd(50)">
-            <div class="bold">
-              $50.00
+            <div class="toolbar left">
+              <div style="display:flex; margin-right: 15px;">
+                <div class="button slim super-button radio-button selected" onclick="window.calculator.cc_set_reinvest(this,true)">
+                  <div class="button-icon icon icon-small icon-check_sign"></div>
+                </div>
+                <div class="button slim super-button radio-button" onclick="window.calculator.cc_set_reinvest(this,false)">
+                  <div class="button-icon icon icon-small icon-error_sign"></div>
+                </div>
+              </div>
+              <b><span class="ui_calculator_reinvest">Yes, always.</span></b>
             </div>
           </div>
         </div>
 
-        <!-- </br>
+        </br>
 
-        <div class="controlAndLabelWrapper">
-          <label for="earnings"><b>Total Earnings</b></label>
-          <div class="controlWrapper">
-            <input id="earnings" placeholder="Total Earnings" type="number" value="0" class="number" disabled=disabled /><b><span class="ui_calculator_symbol">BTC</span></b>
-          </div>
-        </div> -->
-
-        <!-- </br>
-
-        <div class="controlAndLabelWrapper">
-          <label for="day"><b>Current Day</b></label>
-          <div class="controlWrapper">
-            <input id="day" placeholder="Day" type="number" value="1" class="number" disabled=disabled />
-          </div>
-        </div> -->
-        <br />
-        <br />
-        <br />
-        <span id="spnOutputReinvest" style="font-size:12pt;">
-          <!-- You can <div class="btn-green" onclick="reinvest()">reinvest</div> <b><span id="reinvestAmount">0</span> <span class="ui_calculator_symbol">BTC</span></b> in <span id="daysBeforeReinvestment">0</span> days. -->
-          You can reinvest <b><span id="reinvestAmount">0</span></b> in <span id="daysBeforeReinvestment">0</span> days.
-        </span>
-
-        <br />
-        <br />
 
         <div class="toolbar right">
           <!-- <div class="button btn-green" onclick="generateTable()"></div> -->
-          <div class="button super-button btn-green" title="Show earnings table" onclick="btn_showEarnings()">
+          <div class="button super-button btn-green" title="Generate" onclick="btn_showEarnings()">
             <div class="button-icon icon icon-left icon-small icon-money"></div>
             <div class="button-text">
-              Show Earnings Table
+              Generate
             </div>
           </div>
           <div class="button super-button btn-red" title="Reset to default" onclick="reset()">
@@ -294,9 +254,23 @@
       </div>
       <!-- TABLE: 180 -->
       <div class="container hidden">
-        <div id="table180Summary">
+        <div id="table180Toolbar">
+          <div class="toolbar center hidden calculator-cc-buttons">
+            <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
+              class="button radio-button selected hidden">
+              <div class="radio-button-text bold">&#x20bf;</div>
+            </div>
+            <div id="btnUSD" data-calculator-cc="USD" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('USD')" class="button radio-button hidden">
+              <div class="radio-button-text bold">$</div>
+            </div>
+            <div id="btnZAR" data-calculator-cc="ZAR" data-dynamicglobal-name="exchange_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ZAR')" class="button radio-button hidden">
+              <div class="radio-button-text bold">R</div>
+            </div>
+          </div>
         </div>
-        <div id="table180Wrapper" style="max-height:400px;overflow-y:scroll;">
+        <div id="table180Summary" style="margin-top: 10px;">
+        </div>
+        <div id="table180Wrapper" style="max-height:400px; overflow-y:scroll;">
         </div>
       </div>
 
@@ -324,17 +298,11 @@
           </div>
           <div class="button super-button" onclick="cc_set_btc(0.14894)">
             <div class="bold">&#x20bf; 0.14894</div>
-            <div class="button-subtext">generates 0.028 daily</div>
+            <div class="button-subtext">generates 0.0028 daily (@ 1.88%)</div>
           </div>
-          <div class="button super-button" onclick="cc_set_zar(1000)">
-            <div class="bold">
-              R 1,000
-            </div>
-          </div>
-          <div class="button super-button" onclick="cc_set_usd(50)">
-            <div class="bold">
-              $50.00
-            </div>
+          <div class="button super-button" onclick="cc_set_btc(0.2)">
+            <div class="bold">&#x20bf; 0.2</div>
+            <div class="button-subtext">generates 0.0028 daily (@ 1.4%)</div>
           </div>
         </div>
 
@@ -426,11 +394,83 @@
       document.getElementById("principal").select();
 
       updateExchangeRates();
-      setGlobal("earningsBeforeReinvest", 0.0028);
-      setGlobal("ui_calculator_currency", "BTC");
+      window.calculator.minToReinvest = 0.0028;
+      window.calculator.currency = "BTC";
 
     })();
   </script>
+
+  <div id="loginModal" style="font-family: Arial, Helvetica, sans-serif;">
+
+
+    <div id="id01" class="modal">
+
+      <div class="modal-content animate">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="btc.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+          <label for="email"><b>Email Address</b></label>
+          <input id="login_email" type="text" placeholder="Enter Email Address" name="email" required>
+
+          <label for="password"><b>Password</b></label>
+          <input id="login_password" type="password" placeholder="Enter Password" name="password" required>
+
+          <button onclick="login()">Login</button>
+
+          <div id="login-msg"></div>
+
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Get the modal
+      var modal = document.getElementById('id01');
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+
+      function login() {
+        fetch('api/user/login/index.php', {
+            method: 'post',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: document.getElementById('login_email').value,
+              password: document.getElementById('login_password').value
+            })
+          })
+          .then(response => response.json())
+          .then((data) => {
+            if (!data.verified) {
+              document.getElementById("login-msg").innerHTML = "Invalid email address or password.";
+              document.getElementById("login-msg").style.display = "block";
+            }
+          });
+      }
+    </script>
+
+  </div>
+
+
+
 </body>
 
 </html>
