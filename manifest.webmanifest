@@ -1,7 +1,7 @@
 {
   "name": "CM Calculator",
   "short_name": "CM Calculator",
-  "start_url": ".",
+  "start_url": "https://cmcalculator.com",
   "display": "standalone",
   "background_color": "#fff",
   "description": "Interest calculator, ledger & planner for Continental Miners",
