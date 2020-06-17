@@ -1,0 +1,13 @@
+{
+  "name": "CM Calculator",
+  "short_name": "CM Calculator",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Interest calculator, ledger & planner for Continental Miners",
+  "icons": [{
+    "src": "btc.png",
+    "sizes": "128x128",
+    "type": "image/png"
+  }]
+}

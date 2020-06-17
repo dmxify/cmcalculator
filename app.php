@@ -1,9 +1,13 @@
+<?php
+  session_start();
+?>
 <!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="Description" content="CM Calculator - The unofficial compound interest calculator, ledger & planner for Continental Miners.">
   <script type="text/javascript" src="js/scripts.js"></script>
   <script type="text/javascript" src="js/big.min.js"></script>
   <script type="text/javascript" src="js/state-manager.js"></script>
@@ -14,14 +18,14 @@
   <script type="text/javascript" src="js/widgets/currency-converter.js"></script>
   <script type="text/javascript" src="js/widgets/ledger.js"></script>
   <script type="text/javascript" src="js/dynamic-globals.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" type="image/png" href="btc.png">
   <link rel="stylesheet" type="text/css" href="styles/style.css">
   <link rel="stylesheet" type="text/css" href="styles/login.css">
   <link rel="stylesheet" type="text/css" href="icons/icons.css">
   <link rel="stylesheet" type="text/css" href="styles/tooltip.css">
   <link rel="stylesheet" type="text/css" href="styles/buttons.css">
-  <title>CM Calculator - Compounding Interest Calculator | Ledger | Planner </title>
+  <title>CM Calculator - Compound Interest Calculator | Ledger | Planner </title>
 </head>
 
 <body class="">
@@ -32,12 +36,21 @@
     </div>
     <div class="toolbar right">
       <!--onclick="open_modal_login()"-->
+      <?php if (!isset($_SESSION["user"])) { ?>
       <div class="button super-button bold" title="Login for advanced features!" id="btnLogin" onclick="open_modal_login()">
         <div class="button-icon icon icon-left icon-small icon-lock_open"></div>
         <div class="button-text">
           Login
         </div>
       </div>
+    <?php } else { ?>
+      <div class="button super-button bold" title="Log out" id="btnLogout" onclick="logout()">
+        <div class="button-icon icon icon-left icon-small icon-error_shield"></div>
+        <div class="button-text">
+          Logout
+        </div>
+      </div>
+    <?php } ?>
       <!-- <div class="button super-button bold" title="End session and log out" id="btnLogout" onclick="logout()">
         <div class="button-icon icon icon-left icon-small icon-lock-1"></div>
         <div class="button-text">
@@ -308,20 +321,23 @@
 
         <br />
         <div class="controlAndLabelWrapper">
+          <label for="cc_btc">Bitcoin</label>
           <div class="controlWrapper">
-            <input id="cc_btc" placeholder="Bitcoin" type="number" class="number" onInput="cc_onchange('cc_btc')" onclick="cc_onclick(this)" /><b>&#x20bf;</b>
+            <input id="cc_btc" name="cc_btc" placeholder="Bitcoin" type="number" class="number" onInput="cc_onchange('cc_btc')" onclick="cc_onclick(this)" /><b>&#x20bf;</b>
           </div>
         </div>
         <br />
         <div class="controlAndLabelWrapper">
+          <label for="cc_usd">US Dollars</label>
           <div class="controlWrapper">
-            <input id="cc_usd" placeholder="US Dollars" type="number" class="number" onInput="cc_onchange('cc_usd')" onclick="cc_onclick(this)" /><b>$</b>
+            <input id="cc_usd" name="cc_usd" placeholder="US Dollars" type="number" class="number" onInput="cc_onchange('cc_usd')" onclick="cc_onclick(this)" /><b>$</b>
           </div>
         </div>
         <br />
         <div class="controlAndLabelWrapper">
+          <label for="cc_zar">South African Rand</label>
           <div class="controlWrapper">
-            <input id="cc_zar" placeholder="Rand" type="number" class="number" onInput="cc_onchange('cc_zar')" onclick="cc_onclick(this)" /><b>R</b>
+            <input id="cc_zar" name="cc_zar" placeholder="Rand" type="number" class="number" onInput="cc_onchange('cc_zar')" onclick="cc_onclick(this)" /><b>R</b>
           </div>
         </div>
 
@@ -412,14 +428,21 @@
         </div>
 
         <div class="container">
-          <label for="email"><b>Email Address</b></label>
-          <input id="login_email" type="text" placeholder="Enter Email Address" name="email" required>
+          <form onsubmit="return login();">
+            <label for="email"><b>Email Address</b></label>
+            <input id="login_email" type="text" placeholder="Enter Email Address" autocomplete="username" name="email" required>
 
-          <label for="password"><b>Password</b></label>
-          <input id="login_password" type="password" placeholder="Enter Password" name="password" required>
+            <label for="password"><b>Password</b></label>
+            <input id="login_password" type="password" autocomplete="current-password" placeholder="Enter Password" name="password" required>
 
-          <button onclick="login()">Login</button>
-
+            <!-- <button onclick="login()">Login</button> -->
+            <input type="submit" value="Login" id="login_btnSubmit" />
+            <div id="login_button_mask">
+              <div class="loading-animation" id="login_loading">
+                Logging in...
+              </div>
+            </div>
+          </form>
           <div id="login-msg"></div>
 
           <label>
@@ -446,6 +469,9 @@
       }
 
       function login() {
+        document.getElementById("login_btnSubmit").style.display = "none";
+        document.getElementById("login_button_mask").style.display = "block";
+
         fetch('api/user/login/index.php', {
             method: 'post',
             headers: {
@@ -462,8 +488,19 @@
             if (!data.verified) {
               document.getElementById("login-msg").innerHTML = "Invalid email address or password.";
               document.getElementById("login-msg").style.display = "block";
+              document.getElementById("login_btnSubmit").style.display = "block";
+              document.getElementById("login_button_mask").style.display = "none";
+            } else {
+                window.location.reload();
             }
           });
+        return false;
+      }
+
+      function logout(){
+        fetch('api/user/logout/index.php').then(()=>{
+            window.location.reload();
+        });
       }
     </script>
 

@@ -10,18 +10,30 @@
 }
 
 /* Set a style for all buttons */
-#loginModal button {
+#loginModal input[type=submit] {
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
+  border-radius: 0px;
   cursor: pointer;
   width: 100%;
 }
 
-#loginModal button:hover {
+#loginModal input[type=submit]:hover {
   opacity: 0.8;
+}
+
+#login_button_mask {
+  display: none;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 0px;
+  user-select: none;
 }
 
 /* Extra styles for the cancel button */
@@ -148,4 +160,27 @@
   color: white;
   font-weight: bold;
   background-color: #f44336;
+}
+
+/* LOADING ANIMATION */
+@keyframes load {
+  0% {
+    opacity: 0.08;
+    filter: blur(5px);
+    letter-spacing: 3px;
+  }
+
+  100% {}
+}
+
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: auto;
+  font-family: Helvetica, sans-serif, Arial;
+  animation: load 1.2s infinite 0s ease-in-out;
+  animation-direction: alternate;
+  text-shadow: 0 0 1px white;
 }
