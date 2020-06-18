@@ -21,7 +21,8 @@ margin:5px;
 
 .title-bar {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin: 0px 10px;
 }
 
 .title-bar a {

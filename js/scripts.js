@@ -9,6 +9,9 @@ function change_layout() {
 function open_modal_login() {
   document.getElementById('id01').style.display = 'block'
 }
+function open_modal_register() {
+  document.getElementById('id02').style.display = 'block'
+}
 
 function logout() {
   alert("This is a future feature! Stay tuned...");

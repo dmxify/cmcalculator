@@ -1,7 +1,7 @@
-  <?php
+<?php
       $apiKey = "07a99363f925400394ef0a27fabe34c9";
       $ip = $_SERVER['REMOTE_ADDR'];
-      if ($ip != "::1") {
+    //  if ($ip != "::1") {
           $location = get_geolocation($apiKey, $ip);
           $decodedLocation = json_decode($location, true);
 
@@ -25,4 +25,4 @@
           ));
               return curl_exec($cURL);
           }
-      }
+  //    }

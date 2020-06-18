@@ -4,6 +4,7 @@ header('Content-type:application/json;charset=utf-8');
 // validate request
 $request = require(__DIR__.'/../../common/validate_json_request.php'); // return json request, or json "error":"..."
 
+$email = filter_var($request['email'], FILTER_SANITIZE_EMAIL);
 // error_reporting(0);
 require(__DIR__.'/../../../config.php');
 require(__DIR__.'/../../../db.php'); // creates database connection $mysqli
@@ -13,11 +14,10 @@ session_start();
 
 // Get DB hash of password
 $sql_result_id = '';
-$sql_result_name = '';
-$sql_result_surname = '';
 $sql_result_password = '';
-$stmt = $mysqli->prepare("SELECT id, password_hash FROM user WHERE email = ?");
-$stmt->bind_param("s", $request['email']);
+$sql_result_theme = '';
+$stmt = $mysqli->prepare("SELECT id, password_hash, theme FROM user WHERE email = ?");
+$stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 $stmt -> close();
@@ -25,6 +25,7 @@ if ($result->num_rows === 1) {
     while ($row = $result->fetch_assoc()) {
         $sql_result_id = $row['id'];
         $sql_result_password = $row['password_hash'];
+        $sql_result_theme = $row['theme'];
     }
 }
 
@@ -34,13 +35,14 @@ if (password_verify($request['password'], $sql_result_password)) {
     $stmt = $mysqli->prepare('UPDATE user SET last_login = now() WHERE email = ?');
     if (
       $stmt &&
-      $stmt -> bind_param('s', $request['email']) &&
+      $stmt -> bind_param('s', $email) &&
       $stmt -> execute() &&
       $stmt -> close()
   ) {
         // user selected
         $_SESSION['user']['id'] = $sql_result_id;
-        $_SESSION['user']['email'] = $request['email'];
+        $_SESSION['user']['email'] = $email;
+        $_SESSION['theme'] = $sql_result_theme;
     }
 } else {
     // User not verified:

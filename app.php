@@ -1,5 +1,10 @@
 <?php
-  session_start();
+  if (!isset($_SESSION)) {
+      session_start();
+  }
+  if (!isset($_SESSION['theme'])) {
+      $_SESSION['theme'] = "light";
+  }
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,7 +23,8 @@
   <script type="text/javascript" src="js/widgets/currency-converter.js"></script>
   <script type="text/javascript" src="js/widgets/ledger.js"></script>
   <script type="text/javascript" src="js/dynamic-globals.js"></script>
-  <link rel="manifest" href="/manifest.webmanifest">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" href="btc.png">
   <link rel="stylesheet" type="text/css" href="styles/style.css">
   <link rel="stylesheet" type="text/css" href="styles/login.css">
@@ -28,7 +34,7 @@
   <title>CM Calculator - Compound Interest Calculator | Ledger | Planner </title>
 </head>
 
-<body class="">
+<body class="<?php echo $_SESSION['theme']; ?>">
   <div class="title-bar">
     <div class="title">
       <div style="width:30px;height:30px;min-width:30px;margin-right:10px;background-image: url('btc.png');background-size: cover;"></div>
@@ -37,6 +43,12 @@
     <div class="toolbar right">
       <!--onclick="open_modal_login()"-->
       <?php if (!isset($_SESSION["user"])) { ?>
+      <div class="button super-button bold btn-green" title="Register for advanced features!" id="btnRegister" onclick="open_modal_register()">
+        <div class="button-icon icon icon-left icon-small icon-id_user"></div>
+        <div class="button-text">
+          Register
+        </div>
+      </div>
       <div class="button super-button bold" title="Login for advanced features!" id="btnLogin" onclick="open_modal_login()">
         <div class="button-icon icon icon-left icon-small icon-lock_open"></div>
         <div class="button-text">
@@ -422,13 +434,17 @@
     <div id="id01" class="modal">
 
       <div class="modal-content animate">
-        <div class="imgcontainer">
-          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <div class="imgcontainer title">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close login window">&times;</span>
           <img src="btc.png" alt="Avatar" class="avatar">
+          <div style="font-size: 20pt; margin-left: 20px;">CM Calculator</div>
         </div>
-
         <div class="container">
-          <form onsubmit="return login();">
+          <form onsubmit="return login();" method="post">
+            <div class="title bold">
+              Existing user login:
+            </div>
+            <br />
             <label for="email"><b>Email Address</b></label>
             <input id="login_email" type="text" placeholder="Enter Email Address" autocomplete="username" name="email" required>
 
@@ -450,7 +466,7 @@
           </label>
         </div>
 
-        <div class="container" style="background-color:#f1f1f1">
+        <div class="container" >
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
           <span class="psw">Forgot <a href="#">password?</a></span>
         </div>
@@ -459,12 +475,20 @@
 
     <script>
       // Get the modal
-      var modal = document.getElementById('id01');
+      var modal1 = document.getElementById('id01');
+      var modal2 = document.getElementById('id02');
 
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
+        switch (event.target) {
+          case modal1:
+            modal1.style.display = "none";
+            break;
+          case modal2:
+            modal2.style.display = "none";
+            break;
+          default:
+            break;
         }
       }
 
@@ -506,7 +530,89 @@
 
   </div>
 
+  <div id="registerModal" style="font-family: Arial, Helvetica, sans-serif;">
 
+    <div id="id02" class="modal">
+
+      <div class="modal-content animate">
+        <div class="imgcontainer title">
+          <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close register window">&times;</span>
+          <img src="btc.png" alt="Avatar" class="avatar">
+          <div style="font-size: 20pt; margin-left: 20px;">CM Calculator</div>
+        </div>
+        <div class="container">
+          <form onsubmit="return register();" method="post">
+            <div class="title bold">
+              New user registration:
+            </div>
+            <br />
+            <label for="register_email"><b>Email Address</b></label>
+            <input id="register_email" name="register_email" type="text" placeholder="Enter Email Address" autocomplete="username" name="email" required>
+
+            <label for="password"><b>Set Password</b></label>
+            <input id="register_password" name="register_password" type="password" autocomplete="new-password" placeholder="Enter New Password" name="password" required>
+
+            <label for="password"><b>Confirm Password</b></label>
+            <input id="register_confirm_password" name="register_confirm_password" type="password" autocomplete="new-password" placeholder="Confirm Password" name="password" required>
+
+            <div class="g-recaptcha" data-sitekey="6LesXKYZAAAAAOg5KsgrKPyds_elGqXAnaZFDr6v" data-callback="captcha_solved" data-theme="<?php echo $_SESSION['theme']; ?>"></div>
+            <!-- <button onclick="login()">Login</button> -->
+            <input type="submit" value="Register" id="register_btnSubmit" class="disabled" disabled="disabled"/>
+            <div id="register_button_mask">
+              <div class="loading-animation" id="register_loading">
+                Registering...
+              </div>
+            </div>
+          </form>
+          <div id="register-msg"></div>
+        </div>
+
+        <div class="container" >
+          <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <script>
+    window.captcha_response_token = "";
+      function captcha_solved(captcha_response_token){
+        window.captcha_response_token = captcha_response_token;
+        if (document.getElementById("register_btnSubmit").disabled) {
+            document.getElementById("register_btnSubmit").disabled = false;
+              document.getElementById("register_btnSubmit").classList.remove("disabled");
+        }
+      }
+      function register() {
+        document.getElementById("register_btnSubmit").style.display = "none";
+        document.getElementById("register_button_mask").style.display = "block";
+
+        fetch('api/user/register/index.php', {
+            method: 'post',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              register_email: document.getElementById('register_email').value,
+              register_password: document.getElementById('register_password').value,
+              register_confirm_password: document.getElementById('register_confirm_password').value,
+              captcha_response_token: window.captcha_response_token
+            })
+          })
+          .then(response => response.json())
+          .then((data) => {
+            if (!data.registered) {
+              document.getElementById("register-msg").innerHTML = "Unable to register user: "+(data.error)?data.errorMsg:"";
+              document.getElementById("register-msg").style.display = "block";
+              document.getElementById("register_btnSubmit").style.display = "block";
+              document.getElementById("register_button_mask").style.display = "none";
+            } else {
+                window.location.reload();
+            }
+          });
+        return false;
+      }
+    </script>
+  </div>
 
 </body>
 
