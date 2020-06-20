@@ -344,3 +344,43 @@ div.link .icon {
 div.link .text {
   white-space: nowrap;
 }
+
+.dark div.link .text {
+  color: #c15921 !important;
+}
+
+.container.info {
+  padding: 4px;
+  border: 2px solid #009fad;
+  background-color: #c6eff6;
+  font-size: 8pt;
+  filter: brightness(var(--brightness)) contrast(var(--contrast));
+}
+
+.dark .container.info {
+  background-color: #a7d4dc;
+  color: #262626;
+}
+
+.container.info table {
+  table-layout: fixed;
+  font-size: 8pt;
+}
+
+.container.info table th {
+  background-color: #44b2c5;
+}
+
+.container.info table td {
+  background-color: #c6eff6;
+  border: 1px solid #999999;
+}
+
+.dark .container.info table th {
+  color: white;
+}
+
+.dark .container.info table td {
+  color: black;
+  background-color: #a7d4dc;
+}

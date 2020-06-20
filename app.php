@@ -329,6 +329,38 @@
             </div>
           </div>
         </div>
+        <div class="container info">
+          Investment Levels:
+          <br />
+          <br />
+          <table>
+            <tr>
+              <th>Level</th>
+              <th>Required</th>
+              <th>Interest Rate</th>
+            </tr>
+            <tr>
+              <td>Silver</td>
+              <td>&lt; 1 BTC</td>
+              <td>1.4 %</td>
+            </tr>
+            <tr>
+              <td>Gold</td>
+              <td>&gt; 1 BTC to &lt; 15.1 BTC</td>
+              <td>2.22 %</td>
+            </tr>
+            <tr>
+              <td>VIP</td>
+              <td>&gt; 15.1 BTC</td>
+              <td>3.7 %</td>
+            </tr>
+          </table>
+          <!-- <ul>
+            <li><b>Silver</b>&lt;<span>1 BTC</span> - <span>1.4</span>%</li>
+            <li><b>Gold</b>&lt;<span>15.1 BTC</span> - <span>2.22</span>%</li>
+            <li><b>VIP</b>&gt;<span>15.1 BTC</span> - <span>3.7</span>%</li>
+          </ul> -->
+        </div>
       </div>
       <!-- TABLE: 180 -->
       <div class="container hidden">
