@@ -14,9 +14,10 @@ session_start();
 
 // Get DB hash of password
 $sql_result_id = '';
+$sql_result_name = '';
 $sql_result_password = '';
 $sql_result_theme = '';
-$stmt = $mysqli->prepare("SELECT id, password_hash, theme FROM user WHERE email = ?");
+$stmt = $mysqli->prepare("SELECT id, name, password_hash, theme FROM user WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -24,6 +25,7 @@ $stmt -> close();
 if ($result->num_rows === 1) {
     while ($row = $result->fetch_assoc()) {
         $sql_result_id = $row['id'];
+        $sql_result_name = $row['name'];
         $sql_result_password = $row['password_hash'];
         $sql_result_theme = $row['theme'];
     }
@@ -42,6 +44,7 @@ if (password_verify($request['password'], $sql_result_password)) {
         // user selected
         $_SESSION['user']['id'] = $sql_result_id;
         $_SESSION['user']['email'] = $email;
+        $_SESSION['user']['name'] = $sql_result_name;
         $_SESSION['theme'] = $sql_result_theme;
     }
 } else {
@@ -53,9 +56,5 @@ if (password_verify($request['password'], $sql_result_password)) {
 
 $data = array();
 $data['verified'] = true;
-$data['email'] = $request['email'];
 echo json_encode($data);
 exit();
-// $arr_response["verified"] = false;
-// echo `{"verified":true,"name":"$sql_result_name","surname":"$sql_result_surname","email":"$email"}`;
-// exit();

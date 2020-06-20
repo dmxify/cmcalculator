@@ -7,15 +7,15 @@ function change_layout() {
 }
 
 function open_modal_login() {
-  document.getElementById('id01').style.display = 'block'
+  document.getElementById('id01').style.display = 'block';
 }
 function open_modal_register() {
-  document.getElementById('id02').style.display = 'block'
+  document.getElementById('id02').style.display = 'block';
+}
+function open_modal_profile() {
+  alert("User profiles are still under construction... Stay tuned!");
 }
 
-function logout() {
-  alert("This is a future feature! Stay tuned...");
-}
 
 /*
 el = DOM node with data-radiogroup of a unique value.

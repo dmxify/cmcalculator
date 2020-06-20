@@ -17,6 +17,11 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+if (!isset($request['register_name'])) {
+    $data = ['error'=> true, 'errorMsg'=>'Name is missing.'];
+    echo json_encode($data);
+    exit();
+}
 // Exit and return error if email is not passed in request json body
 if (!isset($request['register_email'])) {
     $data = ['error'=> true, 'errorMsg'=>'Email address missing.'];
@@ -69,6 +74,9 @@ if ($captcha_success->success==false) {
     $is_captcha_verified = true;
 }
 
+
+$name = filter_var($request['register_name'], FILTER_SANITIZE_STRING);
+
 // Exit and return error if email is not valid
 $email = filter_var($request['register_email'], FILTER_SANITIZE_EMAIL);
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -107,8 +115,8 @@ $verification_token = bin2hex(random_bytes(50));
 
 // Hash password for DB insert
 $password_hash = password_hash($request['register_password'], PASSWORD_BCRYPT);
-$stmt = $mysqli->prepare("INSERT INTO user SET email=?, password_hash=?, verification_token=?");
-$stmt->bind_param("sss", $email, $password_hash, $verification_token);
+$stmt = $mysqli->prepare("INSERT INTO user SET name=?, email=?, password_hash=?, verification_token=?");
+$stmt->bind_param("ssss", $name, $email, $password_hash, $verification_token);
 $stmt->execute();
 
 if (isset($stmt->insert_id)) {

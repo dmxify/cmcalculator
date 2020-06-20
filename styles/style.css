@@ -15,8 +15,13 @@ background-color:red;
 margin:5px;
 } */
 .title {
-  font-size: 16pt;
+  font-size: 14pt;
   padding: 10px;
+}
+
+.title.welcome {
+  font-size: 12pt;
+  padding: 5px;
 }
 
 .title-bar {
@@ -318,4 +323,24 @@ th {
 
 .float-right {
   float: right;
+}
+
+div.link {
+  display: flex;
+  cursor: pointer;
+}
+
+div.link:hover {
+  filter: brightness(1.2);
+}
+
+div.link .icon {
+  display: inline-block;
+  zoom: 0.9;
+  margin-right: 2px;
+  margin-left: 0px;
+}
+
+div.link .text {
+  white-space: nowrap;
 }

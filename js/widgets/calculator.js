@@ -86,7 +86,6 @@ function ui_calculator_symbols_update() {
 function ui_calculator_convert_currencies() {
   var principal = CURRENCIES.convert("BTC", window.calculator.principal)[window.calculator.currency]
   document.getElementById('principal').value = principal;
-  //principal_onChange();
 }
 
 function calculateReinvestmentInterest(principal, rate, minToReinvest) {
@@ -155,7 +154,6 @@ function rate_onChange() {
 function updateDOMReinvestment() {
   return;
   var data = calculateReinvestmentInterest(window.calculator.principal, window.calculator.rate, window.calculator.minToReinvest);
-  document.getElementById("reinvestAmount").innerHTML = data.interest;
   document.getElementById("daysBeforeReinvestment").innerHTML = data.days;
   document.getElementById("minToReinvest").innerHTML = window.calculator.minToReinvest;
 }
@@ -260,23 +258,44 @@ function generateTable() {
       var td_transaction_type = document.createElement("td");
       td_transaction_type.classList.add('transaction');
 
-      var transactionTypeText = ""
       switch (transactionType) {
         case "reinvest":
-          transactionTypeText = "Reinvest >";
+          var reinvestedAmount = json.arrdata[i].reinvestedAmount.toString();
+          var reinvest_link = document.createElement("div");
+
+          var reinvest_link_icon = document.createElement("div");
+          reinvest_link_icon.classList.add('icon');
+          reinvest_link_icon.classList.add('icon-tiny');
+          reinvest_link_icon.classList.add('icon-pin');
+
+          var reinvest_link_text = document.createElement("div");
+          reinvest_link_text.classList.add('text');
+          reinvest_link_text.innerHTML = "Reinvest >";
+
+          reinvest_link.classList.add('link');
+          reinvest_link_text.dataset.reinvestedAmount = reinvestedAmount;
+          reinvest_link_icon.dataset.reinvestedAmount = reinvestedAmount;
+          reinvest_link.addEventListener('click', function(e) {
+            document.getElementById("principal").value = CURRENCIES.convert("BTC", e.target.dataset.reinvestedAmount)[window.calculator.currency];
+            //Big(e.target.dataset.reinvestedAmount);
+            principal_onChange();
+            ui_calculator_convert_currencies();
+            btn_showEarnings();
+          });
+
+          reinvest_link.appendChild(reinvest_link_icon);
+          reinvest_link.appendChild(reinvest_link_text);
+          td_transaction_type.appendChild(reinvest_link);
           break;
         case "interest":
-          transactionTypeText = "Interest +";
+          td_transaction_type.innerHTML = "Interest +";
           break;
         case "ended":
-          transactionTypeText = "Ended -";
+          td_transaction_type.innerHTML = "Ended -";
           break;
         default:
           break;
       }
-
-      td_transaction_type.innerHTML = transactionTypeText;
-
 
       var investment = json.arrdata[i].investment;
       // get selected currency
@@ -358,11 +377,15 @@ function generateInvestmentData() {
         if (days > 0 && earnings.gt(window.calculator.minToReinvest)) {
 
           window.calculator.totalInvestment = window.calculator.totalInvestment.plus(earnings);
+
+          var reinvestedAmount = Big(earnings);
+          // Table Data
           earnings = Big(0);
           tableData.push({
             type: 'reinvest',
             day: "",
             investment: window.calculator.totalInvestment, //CURRENCIES.convert("BTC", window.calculator.totalInvestment)[window.calculator.currency],
+            reinvestedAmount: reinvestedAmount,
             earnings: earnings //CURRENCIES.convert("BTC", earnings)[window.calculator.currency]
           });
         }
@@ -413,7 +436,6 @@ function reset() {
 
   // reset total investment
   window.calculator.totalInvestment = Big(0);
-  document.getElementById("reinvestAmount").innerHTML = 0;
   document.getElementById("daysBeforeReinvestment").innerHTML = 0;
   // delete table
   document.getElementById("table180Wrapper").parentElement.classList.add("hidden");
@@ -431,4 +453,8 @@ function calculator_onEnterKeyup(event) {
     // Trigger the button element with a click
     btn_showEarnings();
   }
+}
+
+function reinvestLink_onClick(amount) {
+  alert(amount);
 }

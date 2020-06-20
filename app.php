@@ -26,13 +26,22 @@
       return false;
   }
 
-  function getSessionEmail()
-  {
-      if (isset($_SESSION['email'])) {
-          return $_SESSION['email'];
+    function getSessionEmail()
+    {
+        if (isset($_SESSION['email'])) {
+            return $_SESSION['email'];
+        }
+        return "";
+    }
+      function getSessionName()
+      {
+          if (isset($_SESSION['user'])) {
+              if (isset($_SESSION['user']['name'])) {
+                  return $_SESSION['user']['name'];
+              }
+          }
+          return "";
       }
-      return "";
-  }
 
 ?>
 <!doctype html>
@@ -69,6 +78,13 @@
       <div style="width:30px;height:30px;min-width:30px;margin-right:10px;background-image: url('btc.png');background-size: cover;"></div>
       CM Calculator
     </div>
+
+    <?php if (isset($_SESSION["user"])) { ?>
+    <div class="title welcome">
+      Welcome, <?php echo getSessionName(); ?>!
+    </div>
+    <?php }?>
+
     <div class="toolbar right">
       <!--onclick="open_modal_login()"-->
       <?php if (!isset($_SESSION["user"])) { ?>
@@ -85,10 +101,18 @@
         </div>
       </div>
     <?php } else { ?>
+
       <div class="button super-button bold" title="Log out" id="btnLogout" onclick="logout()">
         <div class="button-icon icon icon-left icon-small icon-error_shield"></div>
         <div class="button-text">
           Logout
+        </div>
+      </div>
+
+      <div class="button super-button bold" title="Log out" id="btnProfile" onclick="open_modal_profile()">
+        <div class="button-icon icon icon-left icon-small icon-id_user"></div>
+        <div class="button-text">
+          My Profile
         </div>
       </div>
     <?php } ?>
@@ -459,9 +483,11 @@
         </div>
         <div class="container">
           <form onsubmit="return login();" method="post">
+            <?php if (isSessionAction('login')) { ?>
             <div class="success-message">
               <?php handleSessionMessages('login'); ?>
             </div>
+          <?php } ?>
             <div class="title bold">
               Existing user login:
             </div>
@@ -481,10 +507,6 @@
             </div>
           </form>
           <div id="login-msg"></div>
-
-          <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>
         </div>
 
         <div class="container" >
@@ -567,14 +589,18 @@
               New user registration:
             </div>
             <br />
+
+              <label for="register_name"><b>First Name</b></label>
+              <input id="register_name" name="register_name" type="text" placeholder="Enter First Name" autocomplete="given-name" required>
+
               <label for="register_email"><b>Email Address</b></label>
-              <input id="register_email" name="register_email" type="text" placeholder="Enter Email Address" autocomplete="username" name="email" required>
+              <input id="register_email" name="register_email" type="text" placeholder="Enter Email Address" autocomplete="username" required>
 
               <label for="password"><b>Set Password</b></label>
-              <input id="register_password" name="register_password" type="password" autocomplete="new-password" placeholder="Enter New Password" name="password" required>
+              <input id="register_password" name="register_password" type="password" autocomplete="new-password" placeholder="Enter New Password" required>
 
               <label for="password"><b>Confirm Password</b></label>
-              <input id="register_confirm_password" name="register_confirm_password" type="password" autocomplete="new-password" placeholder="Confirm Password" name="password" required>
+              <input id="register_confirm_password" name="register_confirm_password" type="password" autocomplete="new-password" placeholder="Confirm Password" required>
 
               <div class="g-recaptcha" data-sitekey="6LesXKYZAAAAAOg5KsgrKPyds_elGqXAnaZFDr6v" data-callback="captcha_solved" data-theme="<?php echo $_SESSION['theme']; ?>"></div>
               <!-- <button onclick="login()">Login</button> -->
@@ -613,6 +639,7 @@
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+              register_name: document.getElementById('register_name').value,
               register_email: document.getElementById('register_email').value,
               register_password: document.getElementById('register_password').value,
               register_confirm_password: document.getElementById('register_confirm_password').value,
