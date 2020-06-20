@@ -8,10 +8,15 @@ require("lib/PHPMailer/PHPMailer.php");
 require("lib/PHPMailer/SMTP.php");
 require("lib/PHPMailer/Exception.php");
 
-require("config.php");
+include("config.php");
 
 function send($to, $subject, $body_html, $body_plaintext)
 {
+    global $mail_smtp_server;
+    global $mail_address_info;
+    global $mail_address_info_name;
+    global $mail_password;
+
     $mail = new PHPMailer(true);
 
     //Set PHPMailer to use SMTP.
@@ -29,7 +34,7 @@ function send($to, $subject, $body_html, $body_plaintext)
     $mail->Port = 465;
 
     $mail->From = $mail_address_info;
-    $mail->FromName = "CM Calculator";
+    $mail->FromName = $mail_address_info_name;
 
     $mail->addAddress($to);//, "Recepient Name");
 
@@ -43,6 +48,7 @@ function send($to, $subject, $body_html, $body_plaintext)
     try {
         $mail->send();
         return true;
+        // return true;
     } catch (Exception $e) {
         return "Mailer Error: " . $mail->ErrorInfo;
     }
@@ -50,25 +56,35 @@ function send($to, $subject, $body_html, $body_plaintext)
 
 function sendVerificationEmail($email, $token)
 {
-    $body_html = `<p>You're receiving this email because you (or somebody else) registered a user account using your email address on cmcalculator.com</p>`;
-    $body_html .= `<p>If this wasn't you, please ignore this email. The account will soon be disabled.</p>`;
-    $body_html .= `<br />`;
-    $body_html .= `<p>If this was you, <a href="https://cmcalculator.com/verify?token=$token" target="_blank">click here</a> to verify your account.</p>`;
-    $body_html .= `<p>Alternatively, paste the following link in your browser: </p>`;
-    $body_html .= `https://cmcalculator.com/verify?token=$token`;
-    $body_html .= `<br />`;
-    $body_html .= `<p>We won't send you any more emails unless you turn on email alerts in your profile.</p>`;
-    $body_html .= `<br />`;
-    $body_html .= `<br />`;
-    $body_html .= `<br />`;
-    $body_html .= `<p>Thanks!<br />The CM Calculator team.</p>`;
+    $body_html = <<<EOS
+    <p></b>You're receiving this email because you (or somebody else) registered a user account using your email address on cmcalculator.com</b></p>
+    <p>If this wasn't you, please ignore this email - The account will soon be disabled.</p>
+    <br />
+    <p><b>If this was you, <a href="https://cmcalculator.com/verify.php?token=$token" target="_blank">click here</a> to verify your account.</b></p>
+    <br />
+    <p>Alternatively, paste the following link in your browser: </p>
+    https://cmcalculator.com/verify.php?token=$token
+    <br />
+    <br />
+    <p>Have a nice day!<br />- The CM Calculator team.</p>
+    <br />
+    <p>P.S. We won't send you any more emails unless you turn on email alerts in your profile!</p>
+EOS;
 
-
-    $body_plaintext = `You're receiving this email because you (or somebody else) registered a user account using your email address on cmcalculator.com`;
-    $body_plaintext .= `If this wasn't you, please ignore this email. The account will soon be disabled.`;
-    $body_plaintext .= `If this was you, please paste the following link in your web browser to verify your account`;
-    $body_plaintext .= `https://cmcalculator.com/verify?token=$token`;
-    $body_plaintext .= `We won't send you any more emails unless you turn on email alerts in your profile.`;
+    $body_plaintext = <<<EOS
+    You're receiving this email because you (or somebody else) registered a user account using your email address on cmcalculator.com
+    If this wasn't you, please ignore this email. The account will soon be disabled.
+    \r\n
+    If this was you, please paste the following link in your web browser to verify your account
+    https://cmcalculator.com/verify.php?token=$token
+    \r\n
+    We won't send you any more emails unless you turn on email alerts in your profile.
+    \r\n
+    \r\n
+    Thanks!
+    \r\n
+    -The CM Calculator team.
+EOS;
 
     return send($email, 'Confirm Your Email Address', $body_html, $body_plaintext);
 }

@@ -85,6 +85,17 @@
   padding: 16px;
 }
 
+#loginModal .container.success, #registerModal .container.success {
+  border:2px solid #00c700;
+  background-color:#92dd92;
+}
+
+#loginModal .success-message{
+  padding:4px;
+  border:2px solid #00c700;
+  background-color:#92dd92;
+}
+
 #loginModal span.psw {
   float: right;
   padding-top: 16px;
@@ -194,6 +205,12 @@
   font-weight: bold;
   background-color: #f44336;
 }
+
+#register-msg.success {
+  display:block;
+  background-color: #4CAF50;
+}
+
 
 /* LOADING ANIMATION */
 @keyframes load {

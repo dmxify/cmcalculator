@@ -5,6 +5,35 @@
   if (!isset($_SESSION['theme'])) {
       $_SESSION['theme'] = "light";
   }
+
+
+  function handleSessionMessages($action)
+  {
+      if (isset($_SESSION['action'])) {
+          if ($_SESSION['action']==$action) {
+              echo $_SESSION['message'];
+          }
+      }
+  }
+
+  function isSessionAction($action)
+  {
+      if (isset($_SESSION['action'])) {
+          if ($_SESSION['action']==$action) {
+              return true;
+          }
+      }
+      return false;
+  }
+
+  function getSessionEmail()
+  {
+      if (isset($_SESSION['email'])) {
+          return $_SESSION['email'];
+      }
+      return "";
+  }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -416,17 +445,6 @@
   <div class="tooltip-overlay" onclick="hideTooltip()"></div>
 
   <!-- end buttons -->
-  <script>
-    (function() {
-      document.getElementById("principal").focus();
-      document.getElementById("principal").select();
-
-      updateExchangeRates();
-      window.calculator.minToReinvest = 0.0028;
-      window.calculator.currency = "BTC";
-
-    })();
-  </script>
 
   <div id="loginModal" style="font-family: Arial, Helvetica, sans-serif;">
 
@@ -441,12 +459,15 @@
         </div>
         <div class="container">
           <form onsubmit="return login();" method="post">
+            <div class="success-message">
+              <?php handleSessionMessages('login'); ?>
+            </div>
             <div class="title bold">
               Existing user login:
             </div>
             <br />
             <label for="email"><b>Email Address</b></label>
-            <input id="login_email" type="text" placeholder="Enter Email Address" autocomplete="username" name="email" required>
+            <input id="login_email" type="text" placeholder="Enter Email Address" autocomplete="username" name="email" value="<?php echo getSessionEmail(); ?>" required>
 
             <label for="password"><b>Password</b></label>
             <input id="login_password" type="password" autocomplete="current-password" placeholder="Enter Password" name="password" required>
@@ -546,25 +567,25 @@
               New user registration:
             </div>
             <br />
-            <label for="register_email"><b>Email Address</b></label>
-            <input id="register_email" name="register_email" type="text" placeholder="Enter Email Address" autocomplete="username" name="email" required>
+              <label for="register_email"><b>Email Address</b></label>
+              <input id="register_email" name="register_email" type="text" placeholder="Enter Email Address" autocomplete="username" name="email" required>
 
-            <label for="password"><b>Set Password</b></label>
-            <input id="register_password" name="register_password" type="password" autocomplete="new-password" placeholder="Enter New Password" name="password" required>
+              <label for="password"><b>Set Password</b></label>
+              <input id="register_password" name="register_password" type="password" autocomplete="new-password" placeholder="Enter New Password" name="password" required>
 
-            <label for="password"><b>Confirm Password</b></label>
-            <input id="register_confirm_password" name="register_confirm_password" type="password" autocomplete="new-password" placeholder="Confirm Password" name="password" required>
+              <label for="password"><b>Confirm Password</b></label>
+              <input id="register_confirm_password" name="register_confirm_password" type="password" autocomplete="new-password" placeholder="Confirm Password" name="password" required>
 
-            <div class="g-recaptcha" data-sitekey="6LesXKYZAAAAAOg5KsgrKPyds_elGqXAnaZFDr6v" data-callback="captcha_solved" data-theme="<?php echo $_SESSION['theme']; ?>"></div>
-            <!-- <button onclick="login()">Login</button> -->
-            <input type="submit" value="Register" id="register_btnSubmit" class="disabled" disabled="disabled"/>
-            <div id="register_button_mask">
-              <div class="loading-animation" id="register_loading">
-                Registering...
+              <div class="g-recaptcha" data-sitekey="6LesXKYZAAAAAOg5KsgrKPyds_elGqXAnaZFDr6v" data-callback="captcha_solved" data-theme="<?php echo $_SESSION['theme']; ?>"></div>
+              <!-- <button onclick="login()">Login</button> -->
+              <input type="submit" value="Register" id="register_btnSubmit" class="disabled" disabled="disabled"/>
+              <div id="register_button_mask">
+                <div class="loading-animation" id="register_loading">
+                  Registering...
+                </div>
               </div>
-            </div>
-          </form>
-          <div id="register-msg"></div>
+            </form>
+            <div id="register-msg"></div>
         </div>
 
         <div class="container" >
@@ -598,7 +619,10 @@
               captcha_response_token: window.captcha_response_token
             })
           })
-          .then(response => response.json())
+          // .then(response => response.json())
+          .then((response) => {
+            return response.json();
+           })
           .then((data) => {
             if (!data.registered) {
               document.getElementById("register-msg").innerHTML = "Unable to register user: "+(data.error)?data.errorMsg:"";
@@ -606,7 +630,13 @@
               document.getElementById("register_btnSubmit").style.display = "block";
               document.getElementById("register_button_mask").style.display = "none";
             } else {
-                window.location.reload();
+                // window.location.reload();
+                document.getElementById("registerModal")
+                document.querySelector('#registerModal form').style.display = "none";
+                document.getElementById("register-msg").style.display = "none";
+                document.querySelector('#registerModal .container').innerHTML = data.msg;
+                document.querySelector('#registerModal .container').classList.add("success");
+                // document.getElementById("register-msg").classList.add('success');
             }
           });
         return false;
@@ -614,6 +644,24 @@
     </script>
   </div>
 
+  <script>
+    (function() {
+
+  <?php
+  // IF USER VERIFIED EMAIL: SHOW LOGIN WITH MESSAGE
+  if (isSessionAction('login')) {?>
+      open_modal_login();
+  <?php } else { ?>
+  // ELSE, CONTINUE AS NORMAL
+      document.getElementById("principal").focus();
+      document.getElementById("principal").select();
+  <?php }?>
+      updateExchangeRates();
+      window.calculator.minToReinvest = 0.0028;
+      window.calculator.currency = "BTC";
+
+    })();
+  </script>
 </body>
 
 </html>
