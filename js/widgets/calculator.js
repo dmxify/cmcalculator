@@ -277,7 +277,6 @@ function generateTable() {
           reinvest_link_icon.dataset.reinvestedAmount = reinvestedAmount;
           reinvest_link.addEventListener('click', function(e) {
             document.getElementById("principal").value = CURRENCIES.convert("BTC", e.target.dataset.reinvestedAmount)[window.calculator.currency];
-            //Big(e.target.dataset.reinvestedAmount);
             principal_onChange();
             ui_calculator_convert_currencies();
             btn_showEarnings();
