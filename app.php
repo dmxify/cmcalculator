@@ -50,7 +50,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="Description" content="CM Calculator - The unofficial compound interest calculator, ledger & planner for Continental Miners.">
+  <meta name="description" content="CM Calculator - The unofficial compound interest calculator, ledger & planner for Continental Miners.">
   <script type="text/javascript" src="js/scripts.js"></script>
   <script type="text/javascript" src="js/big.min.js"></script>
   <script type="text/javascript" src="js/state-manager.js"></script>
@@ -235,7 +235,8 @@
           </div>
         </div>
 
-        <div class="toolbar center hidden calculator-cc-buttons">
+        <div class="container toolbar center hidden calculator-cc-buttons">
+          <div class="title small">Currency conversions</div>
           <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
             class="button radio-button selected hidden">
             <div class="radio-button-text bold">&#x20bf;</div>
@@ -341,17 +342,17 @@
             </tr>
             <tr>
               <td>Silver</td>
-              <td>&lt; 1 BTC</td>
+              <td>0.0028 BTC to 2 BTC</td>
               <td>1.4 %</td>
             </tr>
             <tr>
               <td>Gold</td>
-              <td>&gt; 1 BTC to &lt; 15.1 BTC</td>
+              <td>2.1 BTC to 15 BTC</td>
               <td>2.22 %</td>
             </tr>
             <tr>
               <td>VIP</td>
-              <td>&gt; 15.1 BTC</td>
+              <td>15.1 BTC to 100 BTC</td>
               <td>3.7 %</td>
             </tr>
           </table>
@@ -364,8 +365,18 @@
       </div>
       <!-- TABLE: 180 -->
       <div class="container hidden">
-        <div id="table180Toolbar">
-          <div class="toolbar center hidden calculator-cc-buttons">
+        <div id="table180Toolbar" class="">
+          <div class="title center">
+            <div class="title-text">
+              Single Investment Table
+            </div>
+            <div class="tooltip-trigger icon icon-small icon-right icon-info_sign" title="Click for info"
+              onclick="showTooltip('Single Investment Table','See the results of a single investment.<br/><br/>An investment is opened as soon as you make a deposit or reinvest, and will generate a fixed percentage interest <b>DAILY</b> for the duration of the investment length.<br/><br/>Investment interest rate and duration changes with investment level (silver, gold, VIP) which is based on the amount spent on the investment. ')">
+            </div>
+          </div>
+
+          <div class="container toolbar center hidden calculator-cc-buttons">
+            <div class="title small">Currency conversions</div>
             <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
               class="button radio-button selected hidden">
               <div class="radio-button-text bold">&#x20bf;</div>
