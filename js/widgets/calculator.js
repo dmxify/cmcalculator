@@ -258,17 +258,20 @@ function generateTable() {
       var td_transaction_type = document.createElement("td");
       td_transaction_type.classList.add('transaction');
 
+      var reinvestedAmount = "";
       switch (transactionType) {
         case "reinvest":
-          var reinvestedAmount = json.arrdata[i].reinvestedAmount.toString();
+          reinvestedAmount = json.arrdata[i].reinvestedAmount.toString();
           var reinvest_link = document.createElement("div");
 
           var reinvest_link_icon = document.createElement("div");
+          reinvest_link_icon.setAttribute("title","Show reinvestment calculation");
           reinvest_link_icon.classList.add('icon');
           reinvest_link_icon.classList.add('icon-tiny');
           reinvest_link_icon.classList.add('icon-pin');
 
           var reinvest_link_text = document.createElement("div");
+          reinvest_link_text.setAttribute("title","Show reinvestment calculation");
           reinvest_link_text.classList.add('text');
           reinvest_link_text.innerHTML = "Reinvest >";
 
@@ -301,7 +304,8 @@ function generateTable() {
       var cc_investment = CURRENCIES.convert("BTC", investment);
 
       var earnings = json.arrdata[i].earnings;
-      cc_earnings = CURRENCIES.convert("BTC", earnings);
+
+      var cc_earnings = CURRENCIES.convert("BTC", earnings);
       var td_investment = document.createElement("td");
       td_investment.classList.add('investment');
       var td_earnings = document.createElement("td");
@@ -309,7 +313,13 @@ function generateTable() {
 
 
       td_investment.innerHTML = cc_investment[window.calculator.currency];
-      td_earnings.innerHTML = cc_earnings[window.calculator.currency];
+      var strEarnings = "";
+      if (reinvestedAmount != "") {
+        //strEarnings += "( - ) ";// + CURRENCIES.convert("BTC", reinvestedAmount)[window.calculator.currency] + ") ";
+      }
+      strEarnings += cc_earnings[window.calculator.currency];
+
+      td_earnings.innerHTML = strEarnings;
 
       window.calculator.totalInvestment = Big(investment).toFixed(8);
       tr.appendChild(td_day);
@@ -328,7 +338,7 @@ function generateTable() {
 
     if (window.calculator.reinvest) {
       var span = document.createElement("span");
-      span.innerHTML = "<b>After " + getInvestmentLength() + " days, your active investments</b> (compounded interest - investment) is <br /><br /><b>" + totalEarnings_btc + "</b> BTC | <b>" + totalEarnings_usd + "</b> USD | <b>" + totalEarnings_zar + "</b> ZAR<br /><br />";
+      span.innerHTML = "<b>After " + getInvestmentLength() + " days, your active investments</b><br/>(compounded interest - investment) is <br /><br /><b>" + totalEarnings_btc + "</b> BTC | <b>" + totalEarnings_usd + "</b> USD | <b>" + totalEarnings_zar + "</b> ZAR<br /><br />";
       document.getElementById("table180Summary").appendChild(span);
     } else {
       var span = document.createElement("span");

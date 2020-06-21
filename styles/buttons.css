@@ -111,6 +111,6 @@
 .dark .radio-button.selected,
 .dark .tab-button.selected,
 .dark [data-radiogroup].selected {
-  --brightness: 0.4;
+  --brightness: 0.6;
   /* --button-contrast:1.3 */
 }

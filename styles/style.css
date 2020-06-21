@@ -18,10 +18,16 @@ margin:5px;
   font-size: 14pt;
   padding: 10px;
 }
+.container .title.small {
+  font-size: 11pt;
+}
 
 .title.welcome {
   font-size: 12pt;
   padding: 5px;
+}
+.dark .title.welcome {
+
 }
 
 .title-bar {
@@ -57,9 +63,10 @@ margin:5px;
 .container {
   flex: 1 1 auto;
   margin: 10px;
-  padding: 5px;
+  padding: 15px;
   box-shadow: 0 1px 1px 0 rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
   border-radius: 3px;
+  border: 1px solid #eeeeee;
 }
 
 .container .title {
@@ -283,6 +290,7 @@ td {
 .dark .container {
   background-color: #1e1e1e;
   box-shadow: 0px 0px 0px 0px;
+  border: 1px solid #4e4e4e;
 }
 
 .dark tr {
@@ -362,6 +370,21 @@ div.link .text {
   color: #262626;
 }
 
+.container.toolbar {
+  background-color: #f4e7d7;
+  border: 2px solid #f3d0a5;
+  padding: 4px;
+}
+
+.dark .container.toolbar {
+  background-color: #bfa27f;
+  border: 2px solid #a96818;
+}
+.dark .container.toolbar .title {
+  color:#262626;
+
+}
+
 .container.info table {
   table-layout: fixed;
   font-size: 8pt;
@@ -383,4 +406,5 @@ div.link .text {
 .dark .container.info table td {
   color: black;
   background-color: #a7d4dc;
+  border: 1px solid #333333;
 }
