@@ -155,7 +155,7 @@ function rate_onChange() {
 function updateDOMReinvestment() {
   return;
   var data = calculateReinvestmentInterest(window.calculator.principal, window.calculator.rate, window.calculator.minToReinvest);
-  document.getElementById("daysBeforeReinvestment").innerHTML = data.days;
+  // document.getElementById("daysBeforeReinvestment").innerHTML = data.days;
   document.getElementById("minToReinvest").innerHTML = window.calculator.minToReinvest;
 }
 
@@ -468,7 +468,7 @@ function reset() {
   // reset total investment
   window.calculator.totalInvestment = Big(0);
   window.calculator.numActiveInvestments = Big(0);
-  document.getElementById("daysBeforeReinvestment").innerHTML = 0;
+  // document.getElementById("daysBeforeReinvestment").innerHTML = 0;
   // delete table
   document.getElementById("tableInvestmentWrapper").parentElement.classList.add("hidden");
   document.getElementById("tableInvestmentWrapper").innerHTML = "";
