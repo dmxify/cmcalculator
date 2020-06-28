@@ -1,5 +1,10 @@
 <?php
   if (!isset($_SESSION)) {
+      // server should keep session data for AT LEAST 1 hour
+      ini_set('session.gc_maxlifetime', 3600);
+
+      // each client should remember their session id for EXACTLY 1 hour
+      session_set_cookie_params(3600);
       session_start();
   }
   if (!isset($_SESSION['theme'])) {
@@ -52,6 +57,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="CM Calculator - The unofficial compound interest calculator, ledger & planner for Continental Miners.">
   <script type="text/javascript" src="js/scripts.js"></script>
+  <script type="text/javascript" src="js/menu.js"></script>
   <script type="text/javascript" src="js/big.min.js"></script>
   <script type="text/javascript" src="js/state-manager.js"></script>
   <script type="text/javascript" src="js/currencies.js"></script>
@@ -65,6 +71,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" href="btc.png">
   <link rel="stylesheet" type="text/css" href="styles/style.css">
+  <link rel="stylesheet" type="text/css" href="styles/menu.css">
   <link rel="stylesheet" type="text/css" href="styles/login.css">
   <link rel="stylesheet" type="text/css" href="icons/icons.css">
   <link rel="stylesheet" type="text/css" href="styles/tooltip.css">
@@ -74,10 +81,11 @@
 
 <body class="<?php echo $_SESSION['theme']; ?>">
   <div class="title-bar">
-    <div class="title">
-      <div style="width:30px;height:30px;min-width:30px;margin-right:10px;background-image: url('btc.png');background-size: cover;"></div>
-      CM Calculator
-    </div>
+    <div class="title-bar-item-wrapper">
+      <div class="title">
+        <div style="width:30px;height:30px;min-width:30px;margin-right:10px;background-image: url('btc.png');background-size: cover;"></div>
+        CM Calculator
+      </div>
 
     <?php if (isset($_SESSION["user"])) { ?>
     <div class="title welcome">
@@ -85,56 +93,98 @@
     </div>
     <?php }?>
 
-    <div class="toolbar right">
-      <!--onclick="open_modal_login()"-->
-      <?php if (!isset($_SESSION["user"])) { ?>
-      <div class="button super-button bold btn-green" title="Register for advanced features!" id="btnRegister" onclick="open_modal_register()">
-        <div class="button-icon icon icon-left icon-small icon-id_user"></div>
-        <div class="button-text">
-          Register
-        </div>
-      </div>
-      <div class="button super-button bold" title="Login for advanced features!" id="btnLogin" onclick="open_modal_login()">
-        <div class="button-icon icon icon-left icon-small icon-lock_open"></div>
-        <div class="button-text">
-          Login
-        </div>
-      </div>
-    <?php } else { ?>
-
-      <div class="button super-button bold" title="Log out" id="btnLogout" onclick="logout()">
-        <div class="button-icon icon icon-left icon-small icon-error_shield"></div>
-        <div class="button-text">
-          Logout
-        </div>
-      </div>
-
-      <div class="button super-button bold" title="Log out" id="btnProfile" onclick="open_modal_profile()">
-        <div class="button-icon icon icon-left icon-small icon-id_user"></div>
-        <div class="button-text">
-          My Profile
-        </div>
-      </div>
-    <?php } ?>
-      <!-- <div class="button super-button bold" title="End session and log out" id="btnLogout" onclick="logout()">
-        <div class="button-icon icon icon-left icon-small icon-lock-1"></div>
-        <div class="button-text">
-          Logout
-        </div>
-      </div> -->
-
-      <div class="button super-button bold" title="Toggle Dark Mode" id="toggleDarkMode" onclick="toggleDarkMode()">
-        <div class="button-icon icon icon-small icon-bulb_light"></div>
-      </div>
-      <div class="button super-button bold" title="About cmcalculator" id="btnAbout"
-        onclick="showTooltip('About cmcalculator','cmcalculator is a tool to help you (and your friends!) plan your investment strategy, and reach financial goals.<br /><br />It started as a side project to calculate compound interest, and now it is under active development with new features in the pipelines.<br /><br />cmcalculator is not an official Continental Miners app, nor is it affiliated with or endorsed by them.<br /><br />Please subscribe to the telegram channel (link at the bottom of the webpage), and if cmcalculator has helped you at all, please consider donating (BTC address at the bottom of the webpage) ')">
-        <div class="button-icon icon icon-left icon-small icon-cat"></div>
-        <div class="button-text">
-          About
-        </div>
-      </div>
     </div>
-  </div>
+
+    <div class="title-bar-item-wrapper toolbar right">
+        <!--onclick="open_modal_login()"-->
+        <?php if (!isset($_SESSION["user"])) { ?>
+        <div class="button super-button bold btn-green" title="Register for advanced features!" id="btnRegister" onclick="open_modal_register()">
+          <div class="button-icon icon icon-left icon-small icon-id_user"></div>
+          <div class="button-text">
+            Register
+          </div>
+        </div>
+        <div class="button super-button bold" title="Login for advanced features!" id="btnLogin" onclick="open_modal_login()">
+          <div class="button-icon icon icon-left icon-small icon-lock_open"></div>
+          <div class="button-text">
+            Login
+          </div>
+        </div>
+      <?php } else { ?>
+
+        <div class="button super-button bold" title="Log out" id="btnLogout" onclick="logout()">
+          <div class="button-icon icon icon-left icon-small icon-error_shield"></div>
+          <div class="button-text">
+            Logout
+          </div>
+        </div>
+
+
+      <?php } ?>
+        <!-- <div class="button super-button bold" title="End session and log out" id="btnLogout" onclick="logout()">
+          <div class="button-icon icon icon-left icon-small icon-lock-1"></div>
+          <div class="button-text">
+            Logout
+          </div>
+        </div> -->
+
+
+        <div class="button super-button bold" title="Main menu" id="btnAbout"
+          onclick="toggleMenu('menu-main')">
+          <div class="button-icon icon icon-left icon-small icon-menu"></div>
+          <div class="button-text">
+            Menu
+          </div>
+        </div>
+        <!-- <div class="button super-button bold hidden" title="Share CM Calculator" id="btnShare"
+          onclick="">
+          <div class="button-icon icon icon-left icon-small icon-bubbles-3"></div>
+          <div class="button-text">
+            Share
+          </div>
+        </div> -->
+    </div><!-- title-bar-item-wrapper -->
+    <div id="menu-main" class="menu hidden">
+
+      <div class="menu-item-wrapper">
+        <div class="menu-item">
+          <div class="button super-button bold" title="My Profile" id="btnProfile" onclick="open_modal_profile()">
+            <div class="button-icon icon icon-left icon-small icon-user-1"></div>
+            <div class="button-text">
+              My Profile
+            </div>
+          </div>
+        </div><!-- menu-item -->
+
+        <div class="menu-item">
+          <div class="button super-button bold" title="Toggle Dark Mode" id="toggleDarkMode" onclick="toggleDarkMode()">
+            <div class="button-icon icon icon-small icon-bulb_light"></div>
+            <div class="button-text">
+              Mode
+            </div>
+          </div>
+        </div><!-- menu-item -->
+        <div class="menu-item">
+          <div class="button super-button bold" title="About CM Calculator" id="btnAbout"
+            onclick="showTooltip('About cmcalculator','cmcalculator is a tool to help you (and your friends!) plan your investment strategy, and reach financial goals.<br /><br />It started as a side project to calculate compound interest, and now it is under active development with new features in the pipelines.<br /><br />cmcalculator is not an official Continental Miners app, nor is it affiliated with or endorsed by them.<br /><br />Please subscribe to the telegram channel (link at the bottom of the webpage), and if cmcalculator has helped you at all, please consider donating (BTC address at the bottom of the webpage) ')">
+            <div class="button-icon icon icon-left icon-small icon-cat"></div>
+            <div class="button-text">
+              About
+            </div>
+          </div>
+        </div><!-- menu-item -->
+        <div class="menu-item">
+          <div class="button super-button bold" title="Close menu" onclick="toggleMenu('menu-main')">
+            <div class="button-icon icon icon-left icon-small icon-error_sign"></div>
+            <div class="button-text">
+              Close
+            </div>
+          </div>
+        </div><!-- menu-item -->
+      </div><!-- menu-item-wrapper -->
+
+    </div><!-- menu -->
+  </div> <!-- title-bar -->
   <div class="main">
 
     <!-- <div class="tab-bar">
@@ -234,12 +284,11 @@
             onclick="showTooltip('Single Investment Calculator','Useful to quickly analyse the earnings of a single investment.<br/><br/>An investment is opened as soon as you make a deposit or reinvest, and will generate a fixed percentage interest <b>DAILY</b> for the duration of the investment length.<br/><br/>Investment interest rate and duration changes with investment level (silver, gold, VIP) which is based on the amount spent on the investment. ')">
           </div>
         </div>
-
         <div class="container toolbar center hidden calculator-cc-buttons">
           <div class="title small">Currency conversions</div>
           <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
             class="button radio-button selected hidden">
-            <div class="radio-button-text bold">&#x20bf;</div>
+            <div class="radio-button-text bold">B</div>
           </div>
           <div id="btnUSD" data-calculator-cc="USD" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('USD')" class="button radio-button hidden">
             <div class="radio-button-text bold">$</div>
@@ -249,6 +298,39 @@
           </div>
         </div>
 
+
+        <div class="container info">
+          Investment Levels:
+          <br />
+          <br />
+          <table>
+            <tr>
+              <th>Level</th>
+              <th>Required</th>
+              <th>Interest Rate</th>
+            </tr>
+            <tr>
+              <td>Silver</td>
+              <td>From 0.0028 BTC</td>
+              <td>1.4 %</td>
+            </tr>
+            <tr>
+              <td>Gold</td>
+              <td>From 2.1 BTC</td>
+              <td>2.22 %</td>
+            </tr>
+            <tr>
+              <td>VIP</td>
+              <td>From 15.1 BTC to 100 BTC</td>
+              <td>3.7 %</td>
+            </tr>
+          </table>
+          <!-- <ul>
+            <li><b>Silver</b>&lt;<span>1 BTC</span> - <span>1.4</span>%</li>
+            <li><b>Gold</b>&lt;<span>15.1 BTC</span> - <span>2.22</span>%</li>
+            <li><b>VIP</b>&gt;<span>15.1 BTC</span> - <span>3.7</span>%</li>
+          </ul> -->
+        </div>
         <br />
 
         <div class="controlAndLabelWrapper">
@@ -330,38 +412,6 @@
             </div>
           </div>
         </div>
-        <div class="container info">
-          Investment Levels:
-          <br />
-          <br />
-          <table>
-            <tr>
-              <th>Level</th>
-              <th>Required</th>
-              <th>Interest Rate</th>
-            </tr>
-            <tr>
-              <td>Silver</td>
-              <td>0.0028 BTC to 2 BTC</td>
-              <td>1.4 %</td>
-            </tr>
-            <tr>
-              <td>Gold</td>
-              <td>2.1 BTC to 15 BTC</td>
-              <td>2.22 %</td>
-            </tr>
-            <tr>
-              <td>VIP</td>
-              <td>15.1 BTC to 100 BTC</td>
-              <td>3.7 %</td>
-            </tr>
-          </table>
-          <!-- <ul>
-            <li><b>Silver</b>&lt;<span>1 BTC</span> - <span>1.4</span>%</li>
-            <li><b>Gold</b>&lt;<span>15.1 BTC</span> - <span>2.22</span>%</li>
-            <li><b>VIP</b>&gt;<span>15.1 BTC</span> - <span>3.7</span>%</li>
-          </ul> -->
-        </div>
       </div>
       <!-- TABLE: 180 -->
       <div class="container hidden">
@@ -379,7 +429,7 @@
             <div class="title small">Currency conversions</div>
             <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
               class="button radio-button selected hidden">
-              <div class="radio-button-text bold">&#x20bf;</div>
+              <div class="radio-button-text bold">B</div>
             </div>
             <div id="btnUSD" data-calculator-cc="USD" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('USD')" class="button radio-button hidden">
               <div class="radio-button-text bold">$</div>
@@ -414,15 +464,15 @@
 
         <div class="toolbar center">
           <div class="button super-button" onclick="cc_set_btc(0.0028)">
-            <div class="bold">&#x20bf; 0.0028</div>
+            <div class="bold">B 0.0028</div>
             <div class="button-subtext">min to reinvest</div>
           </div>
           <div class="button super-button" onclick="cc_set_btc(0.14894)">
-            <div class="bold">&#x20bf; 0.14894</div>
+            <div class="bold">B 0.14894</div>
             <div class="button-subtext">generates 0.0028 daily (@ 1.88%)</div>
           </div>
           <div class="button super-button" onclick="cc_set_btc(0.2)">
-            <div class="bold">&#x20bf; 0.2</div>
+            <div class="bold">B 0.2</div>
             <div class="button-subtext">generates 0.0028 daily (@ 1.4%)</div>
           </div>
         </div>
@@ -431,7 +481,7 @@
         <div class="controlAndLabelWrapper">
           <label for="cc_btc">Bitcoin</label>
           <div class="controlWrapper">
-            <input id="cc_btc" name="cc_btc" placeholder="Bitcoin" type="number" class="number" onInput="cc_onchange('cc_btc')" onclick="cc_onclick(this)" /><b>&#x20bf;</b>
+            <input id="cc_btc" name="cc_btc" placeholder="Bitcoin" type="number" class="number" onInput="cc_onchange('cc_btc')" onclick="cc_onclick(this)" /><b>B</b>
           </div>
         </div>
         <br />
@@ -498,10 +548,16 @@
   <div style="width:100%;text-align:center;">
     <div class="divider"></div>
     <br />
-    Useful? Donate BTC :) <b><span>36mCGspguTLP5tx74U3dmPp6xxEMvkmWV1</span></b>
+    <p>
+      Useful? Donate BTC :) <b><span>36mCGspguTLP5tx74U3dmPp6xxEMvkmWV1</span></b>
+    </p>
+    <p>
+      <i>Copyright &copy; 2020 cmcalculator.com</i>
+    </p>
   </div>
-  <a href="disclaimer.html" target="_blank" style="float:right;margin:15px 25px 0 0;">Disclaimer, T's & C's</a>&nbsp;&nbsp;
-  <a href="https://t.me/cmcalculator" target="_blank" style="float:right;margin:15px 25px 0 0;">Join Telegram Channel</a>
+
+  <a href="disclaimer.html" target="_blank" style="float:right;margin:15px 25px 5px 0;">Disclaimer, T's & C's</a>&nbsp;&nbsp;
+  <a href="https://t.me/cmcalculator" target="_blank" style="float:right;margin:15px 25px 5px 0;">Join Telegram Channel</a>
 
   <!-- tooltip -->
   <div class="tooltip-background-blur"></div>

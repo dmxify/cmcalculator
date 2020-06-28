@@ -118,7 +118,7 @@
   --y: -192px;
 }
 
-.icon-user {
+.icon-user-1 {
   --x: -256px;
   --y: -0;
 }
@@ -168,7 +168,7 @@
   --y: -0;
 }
 
-.icon-user {
+.icon-user-2 {
   --x: -320px;
   --y: -64px;
 }
@@ -228,7 +228,7 @@
   --y: -64px;
 }
 
-.icon-bubbles {
+.icon-bubbles-1 {
   --x: -384px;
   --y: -128px;
 }
@@ -308,7 +308,7 @@
   --y: -256px;
 }
 
-.icon-bubbles {
+.icon-bubbles-2 {
   --x: -448px;
   --y: -320px;
 }
@@ -328,7 +328,7 @@
   --y: -448px;
 }
 
-.icon-bubbles {
+.icon-bubbles-3 {
   --x: -128px;
   --y: -448px;
 }
@@ -578,7 +578,7 @@
   --y: -448px;
 }
 
-.icon-bubbles {
+.icon-bubbles-4 {
   --x: -640px;
   --y: -512px;
 }
@@ -928,4 +928,14 @@
 .icon-btc {
   background-image: url('../btc.png') !important;
   background-size: cover;
+}
+
+.icon-menu {
+  background-image: url('menu.png') !important;
+  background-size: cover;
+  filter: brightness(4);
+}
+
+.dark .icon-menu {
+  filter: brightness(3);
 }

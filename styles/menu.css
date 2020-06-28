@@ -1,0 +1,30 @@
+.menu {
+  display: flex;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  justify-content: flex-end;
+  background-color: #f4e7d7;
+  border: 2px solid #f3d0a5;
+  padding: 4px;
+  border-radius: 3px;
+}
+
+.dark .menu {
+  background-color: #bfa27f;
+  border: 2px solid #a96818;
+}
+
+.menu.hidden {
+  display: none;
+}
+
+.menu-item-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.menu-item {}
+
+.menu-button-close {}
+
+.menu-button-close:hover {}

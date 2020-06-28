@@ -18,6 +18,7 @@ margin:5px;
   font-size: 14pt;
   padding: 10px;
 }
+
 .container .title.small {
   font-size: 11pt;
 }
@@ -26,9 +27,8 @@ margin:5px;
   font-size: 12pt;
   padding: 5px;
 }
-.dark .title.welcome {
 
-}
+.dark .title.welcome {}
 
 .title-bar {
   flex-wrap: wrap;
@@ -39,6 +39,12 @@ margin:5px;
 
 .title-bar a {
   font-size: 14pt;
+}
+
+.title-bar-item-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
 }
 
 /* TABS */
@@ -380,9 +386,9 @@ div.link .text {
   background-color: #bfa27f;
   border: 2px solid #a96818;
 }
-.dark .container.toolbar .title {
-  color:#262626;
 
+.dark .container.toolbar .title {
+  color: #262626;
 }
 
 .container.info table {
