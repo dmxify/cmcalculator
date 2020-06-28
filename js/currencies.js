@@ -41,6 +41,7 @@ const CURRENCIES = {
       BTC: btc,
       USD: usd,
       ZAR: zar,
+      BTC_pretty: Big(btc) + " BTC",
       USD_pretty: formatterUSD.format(usd),
       ZAR_pretty: formatterZAR.format(zar)
     };

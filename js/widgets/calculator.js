@@ -6,6 +6,7 @@ window.calculator = {
   rate: Big(0.014),
   earnings: Big(0),
   totalInvestment: Big(0),
+  numActiveInvestments: Big(0),
   reinvest: true,
   minToReinvest: Big(0.0028),
   setCurrency: function(currencyCode) {
@@ -65,10 +66,10 @@ window.calculator = {
 
     switch (reinvest) {
       case true:
-        document.querySelector(".ui_calculator_reinvest").innerHTML = "Yes, always.";
+        document.querySelector(".ui_calculator_reinvest").innerHTML = "Yes, always reinvest as soon as possible.";
         break;
       case false:
-        document.querySelector(".ui_calculator_reinvest").innerHTML = "No, never.";
+        document.querySelector(".ui_calculator_reinvest").innerHTML = "No, never reinvest. Accumulate my balance only!";
         break;
       default:
         break;
@@ -194,19 +195,21 @@ function generateTable() {
 
   // clear previous calculations:
 
+  window.calculator.numActiveInvestments = Big(1);
+
   // document.getElementById("earnings").value = 0;
   window.calculator.totalInvestment = window.calculator.principal;
 
 
   // delete table
-  document.getElementById("table180Wrapper").innerHTML = "";
-  document.getElementById("table180Summary").innerHTML = "";
+  document.getElementById("tableInvestmentWrapper").innerHTML = "";
 
   if (window.calculator.totalInvestment > 0 && window.calculator.rate > 0 && window.calculator.minToReinvest > 0 && window.calculator.principal.gte(window.calculator.minToReinvest)) {
 
     var json = generateInvestmentData();
     /* Table Heading */
-    var table = document.createElement("table");
+    var tableInvestment = document.createElement("table");
+    var tableSummary = document.createElement("table");
     var tr = document.createElement("tr");
     var th_days = document.createElement("th");
     th_days.style.width = "20px";
@@ -239,11 +242,16 @@ function generateTable() {
     }
 
     /* Build DOM */
+
+
+    /* Investment table */
+    tr = document.createElement("tr");
     tr.appendChild(th_days);
     tr.appendChild(th_transaction_type);
     tr.appendChild(th_earnings);
     tr.appendChild(th_amount);
-    table.appendChild(tr);
+    tableInvestment.appendChild(tr);
+
     //var accumulatedInvestment = 0;
     /* Table body */
     for (var i = 0; i < json.arrdata.length; i++) {
@@ -265,13 +273,13 @@ function generateTable() {
           var reinvest_link = document.createElement("div");
 
           var reinvest_link_icon = document.createElement("div");
-          reinvest_link_icon.setAttribute("title","Show reinvestment calculation");
+          reinvest_link_icon.setAttribute("title", "Show reinvestment calculation");
           reinvest_link_icon.classList.add('icon');
           reinvest_link_icon.classList.add('icon-tiny');
           reinvest_link_icon.classList.add('icon-pin');
 
           var reinvest_link_text = document.createElement("div");
-          reinvest_link_text.setAttribute("title","Show reinvestment calculation");
+          reinvest_link_text.setAttribute("title", "Show reinvestment calculation");
           reinvest_link_text.classList.add('text');
           reinvest_link_text.innerHTML = "Reinvest >";
 
@@ -326,27 +334,41 @@ function generateTable() {
       tr.appendChild(td_transaction_type);
       tr.appendChild(td_earnings);
       tr.appendChild(td_investment);
-      table.appendChild(tr);
+      tableInvestment.appendChild(tr);
     }
 
     // get selected currency
     var conversions = CURRENCIES.convert("BTC", window.calculator.totalInvestment);
-    var totalEarnings_btc = conversions['BTC'];
+    var totalEarnings_btc = conversions['BTC_pretty'];
 
     var totalEarnings_usd = conversions['USD_pretty'];
     var totalEarnings_zar = conversions['ZAR_pretty'];
 
     if (window.calculator.reinvest) {
-      var span = document.createElement("span");
-      span.innerHTML = "<b>After " + getInvestmentLength() + " days, your active investments</b><br/>(compounded interest - investment) is <br /><br /><b>" + totalEarnings_btc + "</b> BTC | <b>" + totalEarnings_usd + "</b> USD | <b>" + totalEarnings_zar + "</b> ZAR<br /><br />";
-      document.getElementById("table180Summary").appendChild(span);
+      document.getElementById("pleaseNoteOngoingReinvestments").classList.remove("hidden");
     } else {
-      var span = document.createElement("span");
-      span.innerHTML = "<b>After " + getInvestmentLength() + " days, your earnings will be</b><br /><br /><b>" + cc_earnings["BTC"] + "</b> BTC | <b>" + cc_earnings["USD_pretty"] + "</b> USD | <b>" + cc_earnings["ZAR_pretty"] + "</b> ZAR<br /><br />";
-      document.getElementById("table180Summary").appendChild(span);
+      document.getElementById("pleaseNoteOngoingReinvestments").classList.add("hidden");
     }
-    document.getElementById("table180Wrapper").appendChild(table);
-    document.getElementById("table180Wrapper").parentElement.classList.remove("hidden");
+
+    document.getElementById("tableSummary_investmentLength").innerHTML = "On day " + getInvestmentLength() + " your initial investment expires. " + ((window.calculator.reinvest) ? (window.calculator.numActiveInvestments + " active reinvestments remain!") : "");
+    document.getElementById("tableSummary_initialInvestment_btc").innerHTML = CURRENCIES.convert("BTC", window.calculator.principal)["BTC_pretty"];
+    document.getElementById("tableSummary_initialInvestment_usd").innerHTML = CURRENCIES.convert("BTC", window.calculator.principal)["USD_pretty"];
+    document.getElementById("tableSummary_initialInvestment_zar").innerHTML = CURRENCIES.convert("BTC", window.calculator.principal)["ZAR_pretty"];
+    document.getElementById("tableSummary_activeInvestmentsCount").innerHTML = window.calculator.numActiveInvestments;
+
+    document.getElementById("tableSummary_totalInvestments_btc").innerHTML = totalEarnings_btc;
+    document.getElementById("tableSummary_totalInvestments_usd").innerHTML = totalEarnings_usd;
+    document.getElementById("tableSummary_totalInvestments_zar").innerHTML = totalEarnings_zar;
+
+    document.getElementById("tableSummary_balance_btc").innerHTML = cc_earnings["BTC_pretty"];
+    document.getElementById("tableSummary_balance_usd").innerHTML = cc_earnings["USD_pretty"];
+    document.getElementById("tableSummary_balance_zar").innerHTML = cc_earnings["ZAR_pretty"];
+
+    document.getElementById("pleaseNoteOngoingReinvestments").innerHTML = "* Please note that you may still have " + window.calculator.numActiveInvestments + " ongoing reinvestments after " + getInvestmentLength() + " days!";
+
+    document.getElementById("tableSummaryWrapper").parentElement.classList.remove("hidden");
+    document.getElementById("tableInvestmentWrapper").appendChild(tableInvestment);
+    document.getElementById("tableInvestmentWrapper").parentElement.classList.remove("hidden");
   } else {
     document.getElementById("principal").focus();
   }
@@ -383,8 +405,8 @@ function generateInvestmentData() {
       if (window.calculator.reinvest) {
         // reinvest if more than minToReinvest, and clear earnings
         // if (days > 0 && earnings >= window.calculator.minToReinvest) {
-        if (days > 0 && earnings.gt(window.calculator.minToReinvest)) {
-
+        if (days > 0 && earnings.gte(window.calculator.minToReinvest)) {
+          window.calculator.numActiveInvestments = window.calculator.numActiveInvestments.plus(1);
           window.calculator.totalInvestment = window.calculator.totalInvestment.plus(earnings);
 
           var reinvestedAmount = Big(earnings);
@@ -402,7 +424,7 @@ function generateInvestmentData() {
       // day investment ends
       if (days == getInvestmentLength()) {
         window.calculator.totalInvestment = window.calculator.totalInvestment.minus(window.calculator.principal);
-
+        window.calculator.numActiveInvestments = window.calculator.numActiveInvestments.minus(1);
         if (window.calculator.reinvest) {
           earnings = "";
         } else {
@@ -445,11 +467,11 @@ function reset() {
 
   // reset total investment
   window.calculator.totalInvestment = Big(0);
+  window.calculator.numActiveInvestments = Big(0);
   document.getElementById("daysBeforeReinvestment").innerHTML = 0;
   // delete table
-  document.getElementById("table180Wrapper").parentElement.classList.add("hidden");
-  document.getElementById("table180Wrapper").innerHTML = "";
-  document.getElementById("table180Summary").innerHTML = "";
+  document.getElementById("tableInvestmentWrapper").parentElement.classList.add("hidden");
+  document.getElementById("tableInvestmentWrapper").innerHTML = "";
 
   document.getElementById("principal").focus();
   document.getElementById("principal").select()

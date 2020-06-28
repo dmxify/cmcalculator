@@ -129,8 +129,7 @@
         </div> -->
 
 
-        <div class="button super-button bold" title="Main menu" id="btnAbout"
-          onclick="toggleMenu('menu-main')">
+        <div class="button super-button bold" title="Main menu" id="btnMenu" onclick="toggleMenu('menu-main')">
           <div class="button-icon icon icon-left icon-small icon-menu"></div>
           <div class="button-text">
             Menu
@@ -147,6 +146,7 @@
     <div id="menu-main" class="menu hidden">
 
       <div class="menu-item-wrapper">
+        <?php if (isset($_SESSION["user"])) { ?>
         <div class="menu-item">
           <div class="button super-button bold" title="My Profile" id="btnProfile" onclick="open_modal_profile()">
             <div class="button-icon icon icon-left icon-small icon-user-1"></div>
@@ -155,7 +155,7 @@
             </div>
           </div>
         </div><!-- menu-item -->
-
+        <?php } ?>
         <div class="menu-item">
           <div class="button super-button bold" title="Toggle Dark Mode" id="toggleDarkMode" onclick="toggleDarkMode()">
             <div class="button-icon icon icon-small icon-bulb_light"></div>
@@ -165,8 +165,17 @@
           </div>
         </div><!-- menu-item -->
         <div class="menu-item">
+          <div class="button super-button bold" title="Help" id="btnHelp"
+            onclick="showTooltip('Under Development!','If you need assistance, please ask on the discussion group found on the Telegram channel: t.me/cmcalculator (link at the bottom of the webpage) ')">
+            <div class="button-icon icon icon-left icon-small icon-buoy_life"></div>
+            <div class="button-text">
+              Help!
+            </div>
+          </div>
+        </div><!-- menu-item -->
+        <div class="menu-item">
           <div class="button super-button bold" title="About CM Calculator" id="btnAbout"
-            onclick="showTooltip('About cmcalculator','cmcalculator is a tool to help you (and your friends!) plan your investment strategy, and reach financial goals.<br /><br />It started as a side project to calculate compound interest, and now it is under active development with new features in the pipelines.<br /><br />cmcalculator is not an official Continental Miners app, nor is it affiliated with or endorsed by them.<br /><br />Please subscribe to the telegram channel (link at the bottom of the webpage), and if cmcalculator has helped you at all, please consider donating (BTC address at the bottom of the webpage) ')">
+            onclick="showTooltip('About cmcalculator','cmcalculator is a tool to help you (and your friends!) plan your investment strategy, and reach financial goals.<br /><br />It started as a side project to calculate compound interest, and now it is under active development with new features in the pipelines.<br /><br />cmcalculator is not an official Continental Miners app, nor is it affiliated with or endorsed by them. (DISCLAIMER, TERMS & CONDITIONS link at the bottom of the web page)<br /><br />Please subscribe to the Telegram channel (link at the bottom of the webpage), and if cmcalculator has helped you at all, please consider donating (BTC address at the bottom of the webpage) ')">
             <div class="button-icon icon icon-left icon-small icon-cat"></div>
             <div class="button-text">
               About
@@ -389,7 +398,7 @@
                   <div class="button-icon icon icon-small icon-error_sign"></div>
                 </div>
               </div>
-              <b><span class="ui_calculator_reinvest">Yes, always.</span></b>
+              <b><span class="ui_calculator_reinvest">Yes, always reinvest as soon as possible.</span></b>
             </div>
           </div>
         </div>
@@ -418,13 +427,12 @@
         <div id="table180Toolbar" class="">
           <div class="title center">
             <div class="title-text">
-              Single Investment Table
+              Single Investment Results*
             </div>
             <div class="tooltip-trigger icon icon-small icon-right icon-info_sign" title="Click for info"
-              onclick="showTooltip('Single Investment Table','See the results of a single investment.<br/><br/>An investment is opened as soon as you make a deposit or reinvest, and will generate a fixed percentage interest <b>DAILY</b> for the duration of the investment length.<br/><br/>Investment interest rate and duration changes with investment level (silver, gold, VIP) which is based on the amount spent on the investment. ')">
+              onclick="showTooltip('Single Investment Results','See the results of a single investment. <b>*</b><br/><br/>An investment is opened as soon as you make a deposit or reinvest, and will generate a fixed percentage interest <b>DAILY</b> for the duration of the investment length.<br/><br/>Investment interest rate and duration changes with investment level (silver, gold, VIP) which is based on the amount spent on the investment.<br/><br/><b>* Please note that in the case of reinvesting, you may still have active investments out of this calculator\'s range</b>')">
             </div>
           </div>
-
           <div class="container toolbar center hidden calculator-cc-buttons">
             <div class="title small">Currency conversions</div>
             <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
@@ -439,9 +447,53 @@
             </div>
           </div>
         </div>
-        <div id="table180Summary" style="margin-top: 10px;">
+        <style>
+        #tableSummaryWrapper td {
+          text-align:left;
+          font-size:10pt;
+        }
+        #tableSummaryWrapper th {
+          font-size:10pt;
+        }
+        </style>
+        <div id="tableSummaryWrapper" class="container info">
+          <div class="title small bold">Summary:</div>
+          <table style="width:auto; margin:5px 15px;">
+            <tr>
+              <td></td>
+              <th>BTC</th>
+              <th>USD</th>
+              <th>ZAR</th>
+            </tr>
+            <tr>
+              <td>Initial Investment</td>
+              <td id="tableSummary_initialInvestment_btc"></td>
+              <td id="tableSummary_initialInvestment_usd"></td>
+              <td id="tableSummary_initialInvestment_zar"></td>
+            </tr>
+            <tr>
+              <td id="tableSummary_investmentLength" colspan="4" style="font-weight:normal; padding:5px 0;"></td>
+            </tr>
+            <tr>
+              <td style="font-weight:bold;">Active Investments</td>
+              <td id="tableSummary_activeInvestmentsCount" colspan="3" style="text-align:center; font-weight:bold;"></td>
+            </tr>
+            <tr>
+              <td>Active Investment Value</td>
+              <td id="tableSummary_totalInvestments_btc"></td>
+              <td id="tableSummary_totalInvestments_usd"></td>
+              <td id="tableSummary_totalInvestments_zar"></td>
+            </tr>
+            <tr>
+              <td>Earnings Balance</td>
+              <td id="tableSummary_balance_btc"></td>
+              <td id="tableSummary_balance_usd"></td>
+              <td id="tableSummary_balance_zar"></td>
+            </tr>
+          </table>
+          <div class="title hidden" id="pleaseNoteOngoingReinvestments" style="font-size:9pt;"></div>
         </div>
-        <div id="table180Wrapper" style="max-height:400px; overflow-y:scroll;">
+        <div id="tableInvestmentWrapper" style="max-height:400px; overflow-y:scroll;">
         </div>
       </div>
 
