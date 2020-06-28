@@ -604,7 +604,7 @@
       Useful? Donate BTC :) <b><span>36mCGspguTLP5tx74U3dmPp6xxEMvkmWV1</span></b>
     </p>
     <p>
-      <i>Copyright &copy; 2020 cmcalculator.com</i>
+      <a href="LICENSE"><i>Copyright &copy; 2020 cmcalculator.com</i></a>
     </p>
   </div>
 
