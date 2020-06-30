@@ -56,26 +56,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="CM Calculator - The unofficial compound interest calculator, ledger & planner for Continental Miners.">
-  <script type="text/javascript" src="js/scripts.js"></script>
-  <script type="text/javascript" src="js/menu.js"></script>
-  <script type="text/javascript" src="js/big.min.js"></script>
-  <script type="text/javascript" src="js/state-manager.js"></script>
-  <script type="text/javascript" src="js/currencies.js"></script>
-  <script type="text/javascript" src="js/tooltip.js"></script>
-  <script type="text/javascript" src="js/widgets.js"></script>
-  <script type="text/javascript" src="js/widgets/calculator.js"></script>
-  <script type="text/javascript" src="js/widgets/currency-converter.js"></script>
-  <script type="text/javascript" src="js/widgets/ledger.js"></script>
-  <script type="text/javascript" src="js/dynamic-globals.js"></script>
+  <script type="text/javascript" src="js/scripts.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/menu.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/big.min.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/state-manager.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/currencies.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/tooltip.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/widgets.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/widgets/calculator.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/widgets/currency-converter.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/widgets/ledger.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/dynamic-globals.js<?php url_params(); ?>"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" href="btc.png">
-  <link rel="stylesheet" type="text/css" href="styles/style.css">
-  <link rel="stylesheet" type="text/css" href="styles/menu.css">
-  <link rel="stylesheet" type="text/css" href="styles/login.css">
-  <link rel="stylesheet" type="text/css" href="icons/icons.css">
-  <link rel="stylesheet" type="text/css" href="styles/tooltip.css">
-  <link rel="stylesheet" type="text/css" href="styles/buttons.css">
+  <link rel="stylesheet" type="text/css" href="styles/style.css<?php url_params(); ?>">
+  <link rel="stylesheet" type="text/css" href="styles/menu.css<?php url_params(); ?>">
+  <link rel="stylesheet" type="text/css" href="styles/login.css<?php url_params(); ?>">
+  <link rel="stylesheet" type="text/css" href="icons/icons.css<?php url_params(); ?>">
+  <link rel="stylesheet" type="text/css" href="styles/tooltip.css<?php url_params(); ?>">
+  <link rel="stylesheet" type="text/css" href="styles/buttons.css<?php url_params(); ?>">
   <title>CM Calculator - Compound Interest Calculator | Ledger | Planner </title>
 </head>
 
@@ -602,10 +602,11 @@
 
 
     <p>
-      <a href="LICENSE"><i>Copyright &copy; 2020 cmcalculator.com</i></a>
+      <a href="LICENSE"><i>Copyright &copy; <?php echo date("Y");?> cmcalculator.com</i></a>
     </p>
   </div>
 
+  <span style="float:left;margin:15px 0px 5px 25px;">Version <?php echo get_version(); ?></span>
   <a href="disclaimer.html" target="_blank" style="float:right;margin:15px 25px 5px 0;">Disclaimer, T's & C's</a>&nbsp;&nbsp;
   <a href="https://t.me/cmcalculator" target="_blank" style="float:right;margin:15px 25px 5px 0;">Join Telegram Channel</a>
 
