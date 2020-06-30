@@ -342,7 +342,6 @@ function generateTable() {
     var totalEarnings_btc = conversions['BTC_pretty'];
 
     var totalEarnings_usd = conversions['USD_pretty'];
-    var totalEarnings_zar = conversions['ZAR_pretty'];
 
     if (window.calculator.reinvest) {
       document.getElementById("pleaseNoteOngoingReinvestments").classList.remove("hidden");
@@ -353,16 +352,13 @@ function generateTable() {
     document.getElementById("tableSummary_investmentLength").innerHTML = "On day " + getInvestmentLength() + " your initial investment expires. " + ((window.calculator.reinvest) ? (window.calculator.numActiveInvestments + " active reinvestments remain!") : "");
     document.getElementById("tableSummary_initialInvestment_btc").innerHTML = CURRENCIES.convert("BTC", window.calculator.principal)["BTC_pretty"];
     document.getElementById("tableSummary_initialInvestment_usd").innerHTML = CURRENCIES.convert("BTC", window.calculator.principal)["USD_pretty"];
-    document.getElementById("tableSummary_initialInvestment_zar").innerHTML = CURRENCIES.convert("BTC", window.calculator.principal)["ZAR_pretty"];
     document.getElementById("tableSummary_activeInvestmentsCount").innerHTML = window.calculator.numActiveInvestments;
 
     document.getElementById("tableSummary_totalInvestments_btc").innerHTML = totalEarnings_btc;
     document.getElementById("tableSummary_totalInvestments_usd").innerHTML = totalEarnings_usd;
-    document.getElementById("tableSummary_totalInvestments_zar").innerHTML = totalEarnings_zar;
 
     document.getElementById("tableSummary_balance_btc").innerHTML = cc_earnings["BTC_pretty"];
     document.getElementById("tableSummary_balance_usd").innerHTML = cc_earnings["USD_pretty"];
-    document.getElementById("tableSummary_balance_zar").innerHTML = cc_earnings["ZAR_pretty"];
 
     document.getElementById("pleaseNoteOngoingReinvestments").innerHTML = "* Please note that you may still have " + window.calculator.numActiveInvestments + " ongoing reinvestments after " + getInvestmentLength() + " days!";
 
@@ -474,7 +470,7 @@ function reset() {
   document.getElementById("tableInvestmentWrapper").innerHTML = "";
 
   document.getElementById("principal").focus();
-  document.getElementById("principal").select()
+  document.getElementById("principal").select();
 }
 
 function calculator_onEnterKeyup(event) {

@@ -450,48 +450,44 @@
         <style>
         #tableSummaryWrapper td {
           text-align:left;
-          font-size:10pt;
+          font-size:8pt;
         }
         #tableSummaryWrapper th {
-          font-size:10pt;
+          font-size:8pt;
         }
         </style>
-        <div id="tableSummaryWrapper" class="container info">
+        <div id="tableSummaryWrapper" class="container info" style="margin: 10px 0px;">
           <div class="title small bold">Summary:</div>
-          <table style="width:auto; margin:5px 15px;">
+          <table style="width:auto; margin:5px;">
             <tr>
               <td></td>
               <th>BTC</th>
               <th>USD</th>
-              <th>ZAR</th>
             </tr>
             <tr>
               <td>Initial Investment</td>
               <td id="tableSummary_initialInvestment_btc"></td>
               <td id="tableSummary_initialInvestment_usd"></td>
-              <td id="tableSummary_initialInvestment_zar"></td>
             </tr>
             <tr>
               <td id="tableSummary_investmentLength" colspan="4" style="font-weight:normal; padding:5px 0;"></td>
             </tr>
             <tr>
-              <td style="font-weight:bold;">Active Investments</td>
+              <td style="font-weight:bold;"># Active Investments</td>
               <td id="tableSummary_activeInvestmentsCount" colspan="3" style="text-align:center; font-weight:bold;"></td>
             </tr>
             <tr>
               <td>Active Investment Value</td>
               <td id="tableSummary_totalInvestments_btc"></td>
               <td id="tableSummary_totalInvestments_usd"></td>
-              <td id="tableSummary_totalInvestments_zar"></td>
             </tr>
             <tr>
               <td>Earnings Balance</td>
               <td id="tableSummary_balance_btc"></td>
               <td id="tableSummary_balance_usd"></td>
-              <td id="tableSummary_balance_zar"></td>
             </tr>
           </table>
-          <div class="title hidden" id="pleaseNoteOngoingReinvestments" style="font-size:9pt;"></div>
+          <div class="title hidden" id="pleaseNoteOngoingReinvestments" style="font-size:8pt;"></div>
         </div>
         <div id="tableInvestmentWrapper" style="max-height:400px; overflow-y:scroll;">
         </div>
@@ -600,9 +596,11 @@
   <div style="width:100%;text-align:center;">
     <div class="divider"></div>
     <br />
-    <p>
-      Useful? Donate BTC :) <b><span>36mCGspguTLP5tx74U3dmPp6xxEMvkmWV1</span></b>
-    </p>
+  <div class="container info" style="font-size:10pt;">
+    Useful? Donate BTC :) <br /><br /><span style="font-weight:bold;">36mCGspguTLP5tx74U3dmPp6xxEMvkmWV1</span>
+  </div>
+
+
     <p>
       <a href="LICENSE"><i>Copyright &copy; 2020 cmcalculator.com</i></a>
     </p>
