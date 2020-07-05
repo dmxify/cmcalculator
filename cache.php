@@ -1,6 +1,6 @@
 <?php
 
-$no_cache = true;
+$no_cache = false;
 
 function is_no_cache()
 {
