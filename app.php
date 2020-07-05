@@ -606,7 +606,7 @@
     </p>
   </div>
 
-  <span style="float:left;margin:15px 0px 5px 25px;">Version <?php echo get_version(); ?></span>
+  <a href="release-notes.php" target="_blank" style="float:left;margin:15px 0px 5px 25px;">Version <?php echo get_version(); ?></a>
   <a href="disclaimer.html" target="_blank" style="float:right;margin:15px 25px 5px 0;">Disclaimer, T's & C's</a>&nbsp;&nbsp;
   <a href="https://t.me/cmcalculator" target="_blank" style="float:right;margin:15px 25px 5px 0;">Join Telegram Channel</a>
 
