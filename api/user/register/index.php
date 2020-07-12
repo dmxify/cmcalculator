@@ -38,8 +38,8 @@ if (!isset($request['register_confirm_password'])) {
     echo json_encode($data);
     exit();
 }
-if (!isset($request['captcha_response_token'])) {
-    $data = ['error'=> true, 'errorMsg'=>'Password confirmation is missing.'];
+if (!isset($request['register_captcha_response_token'])) {
+    $data = ['error'=> true, 'errorMsg'=>'Captcha not solved.'];
     echo json_encode($data);
     exit();
 }
@@ -55,7 +55,7 @@ $is_captcha_verified = false;
 $url = 'https://www.google.com/recaptcha/api/siteverify';
 $data = array(
     'secret' => '6LesXKYZAAAAADT9tJUn104cB-kD-omPtOuln-Cd',
-    'response' => $request['captcha_response_token'],
+    'response' => $request['register_captcha_response_token'],
 'remoteip' => $_SERVER['REMOTE_ADDR']
 );
 $options = array(
@@ -93,7 +93,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 // $specialChars = preg_match('@[^\w]@', $request['password']);
 
 if (/*!$uppercase || !$lowercase || !$number || !$specialChars || */strlen($request['register_password']) < 8) {
-    $data = ['error'=> true, 'errorMsg'=>'Password should be at least 8 characters in length'];
+    $data = ['error'=> true, 'errorMsg'=>'Password must be at least 8 characters in length'];
     echo json_encode($data);
     exit();
 }
@@ -119,6 +119,9 @@ $stmt = $mysqli->prepare("INSERT INTO user SET name=?, email=?, password_hash=?,
 $stmt->bind_param("ssss", $name, $email, $password_hash, $verification_token);
 $stmt->execute();
 
+$emailSent = false;
+$msg = "";
+
 if (isset($stmt->insert_id)) {
     $user_id = $stmt->insert_id;
     $stmt->close();
@@ -128,9 +131,8 @@ if (isset($stmt->insert_id)) {
     $_SESSION['id'] = $user_id;
     $_SESSION['email'] = $email;
     $_SESSION['verified'] = false;
-    $_SESSION['type'] = 'alert-success';
+    $_SESSION['message-type'] = 'alert-success';
     $_SESSION['action'] = 'verify-email';
-    $msg = "";
     if ($emailSent) {
         $msg = <<<EOS
         <b>Verify Your Email Address</b>

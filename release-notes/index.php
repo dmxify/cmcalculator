@@ -1,5 +1,5 @@
 <?php
-require(__DIR__.'../version.php');
+include("../version.php");
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -8,7 +8,7 @@ require(__DIR__.'../version.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="CM Calculator - The unofficial compound interest calculator, ledger & planner for Continental Miners.">
 
-    <link rel="icon" type="image/png" href="../btc.png">
+    <link rel="icon" type="image/png" href="btc.png">
     <title>CM Calculator Release Notes - v<?php echo get_version(); ?></title>
   </head>
 
@@ -20,10 +20,10 @@ require(__DIR__.'../version.php');
         <div class="items features">
           <div class="title">New Features</div>
           <div class="item">Release Notes</div>
-          <div class="item">Forgot Password (Password Reset)</div>
+          <div class="item">Forgot Password</div>
         </div>
         <div class="items updates">
-          <div class="title">Updates</div>
+          <div class="title">Changes</div>
           <div class="item">Background color: slightly darker in default/light mode</div>
           <div class="item">Donate button: copies BTC wallet to clipboard</div>
         </div>

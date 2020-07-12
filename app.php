@@ -1,4 +1,5 @@
 <?php
+
   if (!isset($_SESSION)) {
       // server should keep session data for AT LEAST 1 hour
       ini_set('session.gc_maxlifetime', 3600);
@@ -11,12 +12,20 @@
       $_SESSION['theme'] = "light";
   }
 
-
   function handleSessionMessages($action)
   {
       if (isset($_SESSION['action'])) {
           if ($_SESSION['action']==$action) {
               echo $_SESSION['message'];
+          }
+      }
+  }
+
+  function handleSessionMessageType($action)
+  {
+      if (isset($_SESSION['action'])) {
+          if ($_SESSION['action']==$action) {
+              echo $_SESSION['message-type'];
           }
       }
   }
@@ -31,22 +40,22 @@
       return false;
   }
 
-    function getSessionEmail()
-    {
-        if (isset($_SESSION['email'])) {
-            return $_SESSION['email'];
-        }
-        return "";
-    }
-      function getSessionName()
-      {
-          if (isset($_SESSION['user'])) {
-              if (isset($_SESSION['user']['name'])) {
-                  return $_SESSION['user']['name'];
-              }
-          }
-          return "";
+  function getSessionEmail()
+  {
+      if (isset($_SESSION['email'])) {
+          return $_SESSION['email'];
       }
+      return "";
+  }
+  function getSessionName()
+  {
+      if (isset($_SESSION['user'])) {
+          if (isset($_SESSION['user']['name'])) {
+              return $_SESSION['user']['name'];
+          }
+      }
+      return "";
+  }
 
 ?>
 <!doctype html>
@@ -58,7 +67,9 @@
   <meta name="description" content="CM Calculator - The unofficial compound interest calculator, ledger & planner for Continental Miners.">
   <script type="text/javascript" src="js/scripts.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/menu.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/modals.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/big.min.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/clipboard.min.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/state-manager.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/currencies.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/tooltip.js<?php url_params(); ?>"></script>
@@ -72,7 +83,7 @@
   <link rel="icon" type="image/png" href="btc.png">
   <link rel="stylesheet" type="text/css" href="styles/style.css<?php url_params(); ?>">
   <link rel="stylesheet" type="text/css" href="styles/menu.css<?php url_params(); ?>">
-  <link rel="stylesheet" type="text/css" href="styles/login.css<?php url_params(); ?>">
+  <link rel="stylesheet" type="text/css" href="styles/modals.css<?php url_params(); ?>">
   <link rel="stylesheet" type="text/css" href="icons/icons.css<?php url_params(); ?>">
   <link rel="stylesheet" type="text/css" href="styles/tooltip.css<?php url_params(); ?>">
   <link rel="stylesheet" type="text/css" href="styles/buttons.css<?php url_params(); ?>">
@@ -98,13 +109,13 @@
     <div class="title-bar-item-wrapper toolbar right">
         <!--onclick="open_modal_login()"-->
         <?php if (!isset($_SESSION["user"])) { ?>
-        <div class="button super-button bold btn-green" title="Register for advanced features!" id="btnRegister" onclick="open_modal_register()">
+        <div class="button super-button bold btn-green" title="Register for advanced features!" id="btnRegister" onclick="open_modal('modalRegister')">
           <div class="button-icon icon icon-left icon-small icon-id_user"></div>
           <div class="button-text">
             Register
           </div>
         </div>
-        <div class="button super-button bold" title="Login for advanced features!" id="btnLogin" onclick="open_modal_login()">
+        <div class="button super-button bold" title="Login for advanced features!" id="btnLogin" onclick="open_modal('modalLogin')">
           <div class="button-icon icon icon-left icon-small icon-lock_open"></div>
           <div class="button-text">
             Login
@@ -596,17 +607,21 @@
   <div style="width:100%;text-align:center;">
     <div class="divider"></div>
     <br />
-  <div class="container info" style="font-size:10pt;">
-    Useful? Donate BTC :) <br /><br /><span style="font-weight:bold;">36mCGspguTLP5tx74U3dmPp6xxEMvkmWV1</span>
-  </div>
-
-
+    <div id="donate_btc_address_wrapper" class="container info hover clipboard" style="font-size:10pt;cursor:pointer;" data-clipboard-target="#donate_btc_address">
+      <div style="margin:5px;">
+        Find this useful? <span style="font-size:14pt">🙄</span> Please donate!
+      </div>
+      <div style="display: flex;align-items: center; justify-content: center; flex-wrap: wrap;">
+        <div style="width:90px;height:90px;min-width:90px;background-image: url('btc.png');background-size: cover;"></div><div style="font-weight:bold; margin:5px 10px;" id="donate_btc_address">36mCGspguTLP5tx74U3dmPp6xxEMvkmWV1</div>
+      </div>
+      <span id="donate_btc_address_copied" class="animation click" style="margin:5px;"><span style="font-size:14pt">👉</span>&nbsp;Click to copy&nbsp;<span style="font-size:14pt">📋</span</span>
+    </div>
     <p>
       <a href="LICENSE"><i>Copyright &copy; <?php echo date("Y");?> cmcalculator.com</i></a>
     </p>
   </div>
 
-  <a href="release-notes.php" target="_blank" style="float:left;margin:15px 0px 5px 25px;">Version <?php echo get_version(); ?></a>
+  <a href="release-notes" target="_blank" style="float:left;margin:15px 0px 5px 25px;">Version <?php echo get_version(); ?> release notes</a>
   <a href="disclaimer.html" target="_blank" style="float:right;margin:15px 25px 5px 0;">Disclaimer, T's & C's</a>&nbsp;&nbsp;
   <a href="https://t.me/cmcalculator" target="_blank" style="float:right;margin:15px 25px 5px 0;">Join Telegram Channel</a>
 
@@ -620,219 +635,60 @@
 
   <!-- end buttons -->
 
-  <div id="loginModal" style="font-family: Arial, Helvetica, sans-serif;">
+  <?php include("modals/modal-login.php"); ?>
+  <?php include("modals/modal-register.php"); ?>
+  <?php include("modals/modal-forgot-password.php"); ?>
+  <?php include("modals/modal-change-password.php"); ?>
 
-
-    <div id="id01" class="modal">
-
-      <div class="modal-content animate">
-        <div class="imgcontainer title">
-          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close login window">&times;</span>
-          <img src="btc.png" alt="Avatar" class="avatar">
-          <div style="font-size: 20pt; margin-left: 20px;">CM Calculator</div>
-        </div>
-        <div class="container">
-          <form onsubmit="return login();" method="post">
-            <?php if (isSessionAction('login')) { ?>
-            <div class="success-message">
-              <?php handleSessionMessages('login'); ?>
-            </div>
-          <?php } ?>
-            <div class="title bold">
-              Existing user login:
-            </div>
-            <br />
-            <label for="email"><b>Email Address</b></label>
-            <input id="login_email" type="text" placeholder="Enter Email Address" autocomplete="username" name="email" value="<?php echo getSessionEmail(); ?>" required>
-
-            <label for="password"><b>Password</b></label>
-            <input id="login_password" type="password" autocomplete="current-password" placeholder="Enter Password" name="password" required>
-
-            <!-- <button onclick="login()">Login</button> -->
-            <input type="submit" value="Login" id="login_btnSubmit" />
-            <div id="login_button_mask">
-              <div class="loading-animation" id="login_loading">
-                Logging in...
-              </div>
-            </div>
-          </form>
-          <div id="login-msg"></div>
-        </div>
-
-        <div class="container" >
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      // Get the modal
-      var modal1 = document.getElementById('id01');
-      var modal2 = document.getElementById('id02');
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-        switch (event.target) {
-          case modal1:
-            modal1.style.display = "none";
-            break;
-          case modal2:
-            modal2.style.display = "none";
-            break;
-          default:
-            break;
-        }
-      }
-
-      function login() {
-        document.getElementById("login_btnSubmit").style.display = "none";
-        document.getElementById("login_button_mask").style.display = "block";
-
-        fetch('api/user/login/index.php', {
-            method: 'post',
-            headers: {
-              'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              email: document.getElementById('login_email').value,
-              password: document.getElementById('login_password').value
-            })
-          })
-          .then(response => response.json())
-          .then((data) => {
-            if (!data.verified) {
-              document.getElementById("login-msg").innerHTML = "Invalid email address or password.";
-              document.getElementById("login-msg").style.display = "block";
-              document.getElementById("login_btnSubmit").style.display = "block";
-              document.getElementById("login_button_mask").style.display = "none";
-            } else {
-                window.location.reload();
-            }
-          });
-        return false;
-      }
-
-      function logout(){
-        fetch('api/user/logout/index.php').then(()=>{
-            window.location.reload();
-        });
-      }
-    </script>
-
-  </div>
-
-  <div id="registerModal" style="font-family: Arial, Helvetica, sans-serif;">
-
-    <div id="id02" class="modal">
-
-      <div class="modal-content animate">
-        <div class="imgcontainer title">
-          <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close register window">&times;</span>
-          <img src="btc.png" alt="Avatar" class="avatar">
-          <div style="font-size: 20pt; margin-left: 20px;">CM Calculator</div>
-        </div>
-        <div class="container">
-          <form onsubmit="return register();" method="post">
-            <div class="title bold">
-              New user registration:
-            </div>
-            <br />
-
-              <label for="register_name"><b>First Name</b></label>
-              <input id="register_name" name="register_name" type="text" placeholder="Enter First Name" autocomplete="given-name" required>
-
-              <label for="register_email"><b>Email Address</b></label>
-              <input id="register_email" name="register_email" type="text" placeholder="Enter Email Address" autocomplete="username" required>
-
-              <label for="password"><b>Set Password</b></label>
-              <input id="register_password" name="register_password" type="password" autocomplete="new-password" placeholder="Enter New Password" required>
-
-              <label for="password"><b>Confirm Password</b></label>
-              <input id="register_confirm_password" name="register_confirm_password" type="password" autocomplete="new-password" placeholder="Confirm Password" required>
-
-              <div class="g-recaptcha" data-sitekey="6LesXKYZAAAAAOg5KsgrKPyds_elGqXAnaZFDr6v" data-callback="captcha_solved" data-theme="<?php echo $_SESSION['theme']; ?>"></div>
-              <!-- <button onclick="login()">Login</button> -->
-              <input type="submit" value="Register" id="register_btnSubmit" class="disabled" disabled="disabled"/>
-              <div id="register_button_mask">
-                <div class="loading-animation" id="register_loading">
-                  Registering...
-                </div>
-              </div>
-            </form>
-            <div id="register-msg"></div>
-        </div>
-
-        <div class="container" >
-          <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-        </div>
-      </div>
-    </div>
-    <script>
-    window.captcha_response_token = "";
-      function captcha_solved(captcha_response_token){
-        window.captcha_response_token = captcha_response_token;
-        if (document.getElementById("register_btnSubmit").disabled) {
-            document.getElementById("register_btnSubmit").disabled = false;
-              document.getElementById("register_btnSubmit").classList.remove("disabled");
-        }
-      }
-      function register() {
-        document.getElementById("register_btnSubmit").style.display = "none";
-        document.getElementById("register_button_mask").style.display = "block";
-
-        fetch('api/user/register/index.php', {
-            method: 'post',
-            headers: {
-              'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              register_name: document.getElementById('register_name').value,
-              register_email: document.getElementById('register_email').value,
-              register_password: document.getElementById('register_password').value,
-              register_confirm_password: document.getElementById('register_confirm_password').value,
-              captcha_response_token: window.captcha_response_token
-            })
-          })
-          // .then(response => response.json())
-          .then((response) => {
-            return response.json();
-           })
-          .then((data) => {
-            if (!data.registered) {
-              document.getElementById("register-msg").innerHTML = "Unable to register user: "+(data.error)?data.errorMsg:"";
-              document.getElementById("register-msg").style.display = "block";
-              document.getElementById("register_btnSubmit").style.display = "block";
-              document.getElementById("register_button_mask").style.display = "none";
-            } else {
-                // window.location.reload();
-                document.getElementById("registerModal")
-                document.querySelector('#registerModal form').style.display = "none";
-                document.getElementById("register-msg").style.display = "none";
-                document.querySelector('#registerModal .container').innerHTML = data.msg;
-                document.querySelector('#registerModal .container').classList.add("success");
-                // document.getElementById("register-msg").classList.add('success');
-            }
-          });
-        return false;
-      }
-    </script>
-  </div>
 
   <script>
-    (function() {
+  // Get the modal
+  var modalLogin = document.getElementById('modalLogin');
+  var modalRegister = document.getElementById('modalRegister');
+  var modalForgotPassword = document.getElementById('modalForgotPassword');
+  var modalChangePassword = document.getElementById('modalChangePassword');
 
-  <?php
-  // IF USER VERIFIED EMAIL: SHOW LOGIN WITH MESSAGE
-  if (isSessionAction('login')) {?>
-      open_modal_login();
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    switch (event.target) {
+      case modalLogin:
+        modalLogin.style.display = "none";
+        break;
+      case modalRegister:
+        modalRegister.style.display = "none";
+        break;
+      case modalForgotPassword:
+        modalForgotPassword.style.display = "none";
+        break;
+      case modalChangePassword:
+        modalChangePassword.style.display = "none";
+        break;
+      default:
+        break;
+    }
+  }
+  </script>
+  <script>
+    (function() {
+    var clipboard = new ClipboardJS('.clipboard');
+    clipboard.on('success', function(e) {
+      document.getElementById("donate_btc_address_copied").innerHTML = "Copied to clipboard!<span style='font-size:14pt'>🤝👏👏👏</span>";
+      document.getElementById("donate_btc_address_wrapper").classList.add("copied");
+
+    e.clearSelection();
+});
+
+  <?php if (isSessionAction('login')) { ?>
+      open_modal('modalLogin'); // IF USER VERIFIED EMAIL: SHOW LOGIN WITH MESSAGE
+  <?php } elseif (isSessionAction('change-password')) { ?>
+      open_modal('modalChangePassword'); // IF USER CLICKED VALID PASSWORD RESET LINK IN EMAIL: SHOW PASSWORD CHANGE
+  <?php } elseif (isSessionAction('forgot-password')) { ?>
+      open_modal('modalForgotPassword'); // IF USER CLICKED INVALID PASSWORD RESET LINK IN EMAIL: SHOW FORGOT PASSWORD AGAIN
   <?php } else { ?>
   // ELSE, CONTINUE AS NORMAL
       document.getElementById("principal").focus();
       document.getElementById("principal").select();
-  <?php }?>
+  <?php } ?>
       updateExchangeRates();
       window.calculator.minToReinvest = 0.0028;
       window.calculator.currency = "BTC";
@@ -842,3 +698,14 @@
 </body>
 
 </html>
+
+
+<?php
+
+// CLEAR SESSION MESSAGES
+$_SESSION['action'] = "";
+$_SESSION['message'] = "";
+$_SESSION['message-type'] = "";
+$_SESSION['token'] = "";
+
+?>

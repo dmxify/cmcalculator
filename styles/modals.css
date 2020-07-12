@@ -1,12 +1,6 @@
-.dark .modal-content {
-  background-color: #1e1e1e;
-}
-
 /* Full-width input fields */
-#loginModal input[type=text],
-#loginModal input[type=password],
-#registerModal input[type=text],
-#registerModal input[type=password] {
+.modal input[type=text],
+.modal input[type=password] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -16,7 +10,7 @@
 }
 
 /* Set a style for all buttons */
-#loginModal input[type=submit], #registerModal input[type=submit] {
+.modal input[type=submit] {
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -27,20 +21,20 @@
   width: 100%;
 }
 
-#registerModal input[type=submit].disabled{
-  filter:grayscale();
-  cursor:not-allowed;
+.modal input[type=submit].disabled {
+  filter: grayscale();
+  cursor: not-allowed;
 }
 
-#registerModal input[type=submit].disabled:hover{
-  opacity:1;
+.modal input[type=submit].disabled:hover {
+  opacity: 1;
 }
 
-#loginModal input[type=submit]:hover, #registerModal input[type=submit]:hover {
+.modal input[type=submit]:hover {
   opacity: 0.8;
 }
 
-#login_button_mask, #register_button_mask {
+.modal .button-mask {
   display: none;
   background-color: #4CAF50;
   color: white;
@@ -51,12 +45,12 @@
   user-select: none;
 }
 
-.dark #login_button_mask, .dark #register_button_mask {
+.dark .modal {
   color: #777777;
 }
 
 /* Extra styles for the cancel button */
-#loginModal .cancelbtn, #registerModal .cancelbtn {
+.modal .cancelbtn {
   width: auto;
   padding: 10px 18px;
   background-color: #f44336;
@@ -64,45 +58,51 @@
   margin-right: 10px;
 }
 
-.dark #loginModal .cancelbtn, .dark #registerModal .cancelbtn {
+.dark .modal .cancelbtn {
   color: white;
 }
 
 /* Center the image and position the close button */
-#loginModal .imgcontainer, #registerModal .imgcontainer {
+.modal .imgcontainer {
   text-align: center;
   margin: 24px 0 12px 26px;
   position: relative;
 }
 
-#loginModal img.avatar, #registerModal img.avatar {
+.modal img.avatar {
   max-width: 100px;
   width: 40%;
   border-radius: 50%;
 }
 
-#loginModal .container, #registerModal .container {
+.modal .container {
   padding: 16px;
 }
 
-#loginModal .container.success, #registerModal .container.success {
-  border:2px solid #00c700;
-  background-color:#92dd92;
+.modal .container.success {
+  border: 2px solid #00c700;
+  background-color: #92dd92;
 }
 
-#loginModal .success-message{
-  padding:4px;
-  border:2px solid #00c700;
-  background-color:#92dd92;
+.modal .success-message {
+  padding: 4px;
+  border: 2px solid #00c700;
+  background-color: #92dd92;
 }
 
-#loginModal span.psw {
+.modal .failure-message {
+  padding: 4px;
+  border: 2px solid hsl(0, 100%, 45%);
+  background-color: hsl(0, 52%, 85%);
+}
+
+.modal span.psw {
   float: right;
   padding-top: 16px;
 }
 
 /* The Modal (background) */
-#loginModal .modal, #registerModal .modal {
+.modal {
   display: none;
   /* Hidden by default */
   position: fixed;
@@ -125,7 +125,7 @@
 }
 
 /* Modal Content/Box */
-#loginModal .modal-content, #registerModal .modal-content {
+.modal .modal-content {
   background-color: #fefefe;
   margin: 5% auto 15% auto;
   /* 5% from the top, 15% from the bottom and centered */
@@ -134,12 +134,12 @@
   /* Could be more or less, depending on screen size */
 }
 
-.dark #loginModal .modal-content, .dark #registerModal .modal-content {
+.dark .modal .modal-content {
   background-color: #1e1e1e;
 }
 
 /* The Close Button (x) */
-#loginModal .close, #registerModal .close {
+.modal .close {
   position: absolute;
   right: 25px;
   top: 0;
@@ -148,16 +148,14 @@
   font-weight: bold;
 }
 
-#loginModal .close:hover,
-#loginModal .close:focus,
-#registerModal .close:hover,
-#registerModal .close:focus {
+.modal .close:hover,
+.modal .close:focus {
   color: red;
   cursor: pointer;
 }
 
 /* Add Zoom Animation */
-#loginModal .animate, #registerModal .animate {
+.modal .animate {
   -webkit-animation: animatezoom 0.6s;
   animation: animatezoom 0.6s
 }
@@ -184,19 +182,19 @@
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
-  #loginModal span.psw {
+  .modal span.psw {
     display: block;
     float: none;
   }
 
-  #loginModal .cancelbtn, #registerModal .cancelbtn {
+  .modal .cancelbtn {
     width: 100%;
     border: 0px;
     margin-right: 10px;
   }
 }
 
-#login-msg, #register-msg {
+.modal .modal-msg {
   display: none;
   margin-bottom: 10px;
   padding: 11px;
@@ -206,11 +204,10 @@
   background-color: #f44336;
 }
 
-#register-msg.success {
-  display:block;
+.modal .modal-msg.success {
+  display: block;
   background-color: #4CAF50;
 }
-
 
 /* LOADING ANIMATION */
 @keyframes load {
@@ -223,14 +220,43 @@
   100% {}
 }
 
-.loading-animation {
+@keyframes click {
+  0% {
+    letter-spacing: 1px;
+  }
+
+  20% {
+    letter-spacing: 1px;
+  }
+
+  50% {
+    letter-spacing: 0px;
+  }
+
+  80% {
+    letter-spacing: 1px;
+  }
+
+  100% {
+    letter-spacing: 1px;
+  }
+}
+
+.animation {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   margin: auto;
   font-family: Helvetica, sans-serif, Arial;
-  animation: load 1.2s infinite 0s ease-in-out;
   animation-direction: alternate;
   text-shadow: 0 0 1px white;
+}
+
+.load {
+  animation: load 1.2s infinite 0s ease-in-out;
+}
+
+.click {
+  animation: click 1.2s infinite 0s ease-in-out;
 }

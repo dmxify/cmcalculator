@@ -29,12 +29,15 @@ if (isset($_GET['token'])) {
   ) {
         // user verified
         $_SESSION['message'] = "Your email address has been verified successfully! Please login to continue.";
-
-        $_SESSION['type'] = 'alert-success';
+        $_SESSION['message-type'] = 'success-message';
         $_SESSION['action'] = 'login';
         header('location: index.php');
         exit;
     }
 } else {
-    echo "No token provided!";
+  $_SESSION['message'] = "Email verification failed due to invalid verification token.";
+  $_SESSION['message-type'] = 'error-message';
+  $_SESSION['action'] = 'login';
+  header('location: index.php');
+  exit;
 }
