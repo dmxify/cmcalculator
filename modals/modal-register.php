@@ -79,10 +79,10 @@
               document.getElementById("register_button_mask").style.display = "none";
             } else {
                 // window.location.reload();
-                document.querySelector('#registerModal form').style.display = "none";
+                document.querySelector('#modalRegister form').style.display = "none";
                 document.getElementById("register-msg").style.display = "none";
-                document.querySelector('#registerModal .container').innerHTML = data.msg;
-                document.querySelector('#registerModal .container').classList.add("success");
+                document.querySelector('#modalRegister .container').innerHTML = data.msg;
+                document.querySelector('#modalRegister .container').classList.add("success");
                 // document.getElementById("register-msg").classList.add('success');
             }
           });
