@@ -16,11 +16,26 @@ include("../version.php");
     <h1 style="margin-left: 10px;">CM Calculator - Release Notes</h1>
     <div class="releases">
       <div class="release latest">
-        <div class="version">0.1.1<div style="font-size: 10pt;font-style: normal;">- latest</div></div>
+        <div class="version">0.1.3<div style="font-size: 10pt;font-style: normal;">- latest</div></div>
+        <div class="items bugfixes">
+          <div class="title">Bug Fixes</div>
+          <div class="item">Registration form: not able to click "Register"</div>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="version">0.1.2</div>
+        <div class="items features">
+          <div class="title">New Features</div>
+          <div class="item">Forgot Password</div>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="version">0.1.1</div>
         <div class="items features">
           <div class="title">New Features</div>
           <div class="item">Release Notes</div>
-          <div class="item">Forgot Password</div>
         </div>
         <div class="items updates">
           <div class="title">Changes</div>

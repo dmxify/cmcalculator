@@ -25,7 +25,7 @@
             <label for="password"><b>Confirm Password</b></label>
             <input id="register_confirm_password" name="register_confirm_password" type="password" autocomplete="new-password" placeholder="Confirm Password" required>
 
-            <div class="g-recaptcha" data-sitekey="6LesXKYZAAAAAOg5KsgrKPyds_elGqXAnaZFDr6v" data-callback="captcha_solved_forgotPassword" data-theme="<?php echo $_SESSION['theme']; ?>"></div>
+            <div class="g-recaptcha" data-sitekey="6LesXKYZAAAAAOg5KsgrKPyds_elGqXAnaZFDr6v" data-callback="captcha_solved_register" data-theme="<?php echo $_SESSION['theme']; ?>"></div>
             <!-- <button onclick="login()">Login</button> -->
             <input type="submit" value="Register" id="register_btnSubmit" class="disabled" disabled="disabled"/>
             <div id="register_button_mask" class="button-mask">
@@ -36,13 +36,12 @@
           </form>
           <div id="register-msg" class="modal-msg"></div>
         </div>
-
-        <div class="container" >
+        <div class="container">
           <button type="button" onclick="document.getElementById('modalRegister').style.display='none'" class="cancelbtn">Cancel</button>
         </div>
       </div>
     <script>
-    window.register_captcha_response_token = "";
+      window.register_captcha_response_token = "";
       function captcha_solved_register(register_captcha_response_token){
         window.register_captcha_response_token = register_captcha_response_token;
         if (document.getElementById("register_btnSubmit").disabled) {

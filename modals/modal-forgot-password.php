@@ -36,7 +36,6 @@
       </div>
     </div>
     <script>
-
       window.forgotPassword_captcha_response_token = "";
       function captcha_solved_forgotPassword(forgotPassword_captcha_response_token){
         window.forgotPassword_captcha_response_token = forgotPassword_captcha_response_token;
