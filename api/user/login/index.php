@@ -17,7 +17,10 @@ $sql_result_id = '';
 $sql_result_name = '';
 $sql_result_password = '';
 $sql_result_theme = '';
-$stmt = $mysqli->prepare("SELECT id, name, password_hash, theme FROM user WHERE email = ?");
+$sql_result_is_verified = '';
+$sql_result_is_admin = '';
+$sql_result_is_premium = '';
+$stmt = $mysqli->prepare("SELECT id, name, password_hash, is_email_verified, is_admin, is_premium, theme FROM user WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -27,6 +30,9 @@ if ($result->num_rows === 1) {
         $sql_result_id = $row['id'];
         $sql_result_name = $row['name'];
         $sql_result_password = $row['password_hash'];
+        $sql_result_is_email_verified = $row['is_email_verified'];
+        $sql_result_is_admin = $row['is_admin'];
+        $sql_result_is_premium = $row['is_premium'];
         $sql_result_theme = $row['theme'];
     }
 }
@@ -45,6 +51,9 @@ if (password_verify($request['password'], $sql_result_password)) {
         $_SESSION['user']['id'] = $sql_result_id;
         $_SESSION['user']['email'] = $email;
         $_SESSION['user']['name'] = $sql_result_name;
+        $_SESSION['user']['email_verified'] = $sql_result_is_email_verified;
+        $_SESSION['user']['is_admin'] = $sql_result_is_admin;
+        $_SESSION['user']['is_premium'] = $sql_result_is_premium;
         $_SESSION['theme'] = $sql_result_theme;
     }
 } else {

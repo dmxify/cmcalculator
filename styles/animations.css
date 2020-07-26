@@ -1,0 +1,15 @@
+/* LOADING ANIMATION */
+@keyframes glow {
+    90% {
+      filter: brightness(1);
+    }
+
+
+    100% {
+      filter: brightness(1.2) hue-rotate(-40deg);
+    }
+}
+
+.animation-glow {
+  animation: glow 3s infinite 0s ease-in-out alternate;
+}

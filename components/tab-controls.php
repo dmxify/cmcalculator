@@ -34,6 +34,12 @@
   user-select: none;
   font-weight:bold;
 }
+
+.dark .tab-control-area .tab-control {
+  background-color: #a7d4dc;
+    color: #262626;
+}
+
 .tab-control-area .tab-control.selected {
   filter:brightness(1.15);
   /* font-weight:bold; */
@@ -42,27 +48,31 @@
   filter:brightness(1.1);
 }
 
+.tab-control-area .tab-control .icon {
+  margin-right:7px;
+}
+
 </style>
 <div style="display:flex; justify-content:center; margin:4px;">
   <div class="tab-control-area">
     <div class="tab-control selected" onclick="tab_onClick(this)" data-tab="module_dashboard">
-      <div class="icon-small icon-left icon-tachometer"></div>
+      <div class="icon icon-small icon-left icon-tachometer"></div>
       Dashboard
     </div>
     <div class="tab-control" onclick="tab_onClick(this)" data-tab="module_transactions">
-      <div class="icon-small icon-left icon-money"></div>
+      <div class="icon icon-small icon-left icon-money"></div>
       Transactions
     </div>
     <div class="tab-control" onclick="tab_onClick(this)" data-tab="module_strategy-planner">
-        <div class="icon-small icon-left icon-flask"></div>
+        <div class="icon icon-small icon-left icon-flask"></div>
       Strategy Planner
     </div>
     <div class="tab-control" onclick="tab_onClick(this)" data-tab="module_alerts">
-        <div class="icon-small icon-left icon-shield_warning"></div>
+        <div class="icon icon-small icon-left icon-shield_warning"></div>
       Alerts
     </div>
     <div class="tab-control" onclick="tab_onClick(this)" data-tab="module_calculators">
-      <div class="icon-small icon-left icon-layout_window"></div>
+      <div class="icon icon-small icon-left icon-layout_window"></div>
       Calculators
     </div>
   </div>

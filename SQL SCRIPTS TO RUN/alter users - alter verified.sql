@@ -1,0 +1,1 @@
+ALTER TABLE `user` CHANGE `verified` `is_email_verified` TINYINT(1) NOT NULL DEFAULT '0';

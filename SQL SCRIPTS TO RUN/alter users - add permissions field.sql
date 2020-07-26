@@ -1,0 +1,1 @@
+ALTER TABLE `user` ADD `is_premium` BOOLEAN NOT NULL DEFAULT FALSE AFTER `name`, ADD `is_admin` BOOLEAN NOT NULL DEFAULT FALSE AFTER `is_premium`;

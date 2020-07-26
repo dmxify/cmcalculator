@@ -20,7 +20,7 @@ if (isset($_GET['token'])) {
     }
 
     // VERIFY
-    $stmt = $mysqli->prepare('UPDATE user SET verified = 1 WHERE verification_token = ?');
+    $stmt = $mysqli->prepare('UPDATE user SET is_email_verified = 1 WHERE verification_token = ?');
     if (
       $stmt &&
       $stmt -> bind_param('s', $token) &&

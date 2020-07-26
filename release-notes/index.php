@@ -16,7 +16,17 @@ include("../version.php");
     <h1 style="margin-left: 10px;">CM Calculator - Release Notes</h1>
     <div class="releases">
       <div class="release latest">
-        <div class="version">0.1.3<div style="font-size: 10pt;font-style: normal;">- latest</div></div>
+        <div class="version">0.2.0<div style="font-size: 10pt;font-style: normal;">- latest</div></div>
+        <div class="items features">
+          <div class="title">New Features</div>
+          <div class="item">Tab controls for the 5 modules</div>
+          <div class="item">Module: "Dashboard"</div>
+          <div class="item">Module: "Calculators"</div>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="version">0.1.3<div style="font-size: 10pt;font-style: normal;"></div></div>
         <div class="items bugfixes">
           <div class="title">Bug Fixes</div>
           <div class="item">Registration form: not able to click "Register"</div>
@@ -103,30 +113,30 @@ include("../version.php");
 
   }
   .items.features {
-    background-color: hsl(169, 71%, 92%);
+    background-color: hsl(120, 71%, 92%);
   }
   .items.features .title {
-    background-color: hsl(169, 71%, 72%)
+    background-color: hsl(120, 71%, 72%);
   }
   .items.features .title:after{
     content:" 🎁";
     font-size:10pt;
   }
   .items.updates {
-    background-color: hsl(36, 71%, 92%);
+      background-color: hsl(169, 71%, 92%);
   }
   .items.updates .title {
-    background-color: hsl(36, 71%, 72%);
+    background-color: hsl(169, 71%, 72%)
   }
   .items.updates .title:after{
     content:" 🔨";
     font-size:10pt;
   }
   .items.bugfixes {
-    background-color: hsl(120, 71%, 92%);
+  background-color: hsl(36, 71%, 92%);
   }
   .items.bugfixes .title {
-    background-color: hsl(120, 71%, 72%);
+    background-color: hsl(36, 71%, 72%);
   }
   .items.bugfixes .title:after{
     content:" 🐞";

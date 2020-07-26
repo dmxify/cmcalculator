@@ -220,6 +220,7 @@
   100% {}
 }
 
+/* CLICK ANIMATION */
 @keyframes click {
   0% {
     letter-spacing: 1px;

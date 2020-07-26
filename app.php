@@ -69,6 +69,7 @@
   <script type="text/javascript" src="js/menu.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/modals.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/big.min.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/Chart.min.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/clipboard.min.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/state-manager.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/currencies.js<?php url_params(); ?>"></script>
@@ -80,8 +81,10 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" href="btc.png">
   <link rel="stylesheet" type="text/css" href="styles/style.css<?php url_params(); ?>">
+  <link rel="stylesheet" type="text/css" href="styles/Chart.min.css<?php url_params(); ?>">
   <link rel="stylesheet" type="text/css" href="styles/menu.css<?php url_params(); ?>">
   <link rel="stylesheet" type="text/css" href="styles/modals.css<?php url_params(); ?>">
+  <link rel="stylesheet" type="text/css" href="styles/animations.css<?php url_params(); ?>">
   <link rel="stylesheet" type="text/css" href="icons/icons.css<?php url_params(); ?>">
   <link rel="stylesheet" type="text/css" href="styles/tooltip.css<?php url_params(); ?>">
   <link rel="stylesheet" type="text/css" href="styles/buttons.css<?php url_params(); ?>">
@@ -96,24 +99,25 @@
         CM Calculator
       </div>
 
-    <?php if (isset($_SESSION["user"])) { ?>
-    <div class="title welcome">
-      Welcome, <?php echo getSessionName(); ?>!
-    </div>
-    <?php }?>
+
+      <?php if (isset($_SESSION["user"])) { ?>
+      <div class="title welcome">
+        Welcome, <?php echo getSessionName(); ?>!
+      </div>
+      <?php } ?>
 
     </div>
 
     <div class="title-bar-item-wrapper toolbar right">
         <!--onclick="open_modal_login()"-->
         <?php if (!isset($_SESSION["user"])) { ?>
-        <div class="button super-button bold btn-green" title="Register for advanced features!" id="btnRegister" onclick="open_modal('modalRegister')">
+        <div class="button super-button bold btn-green animation-glow" title="Register for advanced features!" id="btnRegister" onclick="open_modal('modalRegister')">
           <div class="button-icon icon icon-left icon-small icon-id_user"></div>
           <div class="button-text">
             Register
           </div>
         </div>
-        <div class="button super-button bold" title="Login for advanced features!" id="btnLogin" onclick="open_modal('modalLogin')">
+        <div class="button super-button bold animation-glow" title="Login for advanced features!" id="btnLogin" onclick="open_modal('modalLogin')">
           <div class="button-icon icon icon-left icon-small icon-lock_open"></div>
           <div class="button-text">
             Login
@@ -254,7 +258,7 @@
   <div style="width:100%;text-align:center;">
     <div class="divider"></div>
     <br />
-    <div id="donate_btc_address_wrapper" class="container info hover clipboard" style="font-size:10pt;cursor:pointer;" data-clipboard-target="#donate_btc_address">
+    <div id="donate_btc_address_wrapper" class="container info hover clipboard animation-glow" style="font-size:10pt;cursor:pointer;" data-clipboard-target="#donate_btc_address">
       <div style="margin:5px;">
         Find this useful? <span style="font-size:14pt">🙄</span> Please donate!
       </div>
