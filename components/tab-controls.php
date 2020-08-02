@@ -55,7 +55,7 @@
 </style>
 <div style="display:flex; justify-content:center; margin:4px;">
   <div class="tab-control-area">
-    <div class="tab-control selected" onclick="tab_onClick(this)" data-tab="module_dashboard">
+    <div class="tab-control" onclick="tab_onClick(this)" data-tab="module_dashboard">
       <div class="icon icon-small icon-left icon-tachometer"></div>
       Dashboard
     </div>
@@ -71,7 +71,7 @@
         <div class="icon icon-small icon-left icon-shield_warning"></div>
       Alerts
     </div>
-    <div class="tab-control" onclick="tab_onClick(this)" data-tab="module_calculators">
+    <div class="tab-control selected" onclick="tab_onClick(this)" data-tab="module_calculators">
       <div class="icon icon-small icon-left icon-layout_window"></div>
       Calculators
     </div>

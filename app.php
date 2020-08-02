@@ -65,6 +65,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="CM Calculator - The unofficial compound interest calculator, ledger & planner for Continental Miners.">
+  <script type="text/javascript" src="js/api.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/scripts.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/menu.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/modals.js<?php url_params(); ?>"></script>

@@ -1,6 +1,6 @@
 <?php ?>
 <!-- Begin: module_calculators -->
-<div class="module" id="module_calculators" style="display:none;">
+<div class="module tab-selected" id="module_calculators" style="display:none;">
 
   <!-- Widget: Basic Calculator -->
   <div class="container" id="container_SingleInvestmentCalculator">
