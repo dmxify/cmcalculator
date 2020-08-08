@@ -25,7 +25,16 @@ if (!user_can_access($request['resource'])) {
 }
 
 $query = get_resource_query($request['resource']);
-$result = $mysqli->query($query);
+
+if (is_stored_procedure($request['resource'])) {
+    $result = $mysqli->multi_query($query);
+    echo json_encode($result);
+    exit();
+} else {
+    $result = $mysqli->query($query);
+}
+
+//mysqli_multi_query
 $data = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {

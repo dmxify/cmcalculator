@@ -5,11 +5,13 @@ require(__DIR__.'/../db.php'); // creates database connection $mysqli
 
 $resources = array();
 $resources['users_total-count'] = ['query'=>'SELECT COUNT(*) AS `count` FROM `user`','user_roles' => ['admin']];
-$resources['users_new-this-week'] = ['query'=>'SELECT DATEDIFF(NOW(),`date_created`) AS `days`, COUNT(*) as `count` FROM `user` WHERE `date_created` > NOW() - INTERVAL 7 DAY GROUP BY DATEDIFF(NOW(),`date_created`)','user_roles' => ['admin']];
-$resources['users_new-last-week'] = ['query'=>'SELECT DATEDIFF(NOW() - INTERVAL 7 DAY,`date_created`) AS `days`, COUNT(*) as `count` FROM `user` WHERE `date_created` < NOW() - INTERVAL 7 DAY AND `date_created` > NOW() - INTERVAL 14 DAY GROUP BY DATEDIFF(NOW(),`date_created`)','user_roles' => ['admin']];
-$resources['users_new-this-month'] = ['user_roles' => ['admin']];
-$resources['users_new-last-month'] = ['user_roles' => ['admin']];
-$resources['users_verified-vs-unverified'] = ['query'=>'SELECT `is_email_verified`, COUNT(*) AS `count` FROM `user` GROUP BY `is_email_verified`', 'user_roles' => ['admin']];
+// $resources['users_new-this-week'] = ['is_stored_procedure' => true,'query'=>'CALL `users_new-this-week`();','user_roles' => ['admin']];
+// $resources['users_new-last-week'] = ['is_stored_procedure' => true,'query'=>'CALL `users_new-last-week`();','user_roles' => ['admin']];
+$resources['users_new-this-week'] = ['query'=>'SELECT `days`, SUM(`count`) as `count` FROM ( SELECT `D`.`days`, `D`.`count` FROM `days` `D` WHERE `D`.`days` < 7 UNION ALL SELECT DATEDIFF(NOW(),`date_created`) AS `days`, COUNT(*) as `count` FROM `user` WHERE `date_created` > NOW() - INTERVAL 7 DAY GROUP BY DATEDIFF(NOW(),`date_created`) ) derived GROUP BY `days`','user_roles' => ['admin']];
+$resources['users_new-last-week'] = ['query'=>'SELECT `days`, SUM(`count`) as `count` FROM( SELECT `D`.`days`, `D`.`count` FROM `days` `D` WHERE `D`.`days` < 7 UNION ALL SELECT DATEDIFF(NOW(),`date_created`)-7 AS `days`, COUNT(*) as `count` FROM `user` WHERE `date_created` < NOW() - INTERVAL 7 DAY AND `date_created` > NOW() - INTERVAL 13 DAY GROUP BY DATEDIFF(NOW(),`date_created`)) derived GROUP BY `days`','user_roles' => ['admin']];
+$resources['users_new-daily-per-month'] = ['query'=>'SELECT DAY(`date_created`) AS day, COUNT(*) AS count FROM `user` WHERE MONTH(`date_created`) = MONTH(NOW()) AND YEAR(`date_created`) = YEAR(NOW()) GROUP BY DAY(`date_created`)','user_roles' => ['admin']];
+$resources['users_new-weekly-per-year'] = ['query'=> 'SELECT WEEK(`date_created`) AS week, COUNT(*) AS count FROM `user` WHERE YEAR(`date_created`) = YEAR(NOW()) GROUP BY WEEK(`date_created`)', 'user_roles' => ['admin']];
+$resources['users_verified-vs-unverified'] = ['query'=>'SELECT `is_email_verified`, COUNT(*) AS `count` FROM `user` GROUP BY `is_email_verified` ORDER BY `is_email_verified` DESC', 'user_roles' => ['admin']];
 $resources['users_free-vs-premium'] = ['query'=>'SELECT `is_premium`, COUNT(*) AS `count` FROM `user` GROUP BY `is_premium` ORDER BY `is_premium` DESC', 'user_roles' => ['admin']];
 $resources['users_per-country'] = ['user_roles' => ['admin']];
 $resources['users_logins-per-day'] = ['user_roles' => ['admin']];
@@ -50,8 +52,14 @@ function user_can_access($resource)
     return false;
 }
 
-function get_resource_query($resource_name){
-  global $resources;
-  return $resources[$resource_name]['query'];
+function get_resource_query($resource_name)
+{
+    global $resources;
+    return $resources[$resource_name]['query'];
+}
 
+function is_stored_procedure($resource_name)
+{
+    global $resources;
+    return isset($resources[$resource_name]['is_stored_procedure'])?$resources[$resource_name]['is_stored_procedure']:false;
 }

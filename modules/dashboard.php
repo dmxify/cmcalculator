@@ -53,16 +53,17 @@ window.dashboard = {
     },{
       elementId:"chart_users_new-this-week",
       resource: "users_new-this-week",
-      title: "New Users This Week",
+      title: "Registrations This Week",
       chartType: "bar",
       legend:{
         display: false
       },
       labels: ['6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', 'Yesterday', 'Today'],
       map: {
-        label:'New users',
+        label:'Registrations',
         keyField:'days',
-        valField:'count'
+        valField:'count',
+        reverse: true
       },
       defaultData: [0,0,0,0,0,0,0],
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -71,31 +72,60 @@ window.dashboard = {
     },{
       elementId:"chart_users_new-last-week",
       resource: "users_new-last-week",
-      title: "New Users Last Week",
+      title: "Registrations Last Week",
       chartType: "bar",
       legend:{
         display: false
       },
       labels: ['13 days ago', '12 days ago', '11 days ago', '10 days ago', '9 days ago', '8 days ago', '7 days ago'],
       map: {
-        label:'New users',
+        label:'Registrations',
         keyField:'days',
-        valField:'count'
+        valField:'count',
+        reverse: true
       },
       defaultData: [0,0,0,0,0,0,0],
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
       borderColor: 'rgba(75, 192, 192, 1)',
       enabled: true
     },{
-      elementId:"chart_users_new-this-month",
-      resource: "users_new-this-month",
-      chartType: "number",
-      enabled: false
+      elementId:"chart_users_new-daily-per-month",
+      resource: "users_new-daily-per-month",
+      title: "Registrations This Month",
+      chartType: "bar",
+      legend:{
+        display: false
+      },
+      labels: labelArray_days_this_month(),
+      map: {
+        label:'Registrations',
+        keyField:'day',
+        valField:'count',
+        reverse: false
+      },
+      defaultData: defaultData_days_this_month(),
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      enabled: true
     },{
-      elementId:"chart_users_new-last-month",
-      resource: "users_new-last-month",
-      chartType: "number",
-      enabled: false
+      elementId:"chart_users_new-weekly-per-year",
+      resource: "users_new-weekly-per-year",
+      title: "Registrations This Year",
+      chartType: "bar",
+      legend:{
+        display: false
+      },
+      labels: ['week 1','week 2','week 3','week 4','week 5','week 6','week 7','week 8','week 9','week 10','week 11','week 12','week 13','week 14','week 15','week 16','week 17','week 18','week 19','week 20','week 21','week 22','week 23','week 24','week 25','week 26','week 27','week 28','week 29','week 30','week 31','week 32','week 33','week 34','week 35','week 36','week 37','week 38','week 39','week 40','week 41','week 42','week 43','week 44','week 45','week 46','week 47','week 48','week 49','week 50','week 51','week 52'],
+      map: {
+        label:'Registrations',
+        keyField:'week',
+        valField:'count',
+        reverse: false
+      },
+      defaultData: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      enabled: true
     },{
       elementId:"chart_users_verified-vs-unverified",
       resource: "users_verified-vs-unverified",
@@ -188,6 +218,14 @@ function generateArray(length,val){
 
       <label for="chbx_chart_users_new-last-month">New last month</label>
       <input id="chbx_chart_users_new-last-month" data-chart="chart_users_new-last-month" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
+      <br />
+
+      <label for="chbx_chart_users_new-daily-per-month">New this month (daily)</label>
+      <input id="chbx_chart_users_new-daily-per-month" data-chart="chart_users_new-daily-per-month" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
+
+
+      <label for="chbx_chart_users_new-weekly-per-year">New this year (weekly)</label>
+      <input id="chbx_chart_users_new-weekly-per-year" data-chart="chart_users_new-weekly-per-year" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
 
       <hr />
       <label for="chbx_chart_users_verified-vs-unverified">Verified vs unverified</label>
@@ -228,6 +266,13 @@ You need to be logged in to view your dashboard
       </div>
     </div>
 
+    <div class="chart-container container hidden" data-chart="chart_users_free-vs-premium">
+      <canvas id="chart_users_free-vs-premium"></canvas>
+    </div>
+    <div class="chart-container container hidden" data-chart="chart_users_verified-vs-unverified">
+      <canvas id="chart_users_verified-vs-unverified"></canvas>
+    </div>
+
     <div class="chart-container container hidden" data-chart="chart_users_new-this-week">
       <canvas id="chart_users_new-this-week"></canvas>
     </div>
@@ -235,12 +280,20 @@ You need to be logged in to view your dashboard
       <canvas id="chart_users_new-last-week"></canvas>
     </div>
 
-    <div class="chart-container container hidden" data-chart="chart_users_free-vs-premium">
-      <canvas id="chart_users_free-vs-premium"></canvas>
+    <div class="chart-container container hidden" data-chart="chart_users_new-this-month">
+      <canvas id="chart_users_new-this-month"></canvas>
     </div>
-    <div class="chart-container container hidden" data-chart="chart_users_verified-vs-unverified">
-      <canvas id="chart_users_verified-vs-unverified"></canvas>
+    <div class="chart-container container hidden" data-chart="chart_users_new-last-month">
+      <canvas id="chart_users_new-last-month"></canvas>
     </div>
+
+    <div class="chart-container container hidden" data-chart="chart_users_new-daily-per-month">
+      <canvas id="chart_users_new-daily-per-month"></canvas>
+    </div>
+    <div class="chart-container container hidden" data-chart="chart_users_new-weekly-per-year">
+      <canvas id="chart_users_new-weekly-per-year"></canvas>
+    </div>
+
     <div class="chart-container container hidden" data-chart="chart_users_perday">
       <canvas id="chart_users_perday"></canvas>
     </div>
@@ -360,6 +413,10 @@ function chart_bar_init(chart, json){
 
   for (var i = 0; i < json.length; i++) {
     data[json[i][chart.map.keyField]] = json[i][chart.map.valField];
+  }
+
+  if(chart.map.reverse){
+    data.reverse();
   }
 
   chart.cjs = new Chart(chart.elementId, {
