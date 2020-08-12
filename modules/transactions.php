@@ -7,10 +7,12 @@
       <div class="title-text">
         Transactions
       </div>
-      <div class="tooltip-trigger icon icon-small icon-right icon-info_sign" title="Click for info" onclick="showTooltip('Transactions','A record of all your deposits, reinvestments and withdrawals.')">
+      <div class="tooltip-trigger icon icon-small icon-right icon-info_sign" title="Click for info" onclick="showTooltip('Transactions','Maintain a record of all your deposits, reinvestments and withdrawals.')">
       </div>
     </div>
-<center>COMING SOON! </center>
+    <center>COMING SOON! </center>
+    <br />
+    <i>Maintain a record of all your deposits, reinvestments and withdrawals.</i>
     <!-- <div class="tabs">
       <div class="tab-pane" id="ledger_tabInvestments">
         <div class="toolbar left radio-button-group slim">

@@ -362,9 +362,9 @@ function generateTable() {
 
     document.getElementById("pleaseNoteOngoingReinvestments").innerHTML = "* Please note that you may still have " + window.calculator.numActiveInvestments + " ongoing reinvestments after " + getInvestmentLength() + " days!";
 
-    document.getElementById("tableSummaryWrapper").parentElement.classList.remove("hidden");
+    document.getElementById("calculatorOutputWrapper").classList.remove("hidden");
     document.getElementById("tableInvestmentWrapper").appendChild(tableInvestment);
-    document.getElementById("tableInvestmentWrapper").parentElement.classList.remove("hidden");
+    document.getElementById("calculatorOutputWrapper").classList.remove("hidden");
   } else {
     document.getElementById("principal").focus();
   }

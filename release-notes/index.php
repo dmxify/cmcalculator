@@ -6,7 +6,7 @@ include("../version.php");
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="CM Calculator - The unofficial compound interest calculator, ledger & planner for Continental Miners.">
+    <meta name="description" content="CM Calculator - Compound interest calculator & strategy planner.">
 
     <link rel="icon" type="image/png" href="btc.png">
     <title>CM Calculator Release Notes - v<?php echo get_version(); ?></title>
@@ -14,6 +14,36 @@ include("../version.php");
 
   <body>
     <h1 style="margin-left: 10px;">CM Calculator - Release Notes</h1>
+    <div style="background-color: #e3e259; border: 2px solid #909090; padding: 15px; font-size: 12pt; flex: 1 1 auto;
+    margin: 10px; box-shadow: 0 1px 1px 0 rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
+    border-radius: 3px;">
+          <h2>Free Alpha Version</h2>
+          <i>
+            <b>All premium features are free in the alpha development phase!</b>
+          </i>
+          <br />
+            After the alpha phase (once all features are finished), premium features will be available through monthly/annual packages
+
+          <br />
+          <br />
+
+          <b>Forever free features:</b>
+          <ul>
+            <li><b>Single Investment Calculator</b> - Quickly analyse the yield of a single investment.</li>
+            <li><b>Basic Dashboard</b> - overview of your investment portfolio, including limited analysis</li>
+            <li><b>Transactions</b> - Keep a record of all your deposits, reinvestments and withdrawals</li>
+            <li>Telegram community - Help & support</li>
+          </ul>
+          <br />
+          <b>Premium features:</b> (free during alpha phase)
+          <ul>
+              <li><b>Pro Dashboard</b> - overview of your portfolio, with intelligent strategic analysis </li>
+              <li><b>Blockchain explorer integration</b> - track wallets, and link TXid's to your deposits & withdrawals for easy reference.</li>
+              <li><b>Strategy Planner</b> - Use projections from your <b>Transactions</b> & make bespoke strategies to achieve your goals.</li>
+              <li><b>Alerts</b> - Never miss out on strategic moments! Alert notifications will help you stick to your <b>Strategy</b></li>
+              <li><b>Reports</b> - Bespoke analysis available to you at all times. Optionally delivered via email.</li>
+          </ul>
+    </div>
     <div class="releases">
       <div class="release latest">
         <div class="version">0.2.0<div style="font-size: 10pt;font-style: normal;">- latest</div></div>

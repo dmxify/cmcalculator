@@ -10,8 +10,8 @@
 }
 
 .dark .menu {
-  background-color: #bfa27f;
-  border: 2px solid #a96818;
+  background-color: #968065; /*#bfa27f;*/
+  border: 2px solid #8a5514; /*#a96818;*/
 }
 
 .menu.hidden {

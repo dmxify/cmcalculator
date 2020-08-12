@@ -4,7 +4,7 @@
   "start_url": "https://cmcalculator.com",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "Interest calculator, ledger & planner for Continental Miners",
+  "description": "CM Calculator - Compound interest calculator & strategy planner",
   "icons": [{
     "src": "btc.png",
     "sizes": "128x128",

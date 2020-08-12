@@ -1,7 +1,6 @@
 <?php ?>
 <!-- Begin: module_calculators -->
 <div class="module tab-selected" id="module_calculators" style="display:none;">
-
   <!-- Widget: Basic Calculator -->
   <div class="container" id="container_SingleInvestmentCalculator">
 
@@ -143,7 +142,7 @@
     </div>
 
     <!-- TABLE: 180 -->
-    <div class="hidden container">
+    <div class="hidden container" id="calculatorOutputWrapper">
       <div id="table180Toolbar" class="">
         <div class="title center">
           <div class="title-text">
@@ -165,6 +164,12 @@
           <div id="btnZAR" data-calculator-cc="ZAR" data-dynamicglobal-name="exchange_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ZAR')" class="button radio-button hidden">
             <div class="radio-button-text bold">R</div>
           </div>
+          <!-- <div class="button super-button btn-green" title="Download image" onclick="html2image_download('calculatorOutputWrapper','single-investment-results.png')">
+            <div class="button-icon icon icon-left icon-small icon-image"></div>
+            <div class="button-text">
+              Download image
+            </div>
+          </div> -->
         </div>
       </div>
       <style>
@@ -176,40 +181,43 @@
         font-size:8pt;
       }
       </style>
-      <div id="tableSummaryWrapper" class="container info" style="margin: 10px 0px;">
-        <div class="title small bold">Summary:</div>
-        <table style="width:auto; margin:5px;">
-          <tr>
-            <td></td>
-            <th>BTC</th>
-            <th>USD</th>
-          </tr>
-          <tr>
-            <td>Initial Investment</td>
-            <td id="tableSummary_initialInvestment_btc"></td>
-            <td id="tableSummary_initialInvestment_usd"></td>
-          </tr>
-          <tr>
-            <td id="tableSummary_investmentLength" colspan="4" style="font-weight:normal; padding:5px 0;"></td>
-          </tr>
-          <tr>
-            <td style="font-weight:bold;"># Active Investments</td>
-            <td id="tableSummary_activeInvestmentsCount" colspan="3" style="text-align:center; font-weight:bold;"></td>
-          </tr>
-          <tr>
-            <td>Active Investment Value</td>
-            <td id="tableSummary_totalInvestments_btc"></td>
-            <td id="tableSummary_totalInvestments_usd"></td>
-          </tr>
-          <tr>
-            <td>Earnings Balance</td>
-            <td id="tableSummary_balance_btc"></td>
-            <td id="tableSummary_balance_usd"></td>
-          </tr>
-        </table>
-        <div class="title hidden" id="pleaseNoteOngoingReinvestments" style="font-size:8pt;"></div>
-      </div>
-      <div id="tableInvestmentWrapper" class="" style="max-height:400px; overflow-y:scroll;">
+
+      <div id="calculatorExportWrapper">
+        <div id="tableSummaryWrapper" class="container info" style="margin: 10px 0px;">
+          <div class="title small bold">Summary:</div>
+          <table style="width:auto; margin:5px;">
+            <tr>
+              <td></td>
+              <th>BTC</th>
+              <th>USD</th>
+            </tr>
+            <tr>
+              <td>Initial Investment</td>
+              <td id="tableSummary_initialInvestment_btc"></td>
+              <td id="tableSummary_initialInvestment_usd"></td>
+            </tr>
+            <tr>
+              <td id="tableSummary_investmentLength" colspan="4" style="font-weight:normal; padding:5px 0;"></td>
+            </tr>
+            <tr>
+              <td style="font-weight:bold;"># Active Investments</td>
+              <td id="tableSummary_activeInvestmentsCount" colspan="3" style="text-align:center; font-weight:bold;"></td>
+            </tr>
+            <tr>
+              <td>Active Investment Value</td>
+              <td id="tableSummary_totalInvestments_btc"></td>
+              <td id="tableSummary_totalInvestments_usd"></td>
+            </tr>
+            <tr>
+              <td>Earnings Balance</td>
+              <td id="tableSummary_balance_btc"></td>
+              <td id="tableSummary_balance_usd"></td>
+            </tr>
+          </table>
+          <div class="title hidden" id="pleaseNoteOngoingReinvestments" style="font-size:8pt;"></div>
+        </div>
+        <div id="tableInvestmentWrapper" class="" style="max-height:400px; overflow-y:scroll;">
+        </div>
       </div>
     </div>
     <!-- table180Toolbar -->

@@ -212,20 +212,20 @@ function generateArray(length,val){
       <input id="chbx_chart_users_new-last-week" data-chart="chart_users_new-last-week" checked="checked" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
       <br />
 
-      <label for="chbx_chart_users_new-this-month">New this month</label>
+      <!-- <label for="chbx_chart_users_new-this-month">New this month</label>
       <input id="chbx_chart_users_new-this-month" data-chart="chart_users_new-this-month" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
-      <br />
+      <br /> -->
 
-      <label for="chbx_chart_users_new-last-month">New last month</label>
+      <!-- <label for="chbx_chart_users_new-last-month">New last month</label>
       <input id="chbx_chart_users_new-last-month" data-chart="chart_users_new-last-month" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
-      <br />
+      <br /> -->
 
       <label for="chbx_chart_users_new-daily-per-month">New this month (daily)</label>
-      <input id="chbx_chart_users_new-daily-per-month" data-chart="chart_users_new-daily-per-month" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
-
+      <input id="chbx_chart_users_new-daily-per-month" data-chart="chart_users_new-daily-per-month" checked="checked" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
+      <br />
 
       <label for="chbx_chart_users_new-weekly-per-year">New this year (weekly)</label>
-      <input id="chbx_chart_users_new-weekly-per-year" data-chart="chart_users_new-weekly-per-year" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
+      <input id="chbx_chart_users_new-weekly-per-year" data-chart="chart_users_new-weekly-per-year" checked="checked" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
 
       <hr />
       <label for="chbx_chart_users_verified-vs-unverified">Verified vs unverified</label>
@@ -236,17 +236,17 @@ function generateArray(length,val){
       <input id="chbx_chart_users_free-vs-premium" data-chart="chart_users_free-vs-premium" type="checkbox" checked="checked" onchange="chbx_dashboard_onchange(this)"/>
       <br />
 
-      <label for="chbx_chart_users_per-country">Per country</label>
-      <input id="chbx_chart_users_per-country" data-chart="chart_users_per-country" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
+      <!-- <label for="chbx_chart_users_per-country">Per country</label>
+      <input id="chbx_chart_users_per-country" data-chart="chart_users_per-country" type="checkbox" onchange="chbx_dashboard_onchange(this)"/> -->
 
-      <hr />
+      <!-- <hr /> -->
 
-      <label for="chbx_chart_users_logins-per-day">Logins per day</label>
+      <!-- <label for="chbx_chart_users_logins-per-day">Logins per day</label>
       <input id="chbx_chart_users_logins-per-day" data-chart="chart_users_logins-per-day" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
-      <br />
+      <br /> -->
 
-      <label for="chbx_chart_users_count-vs-time-since-login">Time since last login</label>
-      <input id="chbx_chart_users_count-vs-time-since-login" data-chart="chart_users_count-vs-time-since-login" type="checkbox" onchange="chbx_dashboard_onchange(this)"/>
+      <!-- <label for="chbx_chart_users_count-vs-time-since-login">Time since last login</label>
+      <input id="chbx_chart_users_count-vs-time-since-login" data-chart="chart_users_count-vs-time-since-login" type="checkbox" onchange="chbx_dashboard_onchange(this)"/> -->
     </div>
 
 <?php } else { ?>

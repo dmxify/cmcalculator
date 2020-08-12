@@ -365,6 +365,12 @@ div.link .text {
   color: #c15921 !important;
 }
 
+
+.container.info.danger {
+  background-color: #efee10;
+  border: 2px solid #909090;
+}
+
 .container.info {
   padding: 4px;
   border: 2px solid #009fad;
@@ -399,8 +405,8 @@ div.link .text {
 }
 
 .dark .container.toolbar {
-  background-color: #bfa27f;
-  border: 2px solid #a96818;
+  background-color: #968065; /*#bfa27f;*/
+  border: 2px solid #8a5514; /*#a96818;*/
 }
 
 .dark .container.toolbar .title {

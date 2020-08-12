@@ -64,11 +64,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="CM Calculator - The unofficial compound interest calculator, ledger & planner for Continental Miners.">
+  <meta name="description" content="CM Calculator - Compound interest calculator & strategy planner.">
   <script type="text/javascript" src="js/api.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/scripts.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/menu.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/modals.js<?php url_params(); ?>"></script>
+  <script type="text/javascript" src="js/html2canvas.min.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/big.min.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/Chart.min.js<?php url_params(); ?>"></script>
   <script type="text/javascript" src="js/clipboard.min.js<?php url_params(); ?>"></script>
@@ -109,6 +110,16 @@
 
     </div>
 
+
+    <div class="container info danger animation-glow link" style="display:block;" onclick="document.getElementById('link_releaseNotes').click()">
+      <div class="title center">
+        <div class="icon icon-left icon-medium icon-shield_warning"></div>
+        <div class="title-text">
+          Free Alpha Version - please read!
+        </div>
+        <div class="icon icon-right icon-medium icon-shield_warning"></div>
+      </div>
+    </div>
     <div class="title-bar-item-wrapper toolbar right">
         <!--onclick="open_modal_login()"-->
         <?php if (!isset($_SESSION["user"])) { ?>
@@ -189,7 +200,7 @@
         </div><!-- menu-item -->
         <div class="menu-item">
           <div class="button super-button bold" title="About CM Calculator" id="btnAbout"
-            onclick="showTooltip('About cmcalculator','cmcalculator is a tool to help you (and your friends!) plan your investment strategy, and reach financial goals.<br /><br />It started as a side project to calculate compound interest, and now it is under active development with new features in the pipelines.<br /><br />cmcalculator is not an official Continental Miners app, nor is it affiliated with or endorsed by them. (DISCLAIMER, TERMS & CONDITIONS link at the bottom of the web page)<br /><br />Please subscribe to the Telegram channel (link at the bottom of the webpage), and if cmcalculator has helped you at all, please consider donating (BTC address at the bottom of the webpage) ')">
+            onclick="showTooltip('About cmcalculator','cmcalculator is a tool to help you (and your friends!) plan your investment strategy, and reach financial goals.<br /><br />It started as a side project to calculate compound interest, and now it is under active development with new features in the pipelines.<br /><br />cmcalculator is affiliated with or endorsed by any other company, application, system, individual unless explicitly stated. (Full DISCLAIMER, TERMS & CONDITIONS link at the bottom of the web page)<br /><br />Please subscribe to the Telegram channel (link at the bottom of the webpage), and if cmcalculator has helped you at all, please consider donating (BTC address at the bottom of the webpage) ')">
             <div class="button-icon icon icon-left icon-small icon-cat"></div>
             <div class="button-text">
               About
@@ -273,7 +284,7 @@
     </p>
   </div>
 
-  <a href="release-notes" target="_blank" style="float:left;margin:15px 0px 5px 25px;">Version <?php echo get_version(); ?> release notes</a>
+  <a href="release-notes" id="link_releaseNotes" target="_blank" style="float:left;margin:15px 0px 5px 25px;">Version <?php echo get_version(); ?> release notes</a>
   <a href="disclaimer.html" target="_blank" style="float:right;margin:15px 25px 5px 0;">Disclaimer, T's & C's</a>&nbsp;&nbsp;
   <a href="https://t.me/cmcalculator" target="_blank" style="float:right;margin:15px 25px 5px 0;">Join Telegram Channel</a>
 
