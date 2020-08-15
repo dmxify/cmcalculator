@@ -46,17 +46,24 @@ include("../version.php");
     </div>
     <div class="releases">
       <div class="release latest">
-        <div class="version">0.2.0<div style="font-size: 10pt;font-style: normal;">- latest</div></div>
+        <div class="version">0.2.1a<div style="font-size: 10pt;font-style: normal;">- latest</div></div>
         <div class="items features">
           <div class="title">New Features</div>
-          <div class="item">Tab controls for the 5 modules</div>
+          <div class="item">Single Investment Calculator: Download results to image (user requested feature)</div>
+        </div>
+      </div>
+      <div class="release">
+        <div class="version">0.2.0a<div style="font-size: 10pt;font-style: normal;"></div></div>
+        <div class="items features">
+          <div class="title">New Features</div>
+          <div class="item">Save as PNG image</div>
           <div class="item">Module: "Dashboard"</div>
           <div class="item">Module: "Calculators"</div>
         </div>
       </div>
 
       <div class="release">
-        <div class="version">0.1.3<div style="font-size: 10pt;font-style: normal;"></div></div>
+        <div class="version">0.1.3a<div style="font-size: 10pt;font-style: normal;"></div></div>
         <div class="items bugfixes">
           <div class="title">Bug Fixes</div>
           <div class="item">Registration form: not able to click "Register"</div>
@@ -64,7 +71,7 @@ include("../version.php");
       </div>
 
       <div class="release">
-        <div class="version">0.1.2</div>
+        <div class="version">0.1.2a</div>
         <div class="items features">
           <div class="title">New Features</div>
           <div class="item">Forgot Password</div>
@@ -72,7 +79,7 @@ include("../version.php");
       </div>
 
       <div class="release">
-        <div class="version">0.1.1</div>
+        <div class="version">0.1.1a</div>
         <div class="items features">
           <div class="title">New Features</div>
           <div class="item">Release Notes</div>
@@ -85,7 +92,7 @@ include("../version.php");
       </div>
 
       <div class="release">
-        <div class="version">0.1.0</div>
+        <div class="version">0.1.0a</div>
         <div class="items bugfixes">
           <div class="title">Bug Fixes</div>
           <div class="item">Files are no longer cached after updates</div>

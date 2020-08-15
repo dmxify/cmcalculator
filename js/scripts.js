@@ -43,18 +43,18 @@ defaultData_days_this_month = function() {
   return defaultData;
 }
 
-// function html2image_download(elementId, outputFilename) {
-//   var options = {
-//     scrollY: -50,
-//     scrollX: 0
-//   };
-//   html2canvas(document.getElementById(elementId), options).then(function(canvas) {
-//     var a = document.createElement('a');
-//     a.href = canvas.toDataURL("image/png");
-//     a.download = outputFilename;
-//     a.target = '_blank';
-//     document.body.appendChild(a);
-//     a.click();
-//     document.body.removeChild(a);
-//   });
-// }
+function html2png_download(elementId, outputFilename) {
+  var options = {
+    scrollY: -window.scrollY
+  };
+
+  html2canvas(document.getElementById(elementId), options).then(function(canvas) {
+    var a = document.createElement('a');
+    a.href = canvas.toDataURL("image/png");
+    a.download = outputFilename;
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+}

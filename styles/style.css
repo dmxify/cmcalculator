@@ -365,7 +365,6 @@ div.link .text {
   color: #c15921 !important;
 }
 
-
 .container.info.danger {
   background-color: #efee10;
   border: 2px solid #909090;
@@ -405,8 +404,10 @@ div.link .text {
 }
 
 .dark .container.toolbar {
-  background-color: #968065; /*#bfa27f;*/
-  border: 2px solid #8a5514; /*#a96818;*/
+  background-color: #968065;
+  /*#bfa27f;*/
+  border: 2px solid #8a5514;
+  /*#a96818;*/
 }
 
 .dark .container.toolbar .title {
@@ -435,4 +436,15 @@ div.link .text {
   color: black;
   background-color: #a7d4dc;
   border: 1px solid #333333;
+}
+
+.print-friendly {
+  max-height: none !important;
+  overflow-y: auto !important;
+  box-shadow: none !important;
+  /* padding:0px !important; */
+}
+
+.print-friendly div.link .icon {
+  display: none;
 }

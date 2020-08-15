@@ -1,7 +1,7 @@
 <?php
 
 
-$version = "0.1.3";
+$version = "0.2.1a";
 
 function get_version()
 {

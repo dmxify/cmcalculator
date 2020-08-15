@@ -485,3 +485,25 @@ function calculator_onEnterKeyup(event) {
 function reinvestLink_onClick(amount) {
   alert(amount);
 }
+
+
+async function download_png_singleInvestmentResults() {
+  var el_tableSummaryWrapper = document.getElementById("tableSummaryWrapper");
+  var el_tableInvestmentWrapper = document.getElementById("tableInvestmentWrapper");
+  var el_calculatorOutputWrapper = document.getElementById("calculatorOutputWrapper");
+
+  // make it export friendly
+  await el_tableSummaryWrapper.classList.add('print-friendly');
+  await el_tableInvestmentWrapper.classList.add('print-friendly');
+  await el_calculatorOutputWrapper.classList.add('print-friendly');
+
+  var options = {
+    scrollY: -window.scrollY
+  };
+  await html2png_download("calculatorOutputWrapper", "single-investment-results.png");
+
+  // set back to normal:
+  el_tableSummaryWrapper.classList.remove('print-friendly');
+  el_tableInvestmentWrapper.classList.remove('print-friendly');
+  el_calculatorOutputWrapper.classList.remove('print-friendly');
+}

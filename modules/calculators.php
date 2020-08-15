@@ -143,7 +143,7 @@
 
     <!-- TABLE: 180 -->
     <div class="hidden container" id="calculatorOutputWrapper">
-      <div id="table180Toolbar" class="">
+      <div id="table180Toolbar" data-html2canvas-ignore="true">
         <div class="title center">
           <div class="title-text">
             Single Investment Results*
@@ -164,12 +164,12 @@
           <div id="btnZAR" data-calculator-cc="ZAR" data-dynamicglobal-name="exchange_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ZAR')" class="button radio-button hidden">
             <div class="radio-button-text bold">R</div>
           </div>
-          <!-- <div class="button super-button btn-green" title="Download image" onclick="html2image_download('calculatorOutputWrapper','single-investment-results.png')">
+          <div class="button super-button btn-green" title="Download image" onclick="download_png_singleInvestmentResults()">
             <div class="button-icon icon icon-left icon-small icon-image"></div>
             <div class="button-text">
               Download image
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
       <style>
