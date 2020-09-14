@@ -46,12 +46,20 @@ include("../version.php");
     </div>
     <div class="releases">
       <div class="release latest">
-        <div class="version">0.2.1a<div style="font-size: 10pt;font-style: normal;">- latest</div></div>
+        <div class="version">0.2.2a<div style="font-size: 10pt;font-style: normal;">- latest</div></div>
         <div class="items features">
           <div class="title">New Features</div>
-          <div class="item">Single Investment Calculator: Download results to image (user requested feature)</div>
+          <div class="item">Added ETH to calculator and currency conversions</div>
+          <div class="item">Added XRP to currency conversions</div>
         </div>
       </div>
+        <div class="release">
+          <div class="version">0.2.1a<div style="font-size: 10pt;font-style: normal;"></div></div>
+          <div class="items features">
+            <div class="title">New Features</div>
+            <div class="item">Single Investment Calculator: Download results to image (user requested feature)</div>
+          </div>
+        </div>
       <div class="release">
         <div class="version">0.2.0a<div style="font-size: 10pt;font-style: normal;"></div></div>
         <div class="items features">

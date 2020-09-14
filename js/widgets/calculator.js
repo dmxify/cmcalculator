@@ -226,8 +226,12 @@ function generateTable() {
     var th_earnings = document.createElement("th");
     switch (cc) {
       case "BTC":
-        th_amount.innerHTML = "Investment &#x20bf;";
-        th_earnings.innerHTML = "Earnings &#x20bf;";
+        th_amount.innerHTML = "Investment BTC;";
+        th_earnings.innerHTML = "Earnings BTC;";
+        break;
+      case "ETH":
+        th_amount.innerHTML = "Investment ETH;";
+        th_earnings.innerHTML = "Earnings ETH;";
         break;
       case "USD":
         th_amount.innerHTML = "Investment $";

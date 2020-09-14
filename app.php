@@ -236,36 +236,79 @@
   <!-- main -->
 
 
-
-  <!--  buttons  -->
+  <!--  currency conversions  -->
   <div>
     <div class="ticker-wrapper container">
-      <div>
-        <b>1 BTC = </b>
-      </div>
-      <div class="ticker hidden" id="btc_zar">
-        <div class="rate" data-dynamicglobal-name="exchange_zar_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
-      </div>
-      <div class="ticker hidden" id="btc_usd">
-        <div class="rate" data-dynamicglobal-name="exchange_usd_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
-      </div>
-      <div>
-        <div class="button super-button bold" id="btnUpdateExchangeRates" onclick="updateExchangeRates()" style="margin-left:10px;">
-          <div class="button-icon icon icon-small icon-cloud_sync"></div>
-          <div class="button-text">
-            Latest Prices
+      <!-- wrapper -->
+      <div id="exchange_tickers">
+
+
+
+        <!-- BTC -->
+        <div class="ticker-line">
+          <div class="ticker-base">
+              <div class="text">1 BTC = </div>
+          </div>
+          <div class="ticker hidden" id="btc_zar">
+            <div class="rate" data-dynamicglobal-name="exchange_btc_zar_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
+          </div>
+          <div class="ticker hidden" id="btc_usd">
+            <div class="rate" data-dynamicglobal-name="exchange_btc_usd_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
+          </div>
+        </div>
+
+        <!-- ETH -->
+        <div class="ticker-line">
+          <div class="ticker-base">
+              <div class="text">1 ETH = </div>
+          </div>
+          <div class="ticker hidden" id="eth_zar">
+            <div class="rate" data-dynamicglobal-name="exchange_eth_zar_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
+          </div>
+          <div class="ticker hidden" id="eth_usd">
+            <div class="rate" data-dynamicglobal-name="exchange_eth_usd_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
+          </div>
+        </div>
+
+        <!-- XRP -->
+        <div class="ticker-line">
+          <div class="ticker-base">
+              <div class="text">1 XRP = </div>
+          </div>
+          <div class="ticker hidden" id="xrp_zar">
+            <div class="rate" data-dynamicglobal-name="exchange_xrp_zar_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
+          </div>
+          <div class="ticker hidden" id="xrp_usd">
+            <div class="rate" data-dynamicglobal-name="exchange_xrp_usd_rate_pretty" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></div>
           </div>
         </div>
       </div>
-      <div class="hidden time">
-        Last Updated <span data-dynamicglobal-name="exchange_time_updated" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></span>
+      <!-- end wrapper -->
+
+      <!-- wrapper -->
+      <div>
+
+
+        <div>
+          <div class="button super-button bold" id="btnUpdateExchangeRates" onclick="updateExchangeRates()" style="margin-left:10px;">
+            <div class="button-icon icon icon-small icon-cloud_sync"></div>
+            <div class="button-text">
+              Latest Prices
+            </div>
+          </div>
+        </div>
+        <div class="hidden time">
+          Last Updated <span data-dynamicglobal-name="exchange_time_updated" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></span>
+        </div>
+        <div class="hidden disclaimer">
+          <span data-dynamicglobal-name="exchange_disclaimer" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></span>
+        </div>
       </div>
-      <div class="hidden disclaimer">
-        <span data-dynamicglobal-name="exchange_disclaimer" data-dynamicglobal-action="show-parent-on-global-update" data-dynamicglobal-set="innerHTML"></span>
-      </div>
+      <!-- end wrapper -->
     </div>
   </div>
-  <br />
+  <!--  end currency conversions  -->
+
   <br />
   <div style="width:100%;text-align:center;">
     <div class="divider"></div>
@@ -296,7 +339,6 @@
   </div>
   <div class="tooltip-overlay" onclick="hideTooltip()"></div>
 
-  <!-- end buttons -->
 
   <?php include("modals/modal-login.php"); ?>
   <?php include("modals/modal-register.php"); ?>
@@ -355,7 +397,6 @@
       updateExchangeRates();
       window.calculator.minToReinvest = 0.0028;
       window.calculator.currency = "BTC";
-
     })();
   </script>
 </body>

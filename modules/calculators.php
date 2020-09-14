@@ -14,14 +14,19 @@
     </div>
     <div class="container toolbar center hidden calculator-cc-buttons">
       <div class="title small">Currency conversions</div>
-      <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
-        class="button radio-button selected hidden">
-        <div class="radio-button-text bold">B</div>
+      <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_btc_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')" class="button super-button radio-button selected hidden">
+        <div class="button-icon icon icon-small icon-btc"></div>
       </div>
-      <div id="btnUSD" data-calculator-cc="USD" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('USD')" class="button radio-button hidden">
+      <div id="btnETH" data-calculator-cc="ETH" data-dynamicglobal-name="exchange_btc_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ETH')" class="button super-button radio-button hidden">
+        <div class="button-icon icon icon-small icon-eth"></div>
+      </div>
+      <div id="btnXRP" data-calculator-cc="XRP" data-dynamicglobal-name="exchange_btc_xrp_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('XRP')" class="button super-button radio-button hidden">
+        <div class="button-icon icon icon-small icon-xrp"></div>
+      </div>
+      <div id="btnUSD" data-calculator-cc="USD" data-dynamicglobal-name="exchange_btc_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('USD')" class="button radio-button hidden">
         <div class="radio-button-text bold">$</div>
       </div>
-      <div id="btnZAR" data-calculator-cc="ZAR" data-dynamicglobal-name="exchange_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ZAR')" class="button radio-button hidden">
+      <div id="btnZAR" data-calculator-cc="ZAR" data-dynamicglobal-name="exchange_btc_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ZAR')" class="button radio-button hidden">
         <div class="radio-button-text bold">R</div>
       </div>
     </div>
@@ -151,24 +156,29 @@
           <div class="tooltip-trigger icon icon-small icon-right icon-info_sign" title="Click for info"
             onclick="showTooltip('Single Investment Results','See the results of a single investment. <b>*</b><br/><br/>An investment is opened as soon as you make a deposit or reinvest, and will generate a fixed percentage interest <b>DAILY</b> for the duration of the investment length.<br/><br/>Investment interest rate and duration changes with investment level (silver, gold, VIP) which is based on the amount spent on the investment.<br/><br/><b>* Please note that in the case of reinvesting, you may still have active investments out of this calculator\'s range</b>')">
           </div>
+          <div class="button super-button btn-green" title="" onclick="download_png_singleInvestmentResults()">
+            <!-- <div class="button-icon icon icon-left icon-small icon-image"></div> -->
+            <div class="button-text">
+              📥
+            </div>
+          </div>
         </div>
         <div class="container toolbar center hidden calculator-cc-buttons">
           <div class="title small">Currency conversions</div>
-          <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')"
-            class="button radio-button selected hidden">
-            <div class="radio-button-text bold">B</div>
+          <div id="btnBTC" data-calculator-cc="BTC" data-dynamicglobal-name="exchange_btc_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('BTC')" class="button super-button radio-button selected hidden">
+            <div class="button-icon icon icon-small icon-btc"></div>
           </div>
-          <div id="btnUSD" data-calculator-cc="USD" data-dynamicglobal-name="exchange_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('USD')" class="button radio-button hidden">
+          <div id="btnETH" data-calculator-cc="ETH" data-dynamicglobal-name="exchange_btc_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ETH')" class="button super-button radio-button hidden">
+            <div class="button-icon icon icon-small icon-eth"></div>
+          </div>
+          <div id="btnXRP" data-calculator-cc="XRP" data-dynamicglobal-name="exchange_btc_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('XRP')" class="button super-button radio-button hidden">
+            <div class="button-icon icon icon-small icon-xrp"></div>
+          </div>
+          <div id="btnUSD" data-calculator-cc="USD" data-dynamicglobal-name="exchange_btc_usd_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('USD')" class="button radio-button hidden">
             <div class="radio-button-text bold">$</div>
           </div>
-          <div id="btnZAR" data-calculator-cc="ZAR" data-dynamicglobal-name="exchange_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ZAR')" class="button radio-button hidden">
+          <div id="btnZAR" data-calculator-cc="ZAR" data-dynamicglobal-name="exchange_btc_zar_rate_float" data-dynamicglobal-action="show-this-and-parent-on-global-update" onclick="calculator.setCurrency('ZAR')" class="button radio-button hidden">
             <div class="radio-button-text bold">R</div>
-          </div>
-          <div class="button super-button btn-green" title="Download image" onclick="download_png_singleInvestmentResults()">
-            <div class="button-icon icon icon-left icon-small icon-image"></div>
-            <div class="button-text">
-              Download image
-            </div>
           </div>
         </div>
       </div>
@@ -260,7 +270,21 @@
     <div class="controlAndLabelWrapper">
       <label for="cc_btc">Bitcoin</label>
       <div class="controlWrapper">
-        <input id="cc_btc" name="cc_btc" placeholder="Bitcoin" type="number" class="number" onInput="cc_onchange('cc_btc')" onclick="cc_onclick(this)" /><b>B</b>
+        <input id="cc_btc" name="cc_btc" placeholder="Bitcoin" type="number" class="number" onInput="cc_onchange('cc_btc')" onclick="cc_onclick(this)" /><b>BTC</b>
+      </div>
+    </div>
+    <br />
+    <div class="controlAndLabelWrapper">
+      <label for="cc_eth">Ethereum</label>
+      <div class="controlWrapper">
+        <input id="cc_eth" name="cc_eth" placeholder="Ethereum" type="number" class="number" onInput="cc_onchange('cc_eth')" onclick="cc_onclick(this)" /><b>ETH</b>
+      </div>
+    </div>
+    <br />
+    <div class="controlAndLabelWrapper">
+      <label for="cc_xrp">Ripple</label>
+      <div class="controlWrapper">
+        <input id="cc_xrp" name="cc_xrp" placeholder="Ripple" type="number" class="number" onInput="cc_onchange('cc_xrp')" onclick="cc_onclick(this)" /><b>XRP</b>
       </div>
     </div>
     <br />

@@ -71,7 +71,7 @@
         <div class="icon icon-small icon-left icon-shield_warning"></div>
       Alerts
     </div>
-    <div class="tab-control selected" onclick="tab_onClick(this)" data-tab="module_calculators">
+    <div class="tab-control tag-new selected" onclick="tab_onClick(this)" data-tab="module_calculators">
       <div class="icon icon-small icon-left icon-layout_window"></div>
       Calculators
     </div>

@@ -930,6 +930,16 @@
   background-size: cover;
 }
 
+.icon-eth {
+  background-image: url('eth-128.png') !important;
+  background-size: cover;
+}
+
+.icon-xrp {
+  background-image: url('xrp-128.png') !important;
+  background-size: cover;
+}
+
 .icon-menu {
   background-image: url('menu.png') !important;
   background-size: cover;

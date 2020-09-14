@@ -6,6 +6,13 @@ body {
   color: #333;
 }
 
+.tag-new:after {
+  content: '*new*';
+  margin-left: 5px;
+  color: magenta;
+  font-size: 10pt;
+}
+
 .flex-center {
   display: flex;
   justify-content: space-evenly;
@@ -228,25 +235,6 @@ td {
   font-size: 11pt;
 }
 
-.ticker {
-  vertical-align: middle;
-  min-width: 70px;
-  margin: 5px;
-  padding: 5px;
-  background-color: #ccc;
-  border-radius: 5px;
-  border: 1px solid #333;
-}
-
-.ticker .rate {
-  display: block;
-  margin-right: 3px;
-  font-weight: bold;
-  font-size: 14pt;
-  color: #333;
-  flex-basis: 1;
-}
-
 .ticker-wrapper {
   display: flex;
   justify-content: center;
@@ -269,6 +257,45 @@ td {
   padding: 5px;
   flex-basis: 5;
   text-align: center;
+}
+
+.ticker-line {
+  display:flex;
+}
+
+.ticker-base {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ticker-base .text {
+    display: block;
+    margin-right: 3px;
+    font-weight: bold;
+    font-size: 12pt;
+    color: #333;
+    flex:none;
+}
+
+.ticker {
+  vertical-align: middle;
+  min-width: 70px;
+  margin: 5px;
+  padding: 5px;
+  background-color: #ccc;
+  border-radius: 5px;
+  border: 1px solid #333;
+}
+
+.ticker .rate {
+  display: block;
+  margin-right: 3px;
+  font-weight: bold;
+  font-size: 11pt;
+  color: #333;
+  flex-basis: 1;
 }
 
 /* DARK STUFF HERE */
